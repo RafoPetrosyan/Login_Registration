@@ -11,7 +11,7 @@ export const getSignInUser = (arr, signInObj) =>{
     })
 }
 
-export const confirmedEmail = (arr, newUserObj) =>{
+export const emailConfirme = (arr, newUserObj) =>{
     return arr.map(item =>{
         if(item.email === newUserObj.email){
             return false;

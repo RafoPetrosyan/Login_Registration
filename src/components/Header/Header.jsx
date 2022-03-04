@@ -10,22 +10,22 @@ const Header = () =>{
     const dispatch = useDispatch();
 
     const clickLogout = () =>{
-        dispatch(updateCurrentUser({}));
+        dispatch(updateCurrentUser(null));
     }
 
     return (
         <div className={styles.header}>
-            { !currentUser[0] ?
+            { !currentUser ?
                 <div className={styles.headerMain}>
                     <div className={styles.loginRegistrDiv}>
-                        <NavLink to='' className={styles.navLink}>Sign in</NavLink>
-                        <NavLink to='registration' className={styles.navLink}>Sign up</NavLink>
+                        <NavLink to='/login' className={styles.navLink}>Sign in</NavLink>
+                        <NavLink to='/registration' className={styles.navLink}>Sign up</NavLink>
                     </div>
                 </div>
             :
                 <div className={styles.signInHeader}>
-                    <NavLink to='home' className={styles.navLink}>Home</NavLink>
-                    <NavLink to='' className={styles.navLink} onClick={clickLogout}>Logout</NavLink>
+                    <NavLink to='/home' className={styles.navLink}>Home</NavLink>
+                    <NavLink to='/login' className={styles.navLink} onClick={clickLogout}>Logout</NavLink>
                 </div>
 
             }

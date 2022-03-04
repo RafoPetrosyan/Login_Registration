@@ -1,5 +1,5 @@
 import React from "react";
-import { useInput } from "../CustomHooks/useInput";
+import { useInput } from "../../main/CustomHooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 import styles from './Registration.module.css';
 import loginStyles from '../Login/Login.module.css';
@@ -12,7 +12,6 @@ const Registration = () =>{
     const userList = useSelector(state => state.userList);
     const disaptch = useDispatch();
     const navigate = useNavigate();
-    console.log(userList.currentUser, 'reg');
 
     const name = useInput('');
     const surname = useInput('');
@@ -31,7 +30,7 @@ const Registration = () =>{
         disaptch(confirmedEmail(newUser));
         setTimeout(() =>{
             navigate('/home');
-        }, 200);
+        }, 100);
     }
 
     return (

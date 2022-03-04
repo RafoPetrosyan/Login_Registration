@@ -1,31 +1,26 @@
-import React, {useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { confirmedSignIn } from "../../../store/actions";
-import { useInput } from "../CustomHooks/useInput";
+import { useInput } from "../../main/CustomHooks/useInput";
 import styles from './Login.module.css';
 
 const Login = () =>{
 
-    const currentUser = useSelector(state => state.userList.currentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
 
     const email = useInput('');
     const password = useInput('');
 
-    const submitChange = e =>{
+    const submitChange = async (e) =>{
         e.preventDefault();
         const signInObj = {
             email: email.value,
             password: password.value,
         }
-        dispatch(confirmedSignIn(signInObj));
-        setTimeout(() =>{
-            navigate('/home');
-        }, 200);
-
+        await dispatch(confirmedSignIn(signInObj));
+        navigate('/home');
     }
 
     return (

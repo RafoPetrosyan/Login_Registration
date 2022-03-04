@@ -17,7 +17,7 @@ const initialState = {
             password: 'poxos',
         }
     ],
-    currentUser: {},
+    currentUser: null,
 }
 
 export const reducer = (state = initialState, action) =>{
