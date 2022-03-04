@@ -1,0 +1,14 @@
+.registerMain{
+    width: 400px;
+    height: 593px;
+    margin-top: 50px;
+    background-color: black;
+}
+.form{
+    width: 80%;
+    height: 480px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
