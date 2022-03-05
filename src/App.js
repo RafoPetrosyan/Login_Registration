@@ -1,31 +1,31 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setData } from './store/actions';
+import { setUserList } from './store/actions';
 import Header from './components/Header/Header';
 import styles from './App.module.css';
 import RouterView from './router';
   
 const App = () => {
 
-    const userList = useSelector(state => state.userList.userList);
+    const userList = useSelector(state => state.userData.userList);
     const dispatch = useDispatch();
 
     useEffect(() => {
-      const storageList = localStorage.getItem('user-data');
-      if (storageList) dispatch(setData(JSON.parse(storageList)));
+      const storageList = localStorage.getItem('user-list');
+      if (storageList) dispatch(setUserList(JSON.parse(storageList)));
     }, [])
 
 
     useEffect(() => {
-      const storageList = localStorage.getItem('user-data');
+      const storageList = localStorage.getItem('user-list');
       let concatList
 
       if(storageList){
         concatList = [...JSON.parse(storageList), ...userList];
-        localStorage.setItem('user-data', JSON.stringify(concatList));
+        localStorage.setItem('user-list', JSON.stringify(concatList));
       }
       else{
-        localStorage.setItem('user-data', JSON.stringify(userList));
+        localStorage.setItem('user-list', JSON.stringify(userList));
       }
     }, [userList]); 
     

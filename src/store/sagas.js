@@ -1,27 +1,17 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { CONFIRMED_SIGN_IN, CONFIRMED_SIGN_UP_EMAIL, setData, updateCurrentUser } from './actions';
-import { emailConfirme, getServerData, getSignInUser } from './helpers';
+import { CONFIRM_LOGIN, setCurrentUser } from './actions';
+import { getUserList, loopLogin } from './helpers';
 
 
-function* workerConfirmedLogin(action){
-
-    const data = yield call(getServerData);
-    console.log(data);
-    const currentUser = yield call(getSignInUser, data, action.payload);
-    yield put(updateCurrentUser(currentUser));
-}
-
-function* workerConfirmedEmail(action){
-    const data = yield call(getServerData);
-    const result = yield call(emailConfirme, data, action.payload);
-    if(result) {
-        yield put(setData(action.payload));
-        yield put(updateCurrentUser(action.payload));
+function* workerConfirmLogin(action){
+    const userList = yield call(getUserList);
+    const response = yield call(loopLogin, userList, action.payload);
+    if(response){
+        yield put(setCurrentUser(response));
     }
 }
 
-export function* watcherData(){
-    yield takeEvery(CONFIRMED_SIGN_IN, workerConfirmedLogin);
-    yield takeEvery(CONFIRMED_SIGN_UP_EMAIL, workerConfirmedEmail);
-    
+
+export function* watcherData() {
+    yield takeEvery(CONFIRM_LOGIN, workerConfirmLogin);
 }

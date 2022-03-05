@@ -1,13 +1,13 @@
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { reducer } from './reducers/reducer';
+import { userReducer } from './reducers/userReducer';
 import { watcherData } from './sagas';
 
 
 
 const rootReducer = combineReducers({
-    userList: reducer,
+    userData: userReducer,
 })
 
 const sagaMiddleware = createSagaMiddleware();

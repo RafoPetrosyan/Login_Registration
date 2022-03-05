@@ -1,16 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { updateCurrentUser } from "../../store/actions";
+import { setCurrentUser } from "../../store/actions";
 import styles from './Header.module.css';
 
 const Header = () =>{
 
-    const currentUser = useSelector(state => state.userList.currentUser);
+    const currentUser = useSelector(state => state.userData.currentUser);
     const dispatch = useDispatch();
 
     const clickLogout = () =>{
-        dispatch(updateCurrentUser(null));
+        dispatch(setCurrentUser(null));
     }
 
     return (
@@ -18,8 +18,8 @@ const Header = () =>{
             { !currentUser ?
                 <div className={styles.headerMain}>
                     <div className={styles.loginRegistrDiv}>
-                        <NavLink to='/login' className={styles.navLink}>Sign in</NavLink>
-                        <NavLink to='/registration' className={styles.navLink}>Sign up</NavLink>
+                        <NavLink to='/auth/login' className={styles.navLink}>Sign in</NavLink>
+                        <NavLink to='/auth/registration' className={styles.navLink}>Sign up</NavLink>
                     </div>
                 </div>
             :

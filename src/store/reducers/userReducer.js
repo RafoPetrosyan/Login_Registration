@@ -1,4 +1,4 @@
-import { SET_USER_LIST, UPDATE_CURRENT_USER } from "../actions";
+import { SET_CURRENT_USER, SET_USER_LIST } from "../actions";
 
 const initialState = {
     userList: [
@@ -14,13 +14,13 @@ const initialState = {
             name: 'Poxos',
             surname: 'Poxosyan',
             email: 'poxosyan@gmail.com',
-            password: 'poxos',
+            password: 'poxos',  
         }
     ],
     currentUser: null,
 }
 
-export const reducer = (state = initialState, action) =>{
+export const userReducer = (state = initialState, action) =>{
     switch(action.type){
 
         case SET_USER_LIST:
@@ -28,8 +28,8 @@ export const reducer = (state = initialState, action) =>{
                 ...state,
                 state: action.payload
             }
-
-        case UPDATE_CURRENT_USER:
+        
+        case SET_CURRENT_USER:
             return {
                 ...state,
                 currentUser: action.payload
