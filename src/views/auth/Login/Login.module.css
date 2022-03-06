@@ -11,10 +11,26 @@
     margin-top: 50px;
     background-color: black;
 }
+.navigateDiv{
+    display: flex;
+    justify-content: flex-end;
+}
+.navigateBtn{
+    margin-top: 10px;
+    margin-right: 20px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+}
+.navigateBtn:hover{
+    color: red;
+}
 .form{
     width: 80%;
     height: 367px;
-    margin: 50px auto;
+    margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

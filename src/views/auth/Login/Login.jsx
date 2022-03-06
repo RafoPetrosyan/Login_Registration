@@ -32,49 +32,55 @@ const Login = () =>{
     return (
         <>
         <div className={styles.modal} onClick={navigateAuth}></div>
+
            <div className={styles.loginMain}>
 
-              <form className={styles.form} onSubmit={submitChange}> 
-                  <p className={styles.title}>Sign in</p>
-                  <div>
-                      <label className={styles.label} htmlFor="email" style={{color: labelColor}}>
-                          E-Mail Address
-                      </label>
-                      <input
-                          type='email'
-                          id='email'
-                          placeholder='Enter your email'
-                          name='email'
-                          className={styles.input}
-                          {...email.bind}
-                          required
-                      />
-                  </div>
+            <div className={styles.navigateDiv}>
+                <button className={styles.navigateBtn} onClick={navigateAuth}>X</button>
+            </div>
 
-                  <div>
-                      <label className={styles.label} htmlFor="password" style={{color: labelColor}}>
-                          Password
-                      </label>
-                      <input
-                          type="password"
-                          id="password"
-                          placeholder="Enter your password"
-                          name="password"
-                          className={styles.input}
-                          {...password.bind}
-                          required
-                      />
-                      </div>
+            <form className={styles.form} onSubmit={submitChange}> 
+                <p className={styles.title}>Sign in</p>
 
-                      <div>
-                          <button className={styles.btn}> 
-                              Sign in
-                          </button>
-                      </div>
+                <div>
+                    <label className={styles.label} htmlFor="email" style={{color: labelColor}}>
+                        E-Mail Address
+                    </label>
+                    <input
+                        type='email'
+                        id='email'
+                        placeholder='Enter your email'
+                        name='email'
+                        className={styles.input}
+                        {...email.bind}
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label className={styles.label} htmlFor="password" style={{color: labelColor}}>
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        name="password"
+                        className={styles.input}
+                        {...password.bind}
+                        required
+                    />
+                </div>
+
+                <div>
+                    <button className={styles.btn}> 
+                        Sign in
+                    </button>
+                </div>
                       
-              </form>
-           </div>
-           </>
+            </form>
+        </div>
+        </>
     )
 }
 

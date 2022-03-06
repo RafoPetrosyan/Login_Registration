@@ -40,9 +40,16 @@ const Registration = () =>{
     return (
         <>
         <div className={loginStyles.modal} onClick={navigateAuth}></div>
+
         <div className={styles.registerMain}>
+
+            <div className={loginStyles.navigateDiv}>
+                <button className={loginStyles.navigateBtn} onClick={navigateAuth}>X</button>
+            </div>
+
             <form className={styles.form} onSubmit={submitChange}>
                 <p className={loginStyles.title}>Sign up</p>
+
                 <div>
                     <label className={loginStyles.label} htmlFor="name">
                         First Name
@@ -57,6 +64,7 @@ const Registration = () =>{
                         required
                     />
                 </div>
+
                 <div>
                     <label className={loginStyles.label} htmlFor="name">
                         Last Name
@@ -71,6 +79,7 @@ const Registration = () =>{
                         required
                     />
                 </div>
+
                 <div>
                     <label className={loginStyles.label} htmlFor="email" style={{color: labelColor}}>
                         E-Mail Address
@@ -85,6 +94,7 @@ const Registration = () =>{
                         required
                     />
                 </div>
+
                 <div>
                     <label className={loginStyles.label} htmlFor="password">
                         Password
@@ -99,11 +109,13 @@ const Registration = () =>{
                         required
                     />
                     </div>
+
                     <div>
                         <button className={loginStyles.btn} type='submit'> 
                             Sign up
                         </button>
                     </div>
+                    
                 </form>
            </div>
            </>
