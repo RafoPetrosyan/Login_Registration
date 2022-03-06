@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useInput } from "../../main/CustomHooks/useInput";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { confirmRegistration } from "../../../store/actions";
+import { useInput } from "../../../CustomHooks/useInput";
 import styles from './Registration.module.css';
 import loginStyles from '../Login/Login.module.css';
-import { confirmRegistration } from "../../../store/actions";
 
 
 const Registration = () =>{
@@ -12,13 +13,14 @@ const Registration = () =>{
 
     const userList = useSelector(state => state.userData.userList);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const name = useInput('');
     const surname = useInput('');
     const email = useInput('');
     const password = useInput('');
 
-    const submitChange = async (e) =>{
+    const submitChange = (e) =>{
         e.preventDefault();
         const newUser = {
             id: userList.length + 1,
@@ -27,12 +29,17 @@ const Registration = () =>{
             email: email.value,
             password: password.value,
         }
-        await dispatch(confirmRegistration(newUser));
+        dispatch(confirmRegistration(newUser));
         setLabelColor('red');
     }
 
-    return (
+    const navigateAuth = () =>{
+        navigate('/auth');
+    }
 
+    return (
+        <>
+        <div className={loginStyles.modal} onClick={navigateAuth}></div>
         <div className={styles.registerMain}>
             <form className={styles.form} onSubmit={submitChange}>
                 <p className={loginStyles.title}>Sign up</p>
@@ -99,6 +106,7 @@ const Registration = () =>{
                     </div>
                 </form>
            </div>
+           </>
     )
 }
 

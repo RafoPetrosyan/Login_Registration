@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { confirmLogin } from "../../../store/actions";
-import { useInput } from "../../main/CustomHooks/useInput";
+import { useInput } from "../../../CustomHooks/useInput";
 import styles from './Login.module.css';
 
 const Login = () =>{
@@ -9,21 +10,28 @@ const Login = () =>{
     const [labelColor, setLabelColor] = useState('white');
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const email = useInput('');
     const password = useInput('');
 
-    const submitChange = async (e) =>{
+    const submitChange = (e) =>{
         e.preventDefault();
         const loginObj = {
             email: email.value,
             password: password.value,
         }
-        await dispatch(confirmLogin(loginObj))
+        dispatch(confirmLogin(loginObj))
         setLabelColor('red');
     }
 
+    const navigateAuth = () =>{
+        navigate('/auth');
+    }
+
     return (
+        <>
+        <div className={styles.modal} onClick={navigateAuth}></div>
            <div className={styles.loginMain}>
 
               <form className={styles.form} onSubmit={submitChange}> 
@@ -66,6 +74,7 @@ const Login = () =>{
                       
               </form>
            </div>
+           </>
     )
 }
 

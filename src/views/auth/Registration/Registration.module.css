@@ -1,4 +1,6 @@
 .registerMain{
+    position: absolute;
+    z-index: 4;
     width: 400px;
     height: 593px;
     margin-top: 50px;
