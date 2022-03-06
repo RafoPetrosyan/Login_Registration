@@ -5,7 +5,7 @@ const AuthGuardLogin  = () => {
   const currentUser = useSelector(state => state.userData.currentUser);
 
     if (currentUser) {
-        return  <Navigate to="/" replace/>
+        return <Navigate to="/home" replace/>
     }
     return <Outlet/>;
   

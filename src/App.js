@@ -21,7 +21,7 @@ const App = () => {
       let concatList
 
       if(storageList){
-        concatList = [...JSON.parse(storageList), ...userList];
+        concatList = [...userList];
         localStorage.setItem('user-list', JSON.stringify(concatList));
       }
       else{

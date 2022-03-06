@@ -3,14 +3,13 @@ import { useInput } from "../../main/CustomHooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 import styles from './Registration.module.css';
 import loginStyles from '../Login/Login.module.css';
-import { useNavigate } from "react-router-dom";
+import { confirmRegistration } from "../../../store/actions";
 
 
 const Registration = () =>{
 
     const userList = useSelector(state => state.userData.userList);
-    const disaptch = useDispatch();
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const name = useInput('');
     const surname = useInput('');
@@ -20,13 +19,13 @@ const Registration = () =>{
     const submitChange = e =>{
         e.preventDefault();
         const newUser = {
-            id: userList.userList.length + 1,
+            id: userList.length + 1,
             name: name.value,
             surname: surname.value,
             email: email.value,
             password: password.value,
         }
-        
+        dispatch(confirmRegistration(newUser));
     }
 
     return (

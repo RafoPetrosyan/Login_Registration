@@ -24,8 +24,11 @@ const Header = () =>{
                 </div>
             :
                 <div className={styles.signInHeader}>
-                    <NavLink to='/home' className={styles.navLink}>Home</NavLink>
-                    <NavLink to='/login' className={styles.navLink} onClick={clickLogout}>Logout</NavLink>
+                    <div className={styles.pages}>
+                        <NavLink to='/home' className={styles.navLink}>Home</NavLink>
+                        <NavLink to='/about' className={styles.navLink}>About</NavLink>
+                    </div>
+                    <NavLink to='/auth' className={styles.navLink} onClick={clickLogout}>Logout</NavLink>
                 </div>
 
             }

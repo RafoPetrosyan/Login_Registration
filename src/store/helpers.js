@@ -12,3 +12,16 @@ export const loopLogin = (userList, payload) =>{
     });
     return result;
 }
+
+export const loopRegistration = (userList, payload) =>{
+    let result = true;
+    userList.forEach(item =>{
+        if(item.email === payload.email) result = false;
+    })
+    return result;
+}
+
+export const setData = (userList, payload) =>{
+    let result = [...userList, payload];
+    return result;
+}
