@@ -20,7 +20,7 @@
     align-items: center;
 }
 .pages{
-    width: 30%;
+    width: 200px;
     display: flex;
     justify-content: space-between;
 }

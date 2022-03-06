@@ -1,18 +1,23 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserList } from './store/actions';
+import { setCurrentUser, setUserList } from './store/actions';
 import Header from './components/Header/Header';
 import styles from './App.module.css';
 import RouterView from './router';
   
 const App = () => {
 
-    const userList = useSelector(state => state.userData.userList);
+    const userData = useSelector(state => state.userData);
     const dispatch = useDispatch();
 
     useEffect(() => {
+
       const storageList = localStorage.getItem('user-list');
-      if (storageList) dispatch(setUserList(JSON.parse(storageList)));
+      if (storageList) dispatch(setUserList( JSON.parse(storageList) ));
+
+      const storageCurrentUser = localStorage.getItem('current-user');
+      if(storageCurrentUser) dispatch(setCurrentUser( JSON.parse(storageCurrentUser) ));
+      
     }, [])
 
 
@@ -21,13 +26,16 @@ const App = () => {
       let concatList
 
       if(storageList){
-        concatList = [...userList];
-        localStorage.setItem('user-list', JSON.stringify(concatList));
+          concatList = [...userData.userList];
+          localStorage.setItem('user-list', JSON.stringify(concatList));
       }
       else{
-        localStorage.setItem('user-list', JSON.stringify(userList));
+          localStorage.setItem('user-list', JSON.stringify(userData.userList));
       }
-    }, [userList]); 
+      
+      localStorage.setItem('current-user', JSON.stringify(userData.currentUser));
+      
+    }, [userData]); 
     
     
     return (

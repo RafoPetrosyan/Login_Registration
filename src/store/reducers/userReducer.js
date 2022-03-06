@@ -1,22 +1,7 @@
 import { SET_CURRENT_USER, SET_USER_LIST } from "../actions";
 
 const initialState = {
-    userList: [
-        // {
-        //     id: 1,
-        //     name: 'Rafo',
-        //     surname: 'Petrosyan',
-        //     email: 'petrosyanrafo0@gmail.com',
-        //     password: 'rafo21',
-        // },
-        // {
-        //     id: 2,
-        //     name: 'Poxos',
-        //     surname: 'Poxosyan',
-        //     email: 'poxosyan@gmail.com',
-        //     password: 'poxos',  
-        // }
-    ],
+    userList: [],
     currentUser: null,
 }
 

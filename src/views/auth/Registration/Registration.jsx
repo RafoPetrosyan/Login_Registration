@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useInput } from "../../main/CustomHooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 import styles from './Registration.module.css';
@@ -8,6 +8,8 @@ import { confirmRegistration } from "../../../store/actions";
 
 const Registration = () =>{
 
+    const [labelColor, setLabelColor] = useState('white');
+
     const userList = useSelector(state => state.userData.userList);
     const dispatch = useDispatch();
 
@@ -16,7 +18,7 @@ const Registration = () =>{
     const email = useInput('');
     const password = useInput('');
 
-    const submitChange = e =>{
+    const submitChange = async (e) =>{
         e.preventDefault();
         const newUser = {
             id: userList.length + 1,
@@ -25,7 +27,8 @@ const Registration = () =>{
             email: email.value,
             password: password.value,
         }
-        dispatch(confirmRegistration(newUser));
+        await dispatch(confirmRegistration(newUser));
+        setLabelColor('red');
     }
 
     return (
@@ -62,7 +65,7 @@ const Registration = () =>{
                     />
                 </div>
                 <div>
-                    <label className={loginStyles.label} htmlFor="email">
+                    <label className={loginStyles.label} htmlFor="email" style={{color: labelColor}}>
                         E-Mail Address
                     </label>
                     <input

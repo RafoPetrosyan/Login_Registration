@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { confirmLogin } from "../../../store/actions";
 import { useInput } from "../../main/CustomHooks/useInput";
@@ -6,18 +6,21 @@ import styles from './Login.module.css';
 
 const Login = () =>{
 
+    const [labelColor, setLabelColor] = useState('white');
+
     const dispatch = useDispatch();
 
     const email = useInput('');
     const password = useInput('');
 
-    const submitChange = (e) =>{
+    const submitChange = async (e) =>{
         e.preventDefault();
         const loginObj = {
             email: email.value,
             password: password.value,
         }
-        dispatch(confirmLogin(loginObj))
+        await dispatch(confirmLogin(loginObj))
+        setLabelColor('red');
     }
 
     return (
@@ -26,7 +29,7 @@ const Login = () =>{
               <form className={styles.form} onSubmit={submitChange}> 
                   <p className={styles.title}>Sign in</p>
                   <div>
-                      <label className={styles.label} htmlFor="email">
+                      <label className={styles.label} htmlFor="email" style={{color: labelColor}}>
                           E-Mail Address
                       </label>
                       <input
@@ -41,7 +44,7 @@ const Login = () =>{
                   </div>
 
                   <div>
-                      <label className={styles.label} htmlFor="password">
+                      <label className={styles.label} htmlFor="password" style={{color: labelColor}}>
                           Password
                       </label>
                       <input
