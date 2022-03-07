@@ -52,8 +52,18 @@
         width: 980px;
     }
 }
-@media screen and (max-width: 1201px){
+@media screen and (max-width: 1025px){
     .headerMain, .signInHeader{
-        width: 750px;
+        width: 715px;
+    }
+}
+@media screen and (max-width: 769px){
+    .headerMain{
+        width: 450px;
+        justify-content: center;
+    }
+    .signInHeader{
+        width: 80%;
+        max-width: 480px;
     }
 }
