@@ -2,12 +2,13 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import AuthGuard from "../utils/guards/auth.guards";
 import AuthGuardLogin from "../utils/guards/auth.guards.login.page";
+import Auth from "../views/auth";
 import Login from "../views/auth/Login/Login";
 import Registration from "../views/auth/Registration/Registration";
+import Main from "../views/main";
 import About from "../views/main/About/About";
 import Home from "../views/main/Home/Home";
-import Auth from "./routes/Auth/Auth";
-import Main from "./routes/Main/Main";
+
 
 
 const RouterView = () =>{
