@@ -55,13 +55,22 @@ const Users = () =>{
         },
         { 
             title: 'Email',
-            dataIndex: 'email',
             width: 150,
+            render: (record) => (
+                <Popover content={record.email} className={styles.textPopover}>
+                    {record.email}
+                </Popover>
+            )
         },
         { 
             title: 'Date', 
-            dataIndex: 'date',
             width: 150,
+            sorter: (a, b) => a.age - b.age,
+            render: (record) => (
+                <Popover content={record.date} className={styles.textPopover}>
+                    {record.date}
+                </Popover>
+            )
         },
         { 
             title: 'Role',

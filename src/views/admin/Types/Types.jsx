@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Button } from 'antd';
+import { Button, Popover } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
@@ -44,8 +44,13 @@ const Types = () =>{
         },
         { 
             title: 'Date', 
-            dataIndex: 'date',
+            sorter: (a, b) => a.age - b.age,
             width: 150,
+            render: (record) => (
+                <Popover content={record.date} className={styles.textPopover}>
+                    {record.date}
+                </Popover>
+            )
         },
         { 
           title: 'Action',

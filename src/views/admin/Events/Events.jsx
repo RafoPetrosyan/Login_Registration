@@ -32,8 +32,8 @@ const Events = () => {
             width: 100,
             fixed: 'left',  
             render: record => (
-            <Avatar size="large" className={styles.avatar}>
-                {record.organizer[0]}
+                <Avatar size="large" className={styles.avatar}>
+                    {record.organizer[0]}
                 </Avatar>
             )
         },
@@ -44,29 +44,49 @@ const Events = () => {
         },
         { 
             title: 'Title',
-            dataIndex: 'title',
             width: 150,
+            render: (record) => (
+                <Popover content={record.title} className={styles.textPopover}>
+                    {record.title}
+                </Popover>
+            )
         },
         { 
             title: 'Description', 
-            dataIndex: 'description',
             width: 150,
+            render: (record) => (
+                <Popover content={record.description} className={styles.textPopover}>
+                    {record.description}
+                </Popover>
+            )
         },
         { 
             title: 'Date',
-            dataIndex: 'date',
             width: 150,
             sorter: (a, b) => a.age - b.age,
+            render: (record) => (
+                <Popover content={record.date} className={styles.textPopover}>
+                    {record.date}
+                </Popover>
+            )
         },
         { 
             title: 'Address', 
-            dataIndex: 'address',
             width: 150,
+            render: (record) => (
+                <Popover content={record.address} className={styles.textPopover}>
+                    {record.address}
+                </Popover>
+            )
         },
         { 
             title: 'Status',
-            dataIndex: 'status',
             width: 150,
+            render: (record) => (
+                <Popover content={record.status} className={styles.textPopover}>
+                    {record.status}
+                </Popover>
+            )
         },
         { 
             title: 'Likes',

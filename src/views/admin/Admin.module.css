@@ -103,3 +103,6 @@
     align-items: center;
     font-size: 18px;
 }
+.textPopover{
+    cursor: pointer;
+}
