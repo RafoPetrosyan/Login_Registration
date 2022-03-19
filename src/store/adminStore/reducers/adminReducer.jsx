@@ -429,24 +429,24 @@ const initialState = {
       },
     ],
     reportUsers: [
-      {
-        id: 1,
-        report: 'sdfsdg',
-        date: '02/03/22',
-        comment: 'sdfg',
-      },
-      {
-        id: 2,
-        report: 'sdfsdg',
-        date: '02/03/22',
-        comment: 'sdfghjgfdsfg',
-      },
-      {
-        id: 3,
-        report: 'sdfsdg',
-        date: '02/03/22',
-        comment: 'sdfghjgfdsfg',
-      },
+      // {
+      //   id: 1,
+      //   report: 'sdfsdg',
+      //   date: '02/03/22',
+      //   comment: 'sdfg',
+      // },
+      // {
+      //   id: 2,
+      //   report: 'sdfsdg',
+      //   date: '02/03/22',
+      //   comment: 'sdfghjgfdsfg',
+      // },
+      // {
+      //   id: 3,
+      //   report: 'sdfsdg',
+      //   date: '02/03/22',
+      //   comment: 'sdfghjgfdsfg',
+      // },
     ],
     reportEvents: [
       {

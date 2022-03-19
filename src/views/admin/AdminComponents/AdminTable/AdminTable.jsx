@@ -14,11 +14,24 @@ const AdminTable = ({propsTable}) => {
     const hasSelected = selectedRowKeys.length > 0;
 
     useEffect(() =>{
-      let data =  _.cloneDeep(rows).map((item, index) =>{
-          item.key = rows[index].id;
-          return item;
-      })
-      setData(data);
+      
+      if(rows === null) {
+        setData([]);
+      }else{
+
+        let data =  _.cloneDeep(rows).map((item, index) =>{
+            item.key = rows[index].id;
+            return item;
+        })
+
+        let timeout = setTimeout(() => {
+            setData(data);
+        }, 400)
+
+        return () =>{
+          clearTimeout(timeout);
+        }
+      }
     }, [rows])
 
 
@@ -47,6 +60,7 @@ const AdminTable = ({propsTable}) => {
           dataSource={data} 
           scroll={{ x: 1000 }}
           pagination={{ pageSize: 5 }}
+          loading={!data}
         />
       </div>
     );

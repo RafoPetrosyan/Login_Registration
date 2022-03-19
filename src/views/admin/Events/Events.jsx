@@ -98,10 +98,10 @@ const Events = () => {
                 <Popover content='List of participants'>
                     <Button type="primary" className={styles.popover}><TeamOutlined /></Button>
                 </Popover>
-                <Button type="primary" style={{width: 100}}>
+                <Button type="primary" className={styles.btn}>
                     <EditOutlined /> Edite
                 </Button>
-                <Button type="primary" danger style={{width: 100}}>
+                <Button type="primary" danger className={styles.btn}>
                     <DeleteOutlined /> Delete
                 </Button>
             </div>

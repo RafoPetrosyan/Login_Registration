@@ -49,15 +49,15 @@ const Types = () =>{
         },
         { 
           title: 'Action',
-          width: 200,
+          width: 180,
           fixed: 'right',
           render: (record) =>{
             return (
               <div className={styles.renderDiv}>
-                <Button type="primary" style={{width: 100}}>
+                <Button type="primary" className={styles.btn}>
                     <EditOutlined /> Edite
                 </Button>
-                <Button type="primary" danger style={{width: 100}}>
+                <Button type="primary" danger className={styles.btn}>
                     <DeleteOutlined />  Delete
                 </Button>
               </div>
