@@ -1,0 +1,19 @@
+
+.header{
+  height: 100px;
+  background: #fff;
+}
+.siteLayoutBackground{
+  padding: 0;
+}
+.siteLayoutBackground{
+  padding: 5px;
+  min-height: 80vh;
+}
+.content{
+  margin: 20px 16px;
+}
+.footer{
+  text-align: center;
+  background: #fff;
+}

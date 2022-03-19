@@ -1,32 +1,7 @@
-.authDiv{
+.auth{
     width: 100%;
     height: 100%;
-    background-color: lightslategray;
-}
-.container{
-    width: 1400px;
-    margin: 0 auto;
+    z-index: 1;
     display: flex;
     justify-content: flex-end;
-}
-@media screen and (max-width: 1450px){
-    .container{
-        width: 1150px;
-    }
-}
-@media screen and (max-width: 1201px){
-    .container{
-        width: 980px;
-    }
-}
-@media screen and (max-width: 1025px){
-    .container{
-        width: 715px;
-    }
-}
-@media screen and (max-width: 769px){
-    .container{
-        width: 450px;
-        justify-content: center;
-    }
 }

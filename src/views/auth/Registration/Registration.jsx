@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { confirmRegistration } from "../../../store/actions";
+import { confirmRegistration } from "../../../store/userStore/actions";
 import { useInput } from "../../../CustomHooks/useInput";
 import styles from './Registration.module.css';
 import loginStyles from '../Login/Login.module.css';

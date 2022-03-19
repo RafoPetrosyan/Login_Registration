@@ -1,0 +1,60 @@
+.events{
+    width: 100%;
+}
+.header{
+    width: 100%;
+    background: #fff;
+    display: flex;
+}
+.panel{
+    width: 1200px;
+}
+.select{
+    width: 200px;
+}
+
+.collapse{
+    background-color: #fff;
+}
+.span{
+   margin-left: 20px;
+   margin-right: 5px;
+}
+.table{
+    margin-top: 20px;
+    width: 100%;
+    background: #fff;
+}
+
+.avatar{
+    width: 70px;
+    height: 70px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+ }
+
+.tablePicture{
+    width: 100px;
+    height: 100px;
+}
+.renderDiv{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.likes{
+    font-size: 16px;
+}
+.likeSpan{
+    margin-left: 5px;
+}
+.popover{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

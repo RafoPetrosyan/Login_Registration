@@ -2,7 +2,7 @@ import { SET_CURRENT_USER, SET_USER_LIST } from "../actions";
 
 const initialState = {
     userList: [],
-    currentUser: null,
+    currentUser: JSON.parse(localStorage?.getItem('current-user')) || null,
 }
 
 export const userReducer = (state = initialState, action) =>{
@@ -15,6 +15,7 @@ export const userReducer = (state = initialState, action) =>{
             }
         
         case SET_CURRENT_USER:
+            console.log('vvvvvvvvvvvvvvvvvvvvvv');
             return {
                 ...state,
                 currentUser: action.payload

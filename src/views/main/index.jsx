@@ -1,12 +1,13 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import styles from './index.module.css';
+import React, { useEffect } from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const Main = () => {
+
+    
     return (    
-       <div className={styles.mainDiv}>
+       <>
             <Outlet/>
-        </div>
+        </>
     )
 }
 

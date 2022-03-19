@@ -4,11 +4,10 @@ import styles from './index.module.css';
 
 
 const Auth = () => {
+
     return (
-        <div className={styles.authDiv}>
-            <div className={styles.container}>
-                <Outlet/>
-            </div>
+        <div className={styles.auth}>
+            <Outlet/>
         </div>
     )
 }

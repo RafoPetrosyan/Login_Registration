@@ -1,22 +1,19 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser, setUserList } from './store/actions';
-import Header from './components/Header/Header';
-import styles from './App.module.css';
-import RouterView from './router';
+import { setUserList } from './store/userStore/actions';
+import RouterView from './views/router/index';
   
 const App = () => {
 
     const userData = useSelector(state => state.userData);
+    const adminList = useSelector(state => state.adminData);
     const dispatch = useDispatch();
 
+  
     useEffect(() => {
 
       const storageList = localStorage.getItem('user-list');
       if (storageList) dispatch(setUserList( JSON.parse(storageList) ));
-
-      const storageCurrentUser = localStorage.getItem('current-user');
-      if(storageCurrentUser) dispatch(setCurrentUser( JSON.parse(storageCurrentUser) ));
       
     }, [])
 
@@ -34,13 +31,15 @@ const App = () => {
       }
       
       localStorage.setItem('current-user', JSON.stringify(userData.currentUser));
+
+      localStorage.setItem('admin-list', JSON.stringify(adminList.adminList))
+      localStorage.setItem('current-admin', JSON.stringify(adminList.currentAdmin));
       
-    }, [userData]); 
+    }, [userData, adminList.currentAdmin]); 
     
     
     return (
-      <div className={styles.app}>
-          <Header/>
+      <div>
           <RouterView/>
       </div>
     );

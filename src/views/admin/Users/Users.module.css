@@ -1,0 +1,50 @@
+.users{
+    width: 100%;
+}
+.panel{
+    width: 1200px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+.childPnel{
+    width: 100%;
+    display: flex;
+
+}
+.switch{
+    margin-left: 5px;
+}
+
+.btnDiv{
+    margin-left: 10px;
+}
+.btn{
+    width: 150px;
+}
+
+.img{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.avatarName{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border-radius: 50%;
+    background-color: rgb(114, 175, 230);
+}
+.isActiveBtn{
+    border: none;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}

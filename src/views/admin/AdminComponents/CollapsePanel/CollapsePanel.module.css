@@ -1,0 +1,39 @@
+.collapsePanel{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.reload{
+    border-radius: 50%;
+    background-color: #1890ff;
+    cursor: pointer;
+}
+.reload:hover{
+    background-color: #75b5f1;
+}
+.reloadIcon{
+    color: white;
+    padding: 7px;
+    font-size: 20px;
+}
+.quantity{
+    width: 140px;
+    height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #b3ddf1;
+    
+}
+.btnPanel{
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+}
+.search{
+    width: 550px;
+}
+.btn{
+    width: 150px;
+}

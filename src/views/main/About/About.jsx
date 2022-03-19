@@ -4,7 +4,7 @@ import styles from './About.module.css';
 const About = () =>{
     return (
         <div className={styles.mainDiv}>
-            About
+            <h1>About</h1>
         </div>
     )
 }

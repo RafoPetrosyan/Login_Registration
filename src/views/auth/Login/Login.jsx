@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { confirmLogin } from "../../../store/actions";
+import { confirmLogin } from "../../../store/userStore/actions";
 import { useInput } from "../../../CustomHooks/useInput";
 import styles from './Login.module.css';
 

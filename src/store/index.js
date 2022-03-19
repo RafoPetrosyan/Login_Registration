@@ -1,13 +1,14 @@
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { userReducer } from './reducers/userReducer';
-import { watcherData } from './sagas';
-
+import { userReducer } from './userStore/reducers/userReducer';
+import { adminReducer } from './adminStore/reducers/adminReducer';
+import { watcherAll } from './watcherAll';
 
 
 const rootReducer = combineReducers({
     userData: userReducer,
+    adminData: adminReducer,
 })
 
 const sagaMiddleware = createSagaMiddleware();
@@ -20,4 +21,4 @@ export const store = createStore(
     )
 )
 
-sagaMiddleware.run(watcherData);
+sagaMiddleware.run(watcherAll);

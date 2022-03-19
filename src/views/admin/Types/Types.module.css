@@ -1,0 +1,31 @@
+.header{
+    width: 100%;
+}
+.table{
+    margin-top: 20px;
+    width: 100%;
+    background: #fff;
+}
+.img{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.avatarName{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border-radius: 50%;
+    background-color: rgb(114, 175, 230);
+}
+.renderDiv{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
