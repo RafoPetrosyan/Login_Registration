@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Popover } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
@@ -12,9 +12,33 @@ const Types = () =>{
 
     const rows = useSelector(state => state.adminData.typeList);
 
+    // useState
     const [disabled, setDisablet] = useState(true);
     const [searchValue, setSearchValue] = useState('');
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
+
+     // useCallback
+     const reload = useCallback(() => {
+        console.log('reload');
+    }, []);
+
+    const selectedElement = useCallback((selectedRowKeys) =>{
+        setSelectedRowKeys(selectedRowKeys);
+        selectedRowKeys.length ? setDisablet(false) : setDisablet(true);
+    }, []);
+
+    const searchChange = useCallback((value) =>{
+        setSearchValue(value);
+    }, []);
+
+    const addElement = useCallback(() =>{
+        console.log('add');
+    }, []);
+
+    const dleteElement = useCallback(() =>{
+        console.log('delete');
+    }, []);
 
 
     const columns = [
@@ -71,11 +95,17 @@ const Types = () =>{
         },
     ];
       
-
-
-    const selection = true;
-    const propsTable = { columns, rows, selection };
-    const propsCollapse = { disabled, searchValue, buttonText: { text: '+ Add Type' } };
+    // propsComponents
+    const propsTable = { columns, rows, selection: true, selectedElement };
+    const propsCollapse = { 
+            disabled, 
+            buttonText: '+ Add Type',
+            tableLength: `${rows.length}  Types`,
+            reload,
+            searchChange,
+            addElement,
+            dleteElement,
+        };
 
     return (
         <div >

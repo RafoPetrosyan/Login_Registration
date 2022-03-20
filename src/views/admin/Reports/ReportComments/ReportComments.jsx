@@ -12,7 +12,9 @@ const ReportComments = () =>{
 
     const rows = useSelector(state => state.adminData.reportComments);
     
-
+    const hendleReload = () =>{
+        console.log('reload');
+    }
 
     const columns = [
         { 
@@ -64,7 +66,7 @@ const ReportComments = () =>{
     return (
         <div className={styles.main}>
             <div className={styles.header}>
-                <Popover content='Reload' className={styles.popover}>
+                <Popover content='Reload' className={styles.popover} onClick={hendleReload}>
                     <div className={styles.reload}>
                         <SyncOutlined className={styles.reloadIcon}/>    
                     </div>

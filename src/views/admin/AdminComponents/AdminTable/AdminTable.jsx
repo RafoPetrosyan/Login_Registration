@@ -7,11 +7,11 @@ import styles from './AdminTable.module.css';
 
 const AdminTable = ({propsTable}) => {
 
-    const {columns, rows} = propsTable;
+    const { columns, rows, selectedElement } = propsTable;
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [data, setData] = useState(null);
-    const hasSelected = selectedRowKeys.length > 0;
+   
 
     useEffect(() =>{
       
@@ -35,12 +35,14 @@ const AdminTable = ({propsTable}) => {
     }, [rows])
 
 
-    
     const onSelectChange = selectedRowKeys => {
         console.log('selectedRowKeys changed: ', selectedRowKeys);
         setSelectedRowKeys(selectedRowKeys);
+        selectedElement(selectedRowKeys);
+
     };
 
+    const hasSelected = selectedRowKeys.length > 0;
     const rowSelection = {
       selectedRowKeys,
       onChange: onSelectChange,

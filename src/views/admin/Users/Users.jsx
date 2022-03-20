@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
-import { Collapse, Switch, Button, Popover } from 'antd';
+import { Collapse, Switch, Button, Popover, Radio  } from 'antd';
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import { CloseCircleOutlined, CheckCircleTwoTone, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
@@ -16,13 +16,47 @@ const Users = () =>{
 
     const rows = useSelector(state => state.adminData.userList);
 
+    // useState
     const [disabled, setDisablet] = useState(true);
     const [searchValue, setSearchValue] = useState('');
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-    const swichChange = e =>{
-        console.log(e);
+
+    // useCallback
+    const reload = useCallback(() => {
+        console.log('reload');
+    }, []);
+
+    const selectedElement = useCallback((selectedRowKeys) =>{
+        setSelectedRowKeys(selectedRowKeys);
+        selectedRowKeys.length ? setDisablet(false) : setDisablet(true);
+    }, []);
+
+    const searchChange = useCallback((value) =>{
+        setSearchValue(value);
+    }, []);
+
+    const addElement = useCallback(() =>{
+        console.log('add');
+    }, []);
+
+    const dleteElement = useCallback(() =>{
+        console.log('delete');
+    }, []);
+
+
+     // changeFunction
+    const swichChange = value =>{
+        console.log(value);
     }
 
+    const dateChange = e =>{
+        console.log(e.target.value);
+    }
+
+
+    console.log(searchValue);
+    
     const columns = [
         { 
             title: 'Image',
@@ -110,9 +144,17 @@ const Users = () =>{
     ];
       
 
-    const selection = true;
-    const propsTable = { columns, rows, selection };
-    const propsCollapse = { disabled, searchValue, buttonText: {text: '+ Add User'} };
+    // propsComponents
+    const propsTable = { columns, rows, selection: true, selectedElement};
+    const propsCollapse = { 
+            disabled, 
+            buttonText: '+ Add User',
+            tableLength: `${rows.length}  Users`,
+            reload,
+            searchChange,
+            addElement,
+            dleteElement,
+        };
 
     return (
         <div className={styles.main}>
@@ -130,9 +172,11 @@ const Users = () =>{
                             <Switch defaultChecked onChange={swichChange} className={styles.switch}/>
                             <span className={styles.span}>Date filtering</span>
                             <div className={styles.btnDiv}>
-                                <Button className={styles.btn}>To rise</Button>
-                                <Button className={styles.btn}>To go down</Button>
-                                <Button type="primary" className={styles.btn}>Defoult</Button>
+                                <Radio.Group defaultValue="defoult" buttonStyle="solid" onChange={dateChange}>
+                                    <Radio.Button value="rise">To rise</Radio.Button>
+                                    <Radio.Button value="down">To go down</Radio.Button>
+                                    <Radio.Button value="defoult">Defoult</Radio.Button>
+                                </Radio.Group>
                             </div>
                         </div>
 

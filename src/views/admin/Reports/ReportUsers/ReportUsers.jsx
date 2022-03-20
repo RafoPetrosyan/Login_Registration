@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Popover } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
@@ -13,6 +13,17 @@ import styles from '../Report.module.css';
 const ReportUsers = () =>{
 
     const rows = useSelector(state => state.adminData.reportUsers);
+
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+    const selectedElement = useCallback((selectedRowKeys) =>{
+        setSelectedRowKeys(selectedRowKeys);
+    }, []);
+
+
+    const hendleReload = () =>{
+        console.log('reload');
+    }
 
     const columns = [
         { 
@@ -54,14 +65,13 @@ const ReportUsers = () =>{
         },
     ];
  
-
-    const selection = true;
-    const propsTable = { columns, rows, selection };
+    // propsComponents
+    const propsTable = { columns, rows, selection: true, selectedElement };
 
     return (
         <div className={styles.main}>
             <div className={styles.header}>
-                <Popover content='Reload' className={styles.popover}>
+                <Popover content='Reload' className={styles.popover} onClick={hendleReload}>
                     <div className={styles.reload}>
                         <SyncOutlined className={styles.reloadIcon}/>    
                     </div>

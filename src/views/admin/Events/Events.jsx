@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useSelector } from 'react-redux';
 import { Collapse, DatePicker, Space, Select, Button, Avatar, Popover } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
@@ -18,13 +18,43 @@ const Events = () => {
 
     const rows = useSelector(state => state.adminData.eventsList);
 
+    // useState
     const [disabled, setDisablet] = useState(true);
     const [searchValue, setSearchValue] = useState('');
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-    const selectChange = (value) =>{
+    // useCallback
+    const reload = useCallback(() => {
+        console.log('reload');
+    }, []);
+
+    const selectedElement = useCallback((selectedRowKeys) =>{
+        setSelectedRowKeys(selectedRowKeys);
+        selectedRowKeys.length ? setDisablet(false) : setDisablet(true);
+    }, []);
+
+    const searchChange = useCallback((value) =>{
+        setSearchValue(value);
+    }, []);
+
+    const addElement = useCallback(() =>{
+        console.log('add');
+    }, []);
+
+    const dleteElement = useCallback(() =>{
+        console.log('delete');
+    }, []);
+
+    // changeFunction
+    const typeChange = value =>{
         console.log(value);
     }
 
+    const dateChange = value =>{
+        console.log(value);
+    }
+
+    console.log(searchValue, 'events');
     
     const columns = [
         { 
@@ -130,10 +160,17 @@ const Events = () => {
         },
     ];
 
-
-    const selection = true;
-    const propsTable = { columns, rows, selection };
-    const propsCollapse = { disabled, searchValue, buttonText: {text: '+ Add Event'} };
+    // propsComponents
+    const propsTable = { columns, rows, selection: true, selectedElement };
+    const propsCollapse = { 
+        disabled, 
+        buttonText: '+ Add Event',
+        tableLength: `${rows.length}  Events`,
+        reload,
+        searchChange,
+        addElement,
+        dleteElement,
+    };
 
     return (
         <div className={styles.main} >
@@ -147,7 +184,7 @@ const Events = () => {
 
                         <span className={styles.span}>Date</span>
                         <Space direction="vertical" size={12}>
-                            <RangePicker />
+                            <RangePicker onChange={dateChange}/>
                         </Space>
                         <span className={styles.span}>Type</span>
                         <Select
@@ -155,7 +192,7 @@ const Events = () => {
                             mode="multiple"
                             placeholder="Select a type"
                             optionFilterProp="children"
-                            onChange={selectChange}
+                            onChange={typeChange}
                         >
                             <Option value="active">Active</Option>
                             <Option value="upcomig">Upcomig</Option>
