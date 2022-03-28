@@ -2,21 +2,24 @@ import React from "react";
 import styles from './AdminHeader.module.css';
 import { LogoutOutlined } from  '@ant-design/icons';
 import { useDispatch } from "react-redux";
-import { setCurrentAdmin } from "../../../../store/adminStore/actions";
+import { logauth } from "../../../../store/adminStore/actions";
+import { useNavigate } from "react-router-dom";
 
 const AdminHeader = () =>{
 
     const dispath = useDispatch();
+    const navigate = useNavigate()
 
-    const logauth = () =>{
-        dispath(setCurrentAdmin(null));
+    const logauthAdmin = () =>{
+        dispath(logauth());
+        navigate('/admin/login');
     }
 
     return (
         <div className={styles.header}>
             <div className={styles.logo}>Admin</div>
 
-            <div className={styles.logauth} onClick={logauth}>
+            <div className={styles.logauth} onClick={logauthAdmin}>
                 <LogoutOutlined />
             </div>
         </div>

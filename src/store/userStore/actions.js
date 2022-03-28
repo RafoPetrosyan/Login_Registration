@@ -4,6 +4,7 @@ export const CONFIRM_LOGIN = 'CONFIRM_LOGIN';
 export const CONFIRM_REGISTRATION = 'CONFIRM_REGISTRATION';
 
 
+
 export const setUserList = (payload) => {
     return {
         type: SET_USER_LIST,
@@ -31,3 +32,4 @@ export const confirmRegistration = (payload) =>{
         payload
     }
 }
+

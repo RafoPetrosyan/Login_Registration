@@ -7,9 +7,8 @@ import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import 'antd/dist/antd.css';
 import styles from '../Admin.module.css';
 
-
-
 const { Panel } = Collapse;
+
 
 
 const Users = () =>{
@@ -20,6 +19,7 @@ const Users = () =>{
     const [disabled, setDisablet] = useState(true);
     const [searchValue, setSearchValue] = useState('');
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [showForm, setShowForm] = useState(false);
 
 
     // useCallback
@@ -36,7 +36,7 @@ const Users = () =>{
         setSearchValue(value);
     }, []);
 
-    const addElement = useCallback(() =>{
+    const hendleForm = useCallback(() =>{
         console.log('add');
     }, []);
 
@@ -54,8 +54,10 @@ const Users = () =>{
         console.log(e.target.value);
     }
 
-
-    console.log(searchValue);
+    const editeChange = item =>{
+        setShowForm(true);
+        console.log(item);
+    }
     
     const columns = [
         { 
@@ -123,7 +125,7 @@ const Users = () =>{
           render: (record) =>{
             return (
               <div className={styles.renderDiv}>
-                <Button type="primary" className={styles.btn}>
+                <Button type="primary" className={styles.btn} onClick={() => editeChange(record)}>
                     <EditOutlined /> Edite
                 </Button>
                 <Button type="primary" danger className={styles.btn}>
@@ -152,7 +154,7 @@ const Users = () =>{
             tableLength: `${rows.length}  Users`,
             reload,
             searchChange,
-            addElement,
+            hendleForm,
             dleteElement,
         };
 
@@ -188,6 +190,9 @@ const Users = () =>{
             <div className={styles.table}>
                 <AdminTable propsTable={propsTable}/>
             </div>
+
+
+
         </div>
     )
 }

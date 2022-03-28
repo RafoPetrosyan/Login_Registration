@@ -7,30 +7,37 @@ import styles from './AdminTable.module.css';
 
 const AdminTable = ({propsTable}) => {
 
-    const { columns, rows, selectedElement } = propsTable;
+    const { columns, rows, dataCount, selectedElement, pageChange, page } = propsTable;
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [data, setData] = useState(null);
-   
+    const [loading, setLoading] = useState(true);
 
+    
     useEffect(() =>{
-      
-      if(rows === null) {
-        setData([]);
-      }else{
+      let timeout;
+        if(!rows) {
+          setData([]);
+          timeout = setTimeout(() =>{
+            setLoading(false);
+          }, 400)
+        }else{
+
+        setLoading(true);
 
         let data =  _.cloneDeep(rows).map((item, index) =>{
-            item.key = rows[index].id;
+            item.key = rows[index]._id;
             return item;
         })
 
-        let timeout = setTimeout(() => {
+        timeout = setTimeout(() => {
             setData(data);
+            setLoading(false);
         }, 400)
+      }
 
-        return () =>{
-          clearTimeout(timeout);
-        }
+      return () =>{
+        clearTimeout(timeout);
       }
     }, [rows])
 
@@ -39,7 +46,6 @@ const AdminTable = ({propsTable}) => {
         console.log('selectedRowKeys changed: ', selectedRowKeys);
         setSelectedRowKeys(selectedRowKeys);
         selectedElement(selectedRowKeys);
-
     };
 
     const hasSelected = selectedRowKeys.length > 0;
@@ -61,8 +67,15 @@ const AdminTable = ({propsTable}) => {
           columns={columns}
           dataSource={data} 
           scroll={{ x: 1000 }}
-          pagination={{ pageSize: 5 }}
-          loading={!data}
+          pagination={{
+            showSizeChanger: false,
+            current: page,
+            pageSize: 5,
+            total: dataCount,
+              onChange: (pageNum) => pageChange(pageNum)
+            }}
+          
+          loading={loading}
         />
       </div>
     );

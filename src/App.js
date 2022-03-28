@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserList } from './store/userStore/actions';
 import RouterView from './views/router/index';
   
+
+
 const App = () => {
 
     const userData = useSelector(state => state.userData);
-    const adminList = useSelector(state => state.adminData);
     const dispatch = useDispatch();
 
   
@@ -32,10 +33,8 @@ const App = () => {
       
       localStorage.setItem('current-user', JSON.stringify(userData.currentUser));
 
-      localStorage.setItem('admin-list', JSON.stringify(adminList.adminList))
-      localStorage.setItem('current-admin', JSON.stringify(adminList.currentAdmin));
       
-    }, [userData, adminList.currentAdmin]); 
+    }, [userData]); 
     
     
     return (

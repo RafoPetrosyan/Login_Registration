@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useInput } from "../../../../CustomHooks/useInput";
-import { confirmCurrentAdmin } from "../../../../store/adminStore/actions";
+import { login } from "../../../../store/adminStore/actions";
 import styles from './LoginAdmin.module.css';
 
 const LoginAdmin = () =>{
@@ -16,11 +16,11 @@ const LoginAdmin = () =>{
     const submitChange = (e) =>{
         e.preventDefault();
         const loginObj = {
-            email: email.value,
+            username: email.value,
             password: password.value,
         }
-        dispatch(confirmCurrentAdmin(loginObj));
-        setLabelColor('red');
+        dispatch(login(loginObj))
+      
     }
 
     return (

@@ -2,12 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 
-const AdminGuardLogin  = () => {
+
+const AdminGuardLogin = () => {
 
     const currentAdmin = useSelector(state => state.adminData.currentAdmin);
 
     if (currentAdmin) {
-        return <Navigate to='/admin/events'/>
+        return <Navigate to='/admin'/>
     }
     return (
         <div style={{zIndex: 1, display: 'flex'}}>
@@ -18,3 +19,4 @@ const AdminGuardLogin  = () => {
 };
 
 export default AdminGuardLogin;
+

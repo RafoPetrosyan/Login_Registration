@@ -15,7 +15,6 @@ export const userReducer = (state = initialState, action) =>{
             }
         
         case SET_CURRENT_USER:
-            console.log('vvvvvvvvvvvvvvvvvvvvvv');
             return {
                 ...state,
                 currentUser: action.payload

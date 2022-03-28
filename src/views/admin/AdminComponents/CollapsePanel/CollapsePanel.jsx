@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Input, Space, Popover } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import styles from './CollapsePanel.module.css';
 
 const { Search } = Input;
-
-
 
 const CollapsePanel = ({propsCollapse}) =>{    
 
@@ -17,30 +15,31 @@ const CollapsePanel = ({propsCollapse}) =>{
         searchChange, 
         dleteElement, 
         reload, 
-        addElement 
+        hendleForm,
+        searchValue
     } = propsCollapse;
 
-    const hendleReload = () =>{
-        reload();
-    }
+    console.log(searchValue);
 
-    const onSearch = value =>{
-        searchChange(value);
-    }
+    const [value, setValue] = useState(searchValue);
 
-    const hendleDelete = () =>{
-        dleteElement();
-    }
+    useEffect(() =>{
+        let timeouth = setTimeout(() =>{
+            searchChange(value)
+        }, 400)
+        return () =>{
+            clearTimeout(timeouth);
+        }
+    }, [value]);
 
-    const addChange = () =>{
-        addElement();
-    }
+
+   
    
     return (
         <div className={styles.collapsePanel}>
             <div className={styles.btnPanel}>
                 <Popover content='Reload' >
-                    <div className={styles.reload} onClick={hendleReload}>
+                    <div className={styles.reload} onClick={() => reload()}>
                         <SyncOutlined className={styles.reloadIcon}/>    
                     </div>
                 </Popover>
@@ -51,20 +50,21 @@ const CollapsePanel = ({propsCollapse}) =>{
                          Delete Selected
                     </Button>
                 :
-                <Button type="primary" danger className={styles.btn} onClick={hendleDelete}>
-                    Delete Selected
-                </Button>
+                    <Button type="primary" danger className={styles.btn} onClick={() => dleteElement()}>
+                        Delete Selected
+                    </Button>
                 }
 
-                <Button type="primary" className={styles.btn} onClick={addChange}>
+                <Button type="primary" className={styles.btn} onClick={() => hendleForm()}>
                     {buttonText}
                 </Button>
             </div>
             
             <Space direction="vertical">
                 <Search 
+                    value={value}
                     placeholder="Search text..."
-                    onSearch={onSearch}  
+                    onChange={(e) => setValue(e.target.value)}  
                     className={styles.search} 
                 />
             </Space>

@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { CONFIRM_LOGIN, CONFIRM_REGISTRATION, setCurrentUser, setUserList } from './actions';
 import { getUserList, loopLogin, loopRegistration, setData } from './helpers';
-
+import { axios } from 'axios';
 
 function* workerConfirmLogin(action){
     const userList = yield call(getUserList);
@@ -20,6 +20,7 @@ function* workerConfirmRegistration(action){
         yield put(setUserList(result));
     }
 }
+
 
 export function* watcherData() {
     yield takeEvery(CONFIRM_LOGIN, workerConfirmLogin)

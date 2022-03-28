@@ -1,20 +1,25 @@
 import React, { useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { getCurrent } from "../../store/adminStore/actions";
 
-const AdminGuard  = () => {
-
-    const currentAdmin = useSelector(state => state.adminData.currentAdmin);
+const AdminGuard = () => {
+   
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const { pathname } = useLocation();
-
+    
+    
     useEffect(() =>{
        if(pathname === '/admin'){
            navigate('/admin/events');
        }
+       dispatch(getCurrent())
+       
     }, []);
 
-    if (currentAdmin) {
+   
+    if (localStorage.getItem('accessToken')) {
         return <Outlet/>
     }
     return <Navigate to='/admin/login'/>
@@ -22,3 +27,4 @@ const AdminGuard  = () => {
 };
 
 export default AdminGuard;
+

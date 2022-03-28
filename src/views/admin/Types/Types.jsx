@@ -32,7 +32,7 @@ const Types = () =>{
         setSearchValue(value);
     }, []);
 
-    const addElement = useCallback(() =>{
+    const hendleForm = useCallback(() =>{
         console.log('add');
     }, []);
 
@@ -103,7 +103,7 @@ const Types = () =>{
             tableLength: `${rows.length}  Types`,
             reload,
             searchChange,
-            addElement,
+            hendleForm,
             dleteElement,
         };
 
