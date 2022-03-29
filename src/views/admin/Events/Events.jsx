@@ -20,23 +20,25 @@ const { Option } = Select;
 
 const Events = () => {
 
-    
-    const rows = useSelector(state => state.adminData.eventsList);
-    const dataCount = useSelector(state => state.adminData.eventsListCount);
+    // local data
+    const data = useSelector(state => state.adminData);
     const dispatch = useDispatch();
 
     // useState
-    const [disabled, setDisablet] = useState(true);
     const [searchValue, setSearchValue] = useState('');
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [page, setPage] = useState(1);
     const [type, setType] = useState('');
-    const [rangeDate, setRangeDate] = useState({startDate: '', endDate: ''})
+    const [rangeDate, setRangeDate] = useState({startDate: '', endDate: ''});
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [disabled, setDisablet] = useState(true);
     const [showParticpants, setShowParticpants] = useState(false);
     const [showForm, setShowForm] = useState(false);
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    console.log(searchValue, 'events');
 
+
+    // get data api and query params
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
@@ -45,10 +47,7 @@ const Events = () => {
     }, []);
 
 
-    useEffect(() =>{
-
-        const url = `?searchQuery=${searchValue}&page=${page}&limit=${5}&searchType=${type}&`;
-        const dateUrl = `&startDate=${rangeDate.startDate}&endDate=${rangeDate.endDate}`;
+    const getData = () => {
 
         setSearchParams(
             createSearchParams({
@@ -58,45 +57,53 @@ const Events = () => {
             })
         );
 
+        const url = `?searchQuery=${searchValue}&page=${page}&limit=${5}&searchType=${type}&`;
+        const dateUrl = `&startDate=${rangeDate.startDate}&endDate=${rangeDate.endDate}`;
+
         dispatch(getEvents({url, dateUrl}))
 
+    }
+
+    useEffect(() =>{
+        getData();
     }, [searchValue, page, type, rangeDate]);
     
 
+
     // children-function
 
-    const reload = useCallback(() =>{
-        console.log('reload');
-    }, [])
-
-    const selectedElement = useCallback((selectedRowKeys) =>{
-        setSelectedRowKeys(selectedRowKeys);
-        selectedRowKeys.length ? setDisablet(false) : setDisablet(true);
-    }, []);
+    const reload = () =>{
+        getData();
+    }
 
     const searchChange = useCallback((value) =>{
         setPage(1);
         setSearchValue(value);
     }, []);
 
+    const dleteElement = () =>{
+        console.log('delete');
+    }
+
+    const pageChange = (page) =>{
+        setPage(page)
+    }
+
+    const selectedElement = (selectedRowKeys) =>{
+        setSelectedRowKeys(selectedRowKeys);
+        selectedRowKeys.length ? setDisablet(false) : setDisablet(true);
+    }
+    
     const hendleForm = useCallback(() =>{
         setShowForm(prev => !prev);
     }, []);
 
-    const dleteElement = useCallback(() =>{
-        console.log('delete');
-    }, []);
-
+   
     const closeParticpants = useCallback(() =>{
         setShowParticpants(false);
     }, []);
 
-    const pageChange = useCallback((page) =>{
-        setPage(page);
-        
-    }, []);
-
-
+    
    
     // changeFunction
     const typeChange = value =>{
@@ -112,7 +119,7 @@ const Events = () => {
         }
     }
 
-    
+    // columns table
     const columns = [
         { 
             title: 'Organizer',
@@ -224,13 +231,12 @@ const Events = () => {
     ];
 
   
-
     // propsComponents
     const propsTable = { 
         columns, 
-        rows, 
+        rows: data.eventsList, 
         selection: true, 
-        dataCount,
+        dataCount: data.eventsListCount,
         page, 
         selectedElement, 
         pageChange 
@@ -239,8 +245,8 @@ const Events = () => {
     const propsCollapse = { 
         disabled, 
         buttonText: '+ Add Event',
-        tableLength: `${dataCount}  Events`,
-        searchValue,
+        tableLength: `${data.eventsListCount}  Events`,
+        searchParams,
         reload,
         searchChange,
         hendleForm,

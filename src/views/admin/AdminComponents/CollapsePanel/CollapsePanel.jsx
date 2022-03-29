@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Input, Space, Popover } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
-import 'antd/dist/antd.css';
 import styles from './CollapsePanel.module.css';
 
 const { Search } = Input;
@@ -9,19 +8,16 @@ const { Search } = Input;
 const CollapsePanel = ({propsCollapse}) =>{    
 
     const { 
-        disabled, 
-        buttonText, 
-        tableLength, 
-        searchChange, 
-        dleteElement, 
-        reload, 
-        hendleForm,
-        searchValue
-    } = propsCollapse;
+            disabled, buttonText, tableLength, searchChange, 
+            dleteElement, reload, hendleForm, searchParams,
+        } = propsCollapse;
 
-    console.log(searchValue);
 
-    const [value, setValue] = useState(searchValue);
+    const [value, setValue] = useState('');
+
+    useEffect(() =>{
+        if(searchParams.get('searchQuery')) setValue(searchParams.get('searchQuery'));
+    }, []);
 
     useEffect(() =>{
         let timeouth = setTimeout(() =>{
@@ -32,8 +28,6 @@ const CollapsePanel = ({propsCollapse}) =>{
         }
     }, [value]);
 
-
-   
    
     return (
         <div className={styles.collapsePanel}>
