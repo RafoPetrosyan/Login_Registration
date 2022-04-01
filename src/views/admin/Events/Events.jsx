@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { createSearchParams, useSearchParams } from "react-router-dom";
-import { getEvents } from "../../../store/adminStore/actions";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
+import { getEditeEvent, getEvents } from "../../../store/adminStore/actions";
 import { Collapse, DatePicker, Space, Select, Button, Popover } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { filtreDate } from "../../../helpers";
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
-import FormComponent from "./FormComponent";
 import Particpants from "../AdminComponents/Particpants/Particpants";
 import styles from '../Admin.module.css';
+
 
 
 const { Panel } = Collapse;
@@ -23,7 +23,9 @@ const Events = () => {
     // local data
     const data = useSelector(state => state.adminData);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
+   
     // useState
     const [searchValue, setSearchValue] = useState('');
     const [page, setPage] = useState(1);
@@ -32,9 +34,6 @@ const Events = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [disabled, setDisablet] = useState(true);
     const [showParticpants, setShowParticpants] = useState(false);
-    const [showForm, setShowForm] = useState(false);
-
-    console.log(searchValue, 'events');
 
 
     // get data api and query params
@@ -77,7 +76,6 @@ const Events = () => {
     }
 
     const searchChange = useCallback((value) =>{
-        setPage(1);
         setSearchValue(value);
     }, []);
 
@@ -93,12 +91,17 @@ const Events = () => {
         setSelectedRowKeys(selectedRowKeys);
         selectedRowKeys.length ? setDisablet(false) : setDisablet(true);
     }
-    
-    const hendleForm = useCallback(() =>{
-        setShowForm(prev => !prev);
-    }, []);
 
-   
+    const create = () =>{
+      navigate('create')
+    }
+
+    const edite = (id) =>{
+        dispatch(getEditeEvent(id));
+        console.log(id);
+        navigate('edite')
+    }
+
     const closeParticpants = useCallback(() =>{
         setShowParticpants(false);
     }, []);
@@ -218,7 +221,7 @@ const Events = () => {
                 <Popover content='List of participants' onClick={() => setShowParticpants(true)}>
                     <Button type="primary" className={styles.popover}><TeamOutlined /></Button>
                 </Popover>
-                <Button type="primary" className={styles.btn} >
+                <Button type="primary" className={styles.btn} onClick={() => edite(record._id)}>
                     <EditOutlined /> Edite
                 </Button>
                 <Button type="primary" danger className={styles.btn}>
@@ -249,17 +252,14 @@ const Events = () => {
         searchParams,
         reload,
         searchChange,
-        hendleForm,
+        create,
         dleteElement,
     };
-
     
     const propsParticpants = { showParticpants, closeParticpants };
-    const propsFormComponents = { hendleForm };
 
     return (
         <div className={styles.main} >
-           {!showForm &&
            <div>
              <div className={styles.header}> 
                 <Collapse bordered={false} className={styles.collapse}>
@@ -296,9 +296,7 @@ const Events = () => {
                 <div className={styles.table}>
                     <AdminTable propsTable={propsTable}/>
                 </div>
-            </div>}
-
-            {showForm && <FormComponent propsFormComponents={propsFormComponents}/>}
+            </div>
             
             <Particpants propsParticpants={propsParticpants}/> 
         </div>

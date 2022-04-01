@@ -1,16 +1,19 @@
+import { times } from 'lodash';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { 
     ADD_EVENT, 
     getCurrent, 
     GET_CURRENT_ADMIN, 
     GET_EVENTS,
+    GET_EDITE_EVENT,
     logauth,
     LOGAUTH_ADMIN, 
     LOGIN_ADMIN,
     setCurrent, 
-    setEvents
+    setEvents,
+    setEditeEvent
 } from './actions';
-import { currentAdmin, events, loginAdmin } from './api';
+import { currentAdmin, events, getEditeEvent, loginAdmin } from './api';
 
 
 
@@ -47,20 +50,24 @@ function* workerGetEvents(action) {
         yield put(setEvents({eventList, dataCount}))
 
     } catch (error) {
-        console.log('error');
+        console.log(error);
     }
 }
 
 function* workerAddEvent(action) {
     console.log(action.payload, 'dffd');
-    // try {
-    //     yield call(addNewEvent, action.payload)
-    // } catch (error) {
-    //     console.log(error);
-    // }
+   
 }
 
-
+function* workerEditeEvents(action){
+    try {
+        const { eventData } = yield call(getEditeEvent, action.payload);
+        yield put(setEditeEvent(eventData));
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 export function* watcherAdmin() {
@@ -69,4 +76,5 @@ export function* watcherAdmin() {
     yield takeEvery(GET_CURRENT_ADMIN, workerGetCurrent)
     yield takeEvery(GET_EVENTS, workerGetEvents)
     yield takeEvery(ADD_EVENT, workerAddEvent)
+    yield takeEvery(GET_EDITE_EVENT, workerEditeEvents)
 }

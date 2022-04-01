@@ -1,7 +1,7 @@
 import client from './client';
 
-export const loginAdmin = async (payload) => {
-    const { data } = await client.post('user/loginAdminPanel', payload);
+export const loginAdmin = async (payload) =>{
+    const { data } = await client.post('user/loginAdminPanel', payload)
     return data
 }
 
@@ -12,5 +12,10 @@ export const currentAdmin = async () =>{
 
 export const events = async (payload) =>{
     const { data } = await client.get(`event${payload.url}${payload.dateUrl}`)
+    return data;
+}
+
+export const getEditeEvent = async (payload) =>{
+    const { data } = await client.get(`event/${payload}`)
     return data;
 }

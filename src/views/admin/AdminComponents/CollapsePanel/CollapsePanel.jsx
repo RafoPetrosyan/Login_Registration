@@ -9,7 +9,7 @@ const CollapsePanel = ({propsCollapse}) =>{
 
     const { 
             disabled, buttonText, tableLength, searchChange, 
-            dleteElement, reload, hendleForm, searchParams,
+            dleteElement, reload, create, searchParams,
         } = propsCollapse;
 
 
@@ -22,7 +22,7 @@ const CollapsePanel = ({propsCollapse}) =>{
     useEffect(() =>{
         let timeouth = setTimeout(() =>{
             searchChange(value)
-        }, 400)
+        }, 200)
         return () =>{
             clearTimeout(timeouth);
         }
@@ -49,7 +49,7 @@ const CollapsePanel = ({propsCollapse}) =>{
                     </Button>
                 }
 
-                <Button type="primary" className={styles.btn} onClick={() => hendleForm()}>
+                <Button type="primary" className={styles.btn} onClick={() => create()}>
                     {buttonText}
                 </Button>
             </div>

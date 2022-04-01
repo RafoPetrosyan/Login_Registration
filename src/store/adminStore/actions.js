@@ -5,7 +5,8 @@ export const SET_CURRENT_ADMIN = 'SET_CURRENT_ADMIN';
 export const GET_EVENTS = 'GET_EVENTS';
 export const ADD_EVENT = 'ADD_EVENT';
 export const SET_EVENTS = 'SET_EVENTS';
-
+export const GET_EDITE_EVENT = 'GET_EDITE_EVENT';
+export const SET_EDITE_EVENT = 'SET_EDITE_EVENT';
 
 
 export const login = (payload) =>{
@@ -51,6 +52,20 @@ export const setEvents = (payload) =>{
 export const addEvent = (payload) =>{
     return {
         type: ADD_EVENT,
+        payload
+    }
+}
+
+export const getEditeEvent = (payload) =>{
+    return {
+        type: GET_EDITE_EVENT,
+        payload
+    }
+}
+
+export const setEditeEvent = (payload) =>{
+    return {
+        type: SET_EDITE_EVENT,
         payload
     }
 }

@@ -1,10 +1,11 @@
-import { SET_CURRENT_ADMIN, SET_EVENTS } from "../actions";
+import { SET_CURRENT_ADMIN, SET_EDITE_EVENT, SET_EVENTS } from "../actions";
 
 const initialState = {
 
     currentAdmin: null,
     eventsList: null,
     eventsListCount: 0,
+    editeEvent: null,
     userList: [
       {
         id: 1,
@@ -330,6 +331,12 @@ export const adminReducer = (state = initialState, action) =>{
                 eventsList: action.payload.eventList,
                 eventsListCount: action.payload.dataCount
             }
+          
+        case SET_EDITE_EVENT:
+          return {
+                ...state,
+                editeEvent: action.payload
+          }
 
         default:
             return state;

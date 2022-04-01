@@ -128,15 +128,4 @@
 .textPopover{
     cursor: pointer;
 }
-.formComponent{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-} 
-.inputs{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 500px;
-}
+ 

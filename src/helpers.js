@@ -3,6 +3,6 @@ export const filtreDate = (date) =>{
     let y = date.split('T')
     let z = y[1].split('.')
 
-    return `${x}  ${z[0]}`;
+    return `${x} ${z[0]}`;
 }
 
