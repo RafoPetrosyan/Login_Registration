@@ -1,7 +1,6 @@
-import { times } from 'lodash';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { 
-    ADD_EVENT, 
+    CREATE_EVENT, 
     getCurrent, 
     GET_CURRENT_ADMIN, 
     GET_EVENTS,
@@ -13,7 +12,7 @@ import {
     setEvents,
     setEditeEvent
 } from './actions';
-import { currentAdmin, events, getEditeEvent, loginAdmin } from './api';
+import { createEvent, currentAdmin, events, getEditeEvent, loginAdmin } from './api';
 
 
 
@@ -54,8 +53,12 @@ function* workerGetEvents(action) {
     }
 }
 
-function* workerAddEvent(action) {
-    console.log(action.payload, 'dffd');
+function* workerCreateEvent(action) {
+    try {
+        yield call(createEvent, action.payload);
+    } catch (error) {
+        console.log(error);
+    }
    
 }
 
@@ -75,6 +78,6 @@ export function* watcherAdmin() {
     yield takeEvery(LOGAUTH_ADMIN, workerLogauth)
     yield takeEvery(GET_CURRENT_ADMIN, workerGetCurrent)
     yield takeEvery(GET_EVENTS, workerGetEvents)
-    yield takeEvery(ADD_EVENT, workerAddEvent)
+    yield takeEvery(CREATE_EVENT, workerCreateEvent)
     yield takeEvery(GET_EDITE_EVENT, workerEditeEvents)
 }

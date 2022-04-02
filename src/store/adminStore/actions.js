@@ -3,7 +3,7 @@ export const LOGAUTH_ADMIN = 'LOGIN_ADMIN';
 export const GET_CURRENT_ADMIN = 'GET_CURRENT_ADMIN';
 export const SET_CURRENT_ADMIN = 'SET_CURRENT_ADMIN';
 export const GET_EVENTS = 'GET_EVENTS';
-export const ADD_EVENT = 'ADD_EVENT';
+export const CREATE_EVENT = 'CREATE_EVENT';
 export const SET_EVENTS = 'SET_EVENTS';
 export const GET_EDITE_EVENT = 'GET_EDITE_EVENT';
 export const SET_EDITE_EVENT = 'SET_EDITE_EVENT';
@@ -49,9 +49,9 @@ export const setEvents = (payload) =>{
     }
 }
 
-export const addEvent = (payload) =>{
+export const createEvent = (payload) =>{
     return {
-        type: ADD_EVENT,
+        type: CREATE_EVENT,
         payload
     }
 }

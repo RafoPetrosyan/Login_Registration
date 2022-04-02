@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
 import { Form, Input, Select, Button, DatePicker, Slider, Upload } from 'antd';
 import moment from 'moment';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { getEditeEvent, setEditeEvent } from '../../../../store/adminStore/actions';
+import { createEvent, getEditeEvent, setEditeEvent } from '../../../../store/adminStore/actions';
 import ImgCrop from 'antd-img-crop';
-import { filtreDate } from '../../../../helpers';
 import './EditeAndCreate.css';
 
 const { Option } = Select;
@@ -100,8 +99,8 @@ const EditeAndCreateEvent = () =>{
     const [female, setFemale] = useState(0);
     const [age, setAge] = useState(0);
     const [fileList, setFileList] = useState([]);
-    const [date, setDate] = useState('');
     
+    console.log(fileList, 'fileList');
 
     useEffect(() =>{
         if(searchParams.get('id')){
@@ -114,11 +113,11 @@ const EditeAndCreateEvent = () =>{
             setSearchParams(
                 createSearchParams({id: editeEvent._id})
             );
+
             setMembers(editeEvent.criteria.members);
             setMale(editeEvent.criteria.male);
             setFemale(editeEvent.criteria.female);
             setAge(editeEvent.criteria.age);
-            setDate(filtreDate(editeEvent.date))
         }
     }, [editeEvent]);
 
@@ -129,13 +128,9 @@ const EditeAndCreateEvent = () =>{
     }
 
     const onChangeImage = ({ fileList: newFileList }) => {
-        console.log(newFileList, 'newFileList');
       setFileList(newFileList);
     };
 
-    const onChangeDate = (date, dateString) => {
-        setDate(dateString);
-    }
 
     const onPreview = async file => {
         let src = file.url;
@@ -152,24 +147,65 @@ const EditeAndCreateEvent = () =>{
         imgWindow.document.write(image.outerHTML);
       };
 
-      const dummyRequest = ({ file, onSuccess }) => {
+      const dummyRequest = ({ onSuccess }) => {
         setTimeout(() => {
           onSuccess("ok");
         }, 0);
       };
 
     const onFinish = (values) => {
-        values.data.date = date;
-        Object.keys(values.data.criteria).forEach(item =>{
-            if(values.data.criteria[item] === undefined){
-                values.data.criteria[item] = 0;
-            }
-        })
-        values.data.imageCount = 0;
-        values.data.imageOptions = {};
-        // dispatch(addEvent(values));
+        values.data.date = moment(values.data.date).format('llll');
+        values.data.imageCount = fileList.length;
+        values.data.imageOptions = fileList[0] ? fileList[0] : {};
+        // values.data.imageOptions = {};
+        dispatch(createEvent(JSON.stringify(values)));
         console.log(values);
     };
+
+    const fields = useMemo(() =>(
+        [
+            {
+                name: ['data', 'location'],
+                value: editeEvent ? editeEvent.location.name : '',
+            },
+            {
+                name: ['data', 'title'],
+                value: editeEvent ? editeEvent.title : '',
+            },
+            {
+                name: ['data', 'types'],
+                value: editeEvent ? editeEvent.type : '',
+            },
+            {
+                name: ['data', 'status'],
+                value: editeEvent ? editeEvent.status : '',
+            },
+            {
+                name: ['data', 'date'],
+                value: editeEvent ? moment(editeEvent.date) : moment(),
+            },
+            {
+                name: ['data', 'description'],
+                value: editeEvent ? editeEvent.description : '',
+            },
+            {
+                name: ['data', 'criteria', 'members'],
+                value: members,
+            },
+            {
+                name: ['data', 'criteria', 'age'],
+                value: age,
+            },
+            {
+                name: ['data', 'criteria', 'male'],
+                value: male,
+            },
+            {
+                name: ['data', 'criteria', 'female'],
+                value: female,
+            },
+        ]
+    ), [editeEvent]);
     
     return (
         <div>
@@ -185,60 +221,21 @@ const EditeAndCreateEvent = () =>{
                 name="nest-messages" 
                 onFinish={onFinish} 
                 validateMessages={validateMessages}
-                fields={[
-                    {
-                        name: ['data', 'location'],
-                        value: editeEvent ? editeEvent.location.name : '',
-                    },
-                    {
-                        name: ['data', 'title'],
-                        value: editeEvent ? editeEvent.title : '',
-                    },
-                    {
-                        name: ['data', 'types'],
-                        value: editeEvent ? editeEvent.type : '',
-                    },
-                    {
-                        name: ['data', 'status'],
-                        value: editeEvent ? editeEvent.status : '',
-                    },
-                    {
-                        name: ['data', 'date'],
-                        value: editeEvent ? moment(editeEvent.date) : '',
-                    },
-                    {
-                        name: ['data', 'description'],
-                        value: editeEvent ? editeEvent.description : '',
-                    },
-                    {
-                        name: ['data', 'criteria', 'members'],
-                        value: members,
-                    },
-                    {
-                        name: ['data', 'criteria', 'age'],
-                        value: age,
-                    },
-                    {
-                        name: ['data', 'criteria', 'male'],
-                        value: male,
-                    },
-                    {
-                        name: ['data', 'criteria', 'female'],
-                        value: female,
-                    },
-                ]}
-            >
-                <ImgCrop rotate >
-                    <Upload 
-                        listType="picture-card"
-                        fileList={fileList}
-                        onChange={onChangeImage}
-                        onPreview={onPreview}
-                        customRequest={dummyRequest}      
-                     >
-                        {fileList.length < 3 && '+ Upload'}
-                    </Upload>
-                </ImgCrop>
+                fields={fields}
+            >   
+                <Form.Item>
+                    <ImgCrop rotate >
+                        <Upload 
+                            listType="picture-card"
+                            fileList={fileList}
+                            onChange={onChangeImage}
+                            onPreview={onPreview}
+                            customRequest={dummyRequest}      
+                        >
+                            {fileList.length < 3 && '+ Upload'}
+                        </Upload>
+                    </ImgCrop>
+                </Form.Item>
 
                 <Form.Item
                     name={['data', 'location']}
@@ -285,10 +282,10 @@ const EditeAndCreateEvent = () =>{
 
                 <Form.Item 
                     name={["data", "date"]} 
-                    label="DatePicker"
+                    label="Date"
                     rules={[{required: true, message: 'Please select event date!'}]}
                  >
-                    <DatePicker showTime onChange={onChangeDate}/>
+                    <DatePicker showTime/>
                 </Form.Item>
 
                 <Form.Item name={['data', 'description']} label="Description">
@@ -296,19 +293,19 @@ const EditeAndCreateEvent = () =>{
                 </Form.Item>
 
                 <Form.Item name={['data', 'criteria', 'members']} label="Members">
-                    <Slider onAfterChange={(value) => setMembers(value)}/>
+                    <Slider onAfterChange={value => setMembers(value)}/>
                 </Form.Item>
 
                 <Form.Item name={['data', 'criteria', 'age']} label="Age">
-                    <Slider onAfterChange={(value) => setAge(value)}/>
+                    <Slider onAfterChange={value => setAge(value)}/>
                 </Form.Item>
 
                 <Form.Item name={['data', 'criteria', 'male']} label="Male">
-                    <Slider onAfterChange={(value) => setMale(value)} max={members - female}/>
+                    <Slider onAfterChange={value => setMale(value)} max={members - female}/>
                 </Form.Item>
 
                 <Form.Item name={['data', 'criteria', 'female']} label="Female">
-                    <Slider onAfterChange={(value) => setFemale(value)} max={members - male}/>
+                    <Slider onAfterChange={value => setFemale(value)} max={members - male}/>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
@@ -319,8 +316,8 @@ const EditeAndCreateEvent = () =>{
                         Submit
                     </Button>
                 </Form.Item>
-
             </Form>
+           
         </div>
     )
 }

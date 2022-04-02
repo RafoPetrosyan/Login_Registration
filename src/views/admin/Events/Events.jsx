@@ -4,13 +4,11 @@ import { createSearchParams, useNavigate, useSearchParams } from "react-router-d
 import { getEditeEvent, getEvents } from "../../../store/adminStore/actions";
 import { Collapse, DatePicker, Space, Select, Button, Popover } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { filtreDate } from "../../../helpers";
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import Particpants from "../AdminComponents/Particpants/Particpants";
+import moment from 'moment';
 import styles from '../Admin.module.css';
-
-
 
 const { Panel } = Collapse;
 const { RangePicker } = DatePicker;
@@ -20,12 +18,10 @@ const { Option } = Select;
 
 const Events = () => {
 
-    // local data
     const data = useSelector(state => state.adminData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-   
     // useState
     const [searchValue, setSearchValue] = useState('');
     const [page, setPage] = useState(1);
@@ -150,7 +146,7 @@ const Events = () => {
             width: 150,
             render: (record) => (
                 <Popover content={record.title} className={styles.textPopover}>
-                    {record.title}
+                    {record.title.length > 15 ? `${record.title.substring(0, 15)}...` : record.title}
                 </Popover>
             )
         },
@@ -168,8 +164,8 @@ const Events = () => {
             width: 150,
             sorter: (a, b) => a.age - b.age,
             render: (record) => (
-                <Popover content={filtreDate(record.date)} className={styles.textPopover}>
-                    {filtreDate(record.date).split(' ')[0]}
+                <Popover content={moment(record.date).format('llll')} className={styles.textPopover}>
+                    {moment(record.date).format('LL')}
                 </Popover>
             )
         },
