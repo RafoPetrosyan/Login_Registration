@@ -7,9 +7,8 @@ import styles from './AdminTable.module.css';
 
 const AdminTable = ({propsTable}) => {
 
-    const { columns, rows, dataCount, selectedElement, pageChange, page } = propsTable;
+    const { columns, rows, dataCount, selectedElement, pageChange, page, selectedRowKeys } = propsTable;
 
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -44,7 +43,6 @@ const AdminTable = ({propsTable}) => {
 
     const onSelectChange = selectedRowKeys => {
         console.log('selectedRowKeys changed: ', selectedRowKeys);
-        setSelectedRowKeys(selectedRowKeys);
         selectedElement(selectedRowKeys);
     };
 

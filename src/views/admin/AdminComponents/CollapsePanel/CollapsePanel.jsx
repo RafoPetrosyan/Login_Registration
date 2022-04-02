@@ -9,7 +9,7 @@ const CollapsePanel = ({propsCollapse}) =>{
 
     const { 
             disabled, buttonText, tableLength, searchChange, 
-            dleteElement, reload, create, searchParams,
+            deleteSelected, reload, create, searchParams,
         } = propsCollapse;
 
 
@@ -44,7 +44,7 @@ const CollapsePanel = ({propsCollapse}) =>{
                          Delete Selected
                     </Button>
                 :
-                    <Button type="primary" danger className={styles.btn} onClick={() => dleteElement()}>
+                    <Button type="primary" danger className={styles.btn} onClick={() => deleteSelected()}>
                         Delete Selected
                     </Button>
                 }

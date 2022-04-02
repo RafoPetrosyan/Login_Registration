@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
-import { getEditeEvent, getEvents } from "../../../store/adminStore/actions";
+import { deleteEvent, deleteSelectedEvent, getEditeEvent, getEvents } from "../../../store/adminStore/actions";
 import { Collapse, DatePicker, Space, Select, Button, Popover } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
@@ -72,11 +72,16 @@ const Events = () => {
     }
 
     const searchChange = useCallback((value) =>{
+        setPage(1);
         setSearchValue(value);
     }, []);
 
-    const dleteElement = () =>{
-        console.log('delete');
+    const deleteElement = (id) =>{
+        // dispatch(deleteEvent(id))
+    }
+
+    const deleteSelected = () =>{
+        // dispatch(deleteSelectedEvent({eventsId: selectedRowKeys}))
     }
 
     const pageChange = (page) =>{
@@ -94,7 +99,6 @@ const Events = () => {
 
     const edite = (id) =>{
         dispatch(getEditeEvent(id));
-        console.log(id);
         navigate('edite')
     }
 
@@ -103,7 +107,6 @@ const Events = () => {
     }, []);
 
     
-   
     // changeFunction
     const typeChange = value =>{
         setPage(1);
@@ -220,7 +223,7 @@ const Events = () => {
                 <Button type="primary" className={styles.btn} onClick={() => edite(record._id)}>
                     <EditOutlined /> Edite
                 </Button>
-                <Button type="primary" danger className={styles.btn}>
+                <Button type="primary" danger className={styles.btn} onClick={() => deleteElement(record._id)}>
                     <DeleteOutlined /> Delete
                 </Button>
             </div>
@@ -237,7 +240,8 @@ const Events = () => {
         selection: true, 
         dataCount: data.eventsListCount,
         page, 
-        selectedElement, 
+        selectedRowKeys,
+        selectedElement,
         pageChange 
     };
 
@@ -249,7 +253,7 @@ const Events = () => {
         reload,
         searchChange,
         create,
-        dleteElement,
+        deleteSelected,
     };
     
     const propsParticpants = { showParticpants, closeParticpants };

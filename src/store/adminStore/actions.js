@@ -7,6 +7,9 @@ export const CREATE_EVENT = 'CREATE_EVENT';
 export const SET_EVENTS = 'SET_EVENTS';
 export const GET_EDITE_EVENT = 'GET_EDITE_EVENT';
 export const SET_EDITE_EVENT = 'SET_EDITE_EVENT';
+export const UPDATE_EVENT = 'UPDATE_EVENT';
+export const DELETE_EVENT = 'DELETE_EVENT';
+export const DELETE_SELECTED_EVENT = 'DELETE_SELECTED_EVENT';
 
 
 export const login = (payload) =>{
@@ -66,6 +69,28 @@ export const getEditeEvent = (payload) =>{
 export const setEditeEvent = (payload) =>{
     return {
         type: SET_EDITE_EVENT,
+        payload
+    }
+}
+
+export const updateEvent = (payload) => {
+    return {
+        type: UPDATE_EVENT,
+        payload
+    }
+}
+
+export const deleteEvent = (payload) =>{
+    return {
+        type: DELETE_EVENT,
+        payload
+    }
+}
+
+export const deleteSelectedEvent = (payload) =>{
+    console.log(payload);
+    return {
+        type: DELETE_SELECTED_EVENT,
         payload
     }
 }

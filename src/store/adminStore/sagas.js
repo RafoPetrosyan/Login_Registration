@@ -10,9 +10,12 @@ import {
     LOGIN_ADMIN,
     setCurrent, 
     setEvents,
-    setEditeEvent
+    setEditeEvent,
+    UPDATE_EVENT,
+    DELETE_EVENT,
+    DELETE_SELECTED_EVENT
 } from './actions';
-import { createEvent, currentAdmin, events, getEditeEvent, loginAdmin } from './api';
+import { createEvent, currentAdmin, dedleteSelectedEvents, deleteEvent, events, getEditeEvent, loginAdmin, updateEvent } from './api';
 
 
 
@@ -55,18 +58,44 @@ function* workerGetEvents(action) {
 
 function* workerCreateEvent(action) {
     try {
-        yield call(createEvent, action.payload);
+        const data = yield call(createEvent, action.payload);
+        console.log(data);
     } catch (error) {
         console.log(error);
     }
    
 }
 
-function* workerEditeEvents(action){
+function* workerGetEditeEvents(action){
     try {
         const { eventData } = yield call(getEditeEvent, action.payload);
         yield put(setEditeEvent(eventData));
         
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function* workerUpdateEvent(action){
+    try {
+        const data = yield call(updateEvent, action.payload)
+        console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function* workerDeleteEvent(action){
+    try {
+        yield call(deleteEvent, action.payload)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function* workerDeleteSelectedEvent(action){
+    try {
+        yield call(dedleteSelectedEvents(action.payload))
     } catch (error) {
         console.log(error);
     }
@@ -79,5 +108,8 @@ export function* watcherAdmin() {
     yield takeEvery(GET_CURRENT_ADMIN, workerGetCurrent)
     yield takeEvery(GET_EVENTS, workerGetEvents)
     yield takeEvery(CREATE_EVENT, workerCreateEvent)
-    yield takeEvery(GET_EDITE_EVENT, workerEditeEvents)
+    yield takeEvery(GET_EDITE_EVENT, workerGetEditeEvents)
+    yield takeEvery(UPDATE_EVENT, workerUpdateEvent)
+    yield takeEvery(DELETE_EVENT, workerDeleteEvent)
+    yield takeEvery(DELETE_SELECTED_EVENT, workerDeleteSelectedEvent)
 }

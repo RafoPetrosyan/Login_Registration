@@ -4,7 +4,7 @@ import { createSearchParams, useNavigate, useSearchParams } from "react-router-d
 import { Form, Input, Select, Button, DatePicker, Slider, Upload } from 'antd';
 import moment from 'moment';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { createEvent, getEditeEvent, setEditeEvent } from '../../../../store/adminStore/actions';
+import { createEvent, getEditeEvent, setEditeEvent, updateEvent } from '../../../../store/adminStore/actions';
 import ImgCrop from 'antd-img-crop';
 import './EditeAndCreate.css';
 
@@ -91,7 +91,6 @@ const EditeAndCreateEvent = () =>{
     const editeEvent = useSelector(state => state.adminData.editeEvent);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(editeEvent);
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [members, setMembers] = useState(0);
@@ -100,7 +99,6 @@ const EditeAndCreateEvent = () =>{
     const [age, setAge] = useState(0);
     const [fileList, setFileList] = useState([]);
     
-    console.log(fileList, 'fileList');
 
     useEffect(() =>{
         if(searchParams.get('id')){
@@ -123,8 +121,12 @@ const EditeAndCreateEvent = () =>{
 
 
     const backEvent = () =>{
-        navigate('/admin/events');
-        if(editeEvent) dispatch(setEditeEvent(null));
+        if(editeEvent) {
+            dispatch(setEditeEvent(null));
+            navigate(-2);
+        }else{
+            navigate(-1);
+        }
     }
 
     const onChangeImage = ({ fileList: newFileList }) => {
@@ -153,7 +155,7 @@ const EditeAndCreateEvent = () =>{
         }, 0);
       };
 
-    const onFinish = (values) => {
+    const onFinishCreate = (values) => {
         values.data.date = moment(values.data.date).format('llll');
         values.data.imageCount = fileList.length;
         values.data.imageOptions = fileList[0] ? fileList[0] : {};
@@ -161,6 +163,15 @@ const EditeAndCreateEvent = () =>{
         dispatch(createEvent(JSON.stringify(values)));
         console.log(values);
     };
+
+    const onFinishEdite = (values) => {
+        values.data.date = moment(values.data.date).format('llll');
+        values.data.imageCount = fileList.length;
+        values.data.imageOptions = fileList[0] ? fileList[0] : {};
+        values.data.deleteFiles = [''];
+        console.log(values);
+        // dispatch(updateEvent({values, id: editeEvent._id}));
+    }
 
     const fields = useMemo(() =>(
         [
@@ -219,7 +230,7 @@ const EditeAndCreateEvent = () =>{
             <Form
                 {...layout} 
                 name="nest-messages" 
-                onFinish={onFinish} 
+                onFinish={editeEvent ? onFinishEdite : onFinishCreate} 
                 validateMessages={validateMessages}
                 fields={fields}
             >   
@@ -309,7 +320,7 @@ const EditeAndCreateEvent = () =>{
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                    <Button htmlType="reset">
+                    <Button htmlType="reset" onClick={backEvent}>
                         Cancel
                     </Button>
                     <Button type="primary" htmlType="submit">
