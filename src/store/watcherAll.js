@@ -1,11 +1,13 @@
 import { all, fork } from "redux-saga/effects";
-import { watcherAdmin } from "./adminStore/sagas";
+import { watcherAdminEvents } from "./adminStore/events/eventsSagas";
+import { watcherAdminUsers } from "./adminStore/users/usersSagas";
 import { watcherData } from "./userStore/sagas";
 
 export function* watcherAll(){
    const sagas = [
        watcherData,
-       watcherAdmin,
+       watcherAdminEvents,
+       watcherAdminUsers,
    ]
    yield all(sagas.map(fork))
 }

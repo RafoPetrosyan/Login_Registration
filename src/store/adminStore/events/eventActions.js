@@ -88,7 +88,6 @@ export const deleteEvent = (payload) =>{
 }
 
 export const deleteSelectedEvent = (payload) =>{
-    console.log(payload);
     return {
         type: DELETE_SELECTED_EVENT,
         payload

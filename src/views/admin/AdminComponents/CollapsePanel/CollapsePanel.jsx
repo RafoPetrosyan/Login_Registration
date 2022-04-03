@@ -16,7 +16,7 @@ const CollapsePanel = ({propsCollapse}) =>{
     const [value, setValue] = useState('');
 
     useEffect(() =>{
-        if(searchParams.get('searchQuery')) setValue(searchParams.get('searchQuery'));
+        if(searchParams.get('search')) setValue(searchParams.get('search'));
     }, []);
 
     useEffect(() =>{

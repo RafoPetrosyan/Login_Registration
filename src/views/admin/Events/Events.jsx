@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
-import { deleteEvent, deleteSelectedEvent, getEditeEvent, getEvents } from "../../../store/adminStore/actions";
+import { deleteEvent, deleteSelectedEvent, getEditeEvent, getEvents } from "../../../store/adminStore/events/eventActions";
 import { Collapse, DatePicker, Space, Select, Button, Popover } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
@@ -38,7 +38,7 @@ const Events = () => {
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         if(searchParams.get('searchType')) setType(searchParams.get('searchType'));
-        if(searchParams.get('searchQuery')) setSearchValue(searchParams.get('searchQuery'));
+        if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
     }, []);
 
 
@@ -47,7 +47,7 @@ const Events = () => {
         setSearchParams(
             createSearchParams({
                 page: page,
-                searchQuery: searchValue,
+                search: searchValue,
                 searchType: type,
             })
         );
@@ -72,8 +72,14 @@ const Events = () => {
     }
 
     const searchChange = useCallback((value) =>{
-        setPage(1);
-        setSearchValue(value);
+        setSearchValue(prev =>{
+            if(prev !== value) {
+                setPage(1);
+                return value
+            }
+            return prev;
+        });
+        
     }, []);
 
     const deleteElement = (id) =>{

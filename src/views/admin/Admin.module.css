@@ -128,4 +128,11 @@
 .textPopover{
     cursor: pointer;
 }
- 
+.userImg{
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

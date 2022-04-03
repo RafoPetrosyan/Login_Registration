@@ -14,8 +14,20 @@ import {
     UPDATE_EVENT,
     DELETE_EVENT,
     DELETE_SELECTED_EVENT
-} from './actions';
-import { createEvent, currentAdmin, dedleteSelectedEvents, deleteEvent, events, getEditeEvent, loginAdmin, updateEvent } from './api';
+
+} from './eventActions';
+
+import { 
+    createEvent,
+    currentAdmin, 
+    dedleteSelectedEvents, 
+    deleteEvent, 
+    events, 
+    getEditeEvent, 
+    loginAdmin, 
+    updateEvent 
+
+} from './eventsApi';
 
 
 
@@ -102,7 +114,7 @@ function* workerDeleteSelectedEvent(action){
 }
 
 
-export function* watcherAdmin() {
+export function* watcherAdminEvents() {
     yield takeEvery(LOGIN_ADMIN, workerLogin)
     yield takeEvery(LOGAUTH_ADMIN, workerLogauth)
     yield takeEvery(GET_CURRENT_ADMIN, workerGetCurrent)

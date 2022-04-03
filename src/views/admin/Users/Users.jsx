@@ -1,11 +1,15 @@
-import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-import { Collapse, Switch, Button, Popover, Radio  } from 'antd';
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams, createSearchParams } from 'react-router-dom';
+import { Collapse, Switch, Button, Popover, Radio, Avatar } from 'antd';
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
-import { CloseCircleOutlined, CheckCircleTwoTone, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, CheckCircleTwoTone, DeleteOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
+import moment from 'moment';
+import { getUsers } from "../../../store/adminStore/users/usersActions";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import 'antd/dist/antd.css';
 import styles from '../Admin.module.css';
+
 
 const { Panel } = Collapse;
 
@@ -13,50 +17,82 @@ const { Panel } = Collapse;
 
 const Users = () =>{
 
-    const rows = useSelector(state => state.adminData.userList);
+    const data = useSelector(state => state.adminData);
+    const dispatch = useDispatch();
 
     // useState
     const [disabled, setDisablet] = useState(true);
     const [searchValue, setSearchValue] = useState('');
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-    const [showForm, setShowForm] = useState(false);
+    const [page, setPage] = useState(1);
+    const [date, setDate] = useState('');
+    const [onlyInActive, setOnlyInActive] = useState(true);
+
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    useEffect(() =>{
+        if(searchParams.get('page')) setPage(searchParams.get('page'));
+        // if(searchParams.get('onlyInActive')) setOnlyInActive(searchParams.get('onlyInActive'));
+        if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
+        if(searchParams.get('date')) setDate(searchParams.get('date'));
+    }, []);
+
+    const getData = () => {
+
+        setSearchParams(
+            createSearchParams({
+                page: page,
+                search: searchValue,
+                // onlyInActive: onlyInActive,
+                date: date,
+            })
+        );
+
+        const url = `?page=${page}&search=${searchValue}&limit=${7}&onlyInActive=${onlyInActive ? 'disable' : 'enable'}&date=${date}&`;
+        dispatch(getUsers(url))
+
+    }
+
+    useEffect(() =>{
+        getData();
+    }, [searchValue, page, onlyInActive, date]);
 
 
     // useCallback
-    const reload = useCallback(() => {
-        console.log('reload');
-    }, []);
-
-    const selectedElement = useCallback((selectedRowKeys) =>{
-        setSelectedRowKeys(selectedRowKeys);
-        selectedRowKeys.length ? setDisablet(false) : setDisablet(true);
-    }, []);
-
-    const searchChange = useCallback((value) =>{
-        setSearchValue(value);
-    }, []);
-
-    const hendleForm = useCallback(() =>{
-        console.log('add');
-    }, []);
-
-    const dleteElement = useCallback(() =>{
-        console.log('delete');
-    }, []);
-
-
-     // changeFunction
-    const swichChange = value =>{
-        console.log(value);
+    const reload = () =>{
+       getData();
+    }
+    const pageChange = (page) =>{
+        setPage(page)
     }
 
-    const dateChange = e =>{
-        console.log(e.target.value);
+    const selectedElement = (selectedRowKeys) =>{
+        setSelectedRowKeys(selectedRowKeys);
+        selectedRowKeys.length ? setDisablet(false) : setDisablet(true);
+    }
+
+    const searchChange = useCallback((value) =>{
+        setSearchValue(prev =>{
+            if(prev !== value) {
+                setPage(1);
+                return value
+            }
+            return prev;
+        });
+        
+    }, []);
+
+    const dleteElement = () =>{
+        console.log('del');
     }
 
     const editeChange = item =>{
-        setShowForm(true);
         console.log(item);
+    }
+
+    const switchChange = (e) =>{
+        setPage(1);
+        setOnlyInActive(e)
     }
     
     const columns = [
@@ -66,10 +102,10 @@ const Users = () =>{
             fixed: 'left',  
             render: record => (
                 <>
-                  {record.image ? 
-                        <div style={{backgroundImage: `url(${record.image})`}} className={styles.img}/> 
+                  {record.picture.length ? 
+                        <div style={{backgroundImage: `url(${record.picture[0].url})`}} className={styles.userImg}/> 
                         : 
-                        <div className={styles.avatarName}>{record.name[0]}</div>
+                        <Avatar size={70} icon={<UserOutlined />} />
                     }
                 </>
             )
@@ -80,21 +116,21 @@ const Users = () =>{
             width: 150,
         },
         { 
-            title: 'Acount Name',
-            dataIndex: 'acountName',
+            title: 'Nickname',
+            dataIndex: 'nickname',
             width: 150,
         },
         { 
             title: 'Phone', 
-            dataIndex: 'phone',
             width: 150,
+            render: (record) => record.phone ? record.phone : 'No info',
         },
         { 
             title: 'Email',
             width: 150,
             render: (record) => (
                 <Popover content={record.email} className={styles.textPopover}>
-                    {record.email}
+                    {record.email.length > 15 ? `${record.email.substring(0, 12)}...` : record.email}
                 </Popover>
             )
         },
@@ -103,8 +139,8 @@ const Users = () =>{
             width: 150,
             sorter: (a, b) => a.age - b.age,
             render: (record) => (
-                <Popover content={record.date} className={styles.textPopover}>
-                    {record.date}
+                <Popover content={moment(record.date).format('llll')} className={styles.textPopover}>
+                    {moment(record.date).format('LL')}
                 </Popover>
             )
         },
@@ -116,7 +152,7 @@ const Users = () =>{
         { 
             title: 'About',
             width: 150,
-            render: (record) => record.about ? record.about : 'No Data',
+            render: (record) => record.about ? record.about : 'No info',
         },
         { 
           title: 'Action',
@@ -145,16 +181,26 @@ const Users = () =>{
         },
     ];
       
-
     // propsComponents
-    const propsTable = { columns, rows, selection: true, selectedElement};
+    const propsTable = { 
+        columns,
+        rows: data.userList,
+        selection: true, 
+        page, 
+        selectedRowKeys,
+        dataCount: data.usersListCount,
+        pageChange, 
+        selectedElement
+    };
+
     const propsCollapse = { 
+            searchParams,
             disabled, 
             buttonText: '+ Add User',
-            tableLength: `${rows.length}  Users`,
+            tableLength: `${data.usersListCount}  Users`,
+            selectedRowKeys,
             reload,
             searchChange,
-            hendleForm,
             dleteElement,
         };
 
@@ -170,15 +216,25 @@ const Users = () =>{
                         className={styles.panel} 
                     >
                         <div className={styles.childPnel}>
+
                             <span className={styles.span}>Active acounts</span>
-                            <Switch defaultChecked onChange={swichChange} className={styles.switch}/>
+                            <Switch
+                                defaultChecked={onlyInActive}
+                                onChange={(e) => switchChange(e)}
+                                className={styles.switch}
+                            />
+                               
                             <span className={styles.span}>Date filtering</span>
                             <div className={styles.btnDiv}>
-                                <Radio.Group defaultValue="defoult" buttonStyle="solid" onChange={dateChange}>
-                                    <Radio.Button value="rise">To rise</Radio.Button>
-                                    <Radio.Button value="down">To go down</Radio.Button>
-                                    <Radio.Button value="defoult">Defoult</Radio.Button>
+                                <Radio.Group defaultValue="" buttonStyle="solid"
+                                    value={date} 
+                                    onChange={(e) => setDate(e.target.value)}
+                                >
+                                    <Radio.Button value="asc">To rise</Radio.Button>
+                                    <Radio.Button value="desc">To go down</Radio.Button>
+                                    <Radio.Button value="">Defoult</Radio.Button>
                                 </Radio.Group>
+
                             </div>
                         </div>
 

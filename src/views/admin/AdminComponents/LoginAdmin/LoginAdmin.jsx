@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useInput } from "../../../../CustomHooks/useInput";
-import { login } from "../../../../store/adminStore/actions";
+import { login } from "../../../../store/adminStore/events/eventActions";
 import styles from './LoginAdmin.module.css';
 
 const LoginAdmin = () =>{

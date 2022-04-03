@@ -68,7 +68,6 @@ const AdminTable = ({propsTable}) => {
           pagination={{
             showSizeChanger: false,
             current: page,
-            pageSize: 5,
             total: dataCount,
               onChange: (pageNum) => pageChange(pageNum)
             }}
