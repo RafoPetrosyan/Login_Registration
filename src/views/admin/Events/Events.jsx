@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
-import { deleteEvent, deleteSelectedEvent, getEditeEvent, getEvents } from "../../../store/adminStore/events/eventActions";
+import { deleteEvent, deleteSelectedEvent, getEvents } from "../../../store/adminStore/events/eventActions";
 import { Collapse, DatePicker, Space, Select, Button, Popover } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
@@ -60,7 +60,12 @@ const Events = () => {
     }
 
     useEffect(() =>{
-        getData();
+        let timeout = setTimeout(() =>{
+            getData();
+        }, 100)
+        return () =>{
+            clearTimeout(timeout)
+        }
     }, [searchValue, page, type, rangeDate]);
     
 
@@ -99,13 +104,8 @@ const Events = () => {
         selectedRowKeys.length ? setDisablet(false) : setDisablet(true);
     }
 
-    const create = () =>{
-      navigate('create')
-    }
-
     const edite = (id) =>{
-        dispatch(getEditeEvent(id));
-        navigate('edite')
+        navigate(`edite/${id}`)
     }
 
     const closeParticpants = useCallback(() =>{
@@ -258,7 +258,6 @@ const Events = () => {
         searchParams,
         reload,
         searchChange,
-        create,
         deleteSelected,
     };
     

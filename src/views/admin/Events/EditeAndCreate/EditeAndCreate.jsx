@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Select, Button, DatePicker, Slider, Upload } from 'antd';
 import moment from 'moment';
 import { ArrowLeftOutlined } from '@ant-design/icons';
@@ -91,8 +91,8 @@ const EditeAndCreateEvent = () =>{
     const editeEvent = useSelector(state => state.adminData.editeEvent);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { id } = useParams();
 
-    const [searchParams, setSearchParams] = useSearchParams();
     const [members, setMembers] = useState(0);
     const [male, setMale] = useState(0);
     const [female, setFemale] = useState(0);
@@ -101,17 +101,11 @@ const EditeAndCreateEvent = () =>{
     
 
     useEffect(() =>{
-        if(searchParams.get('id')){
-            dispatch(getEditeEvent(searchParams.get('id')))
-        }
+        if(id) dispatch(getEditeEvent(id))
     }, []);
 
     useEffect(() =>{
         if(editeEvent){
-            setSearchParams(
-                createSearchParams({id: editeEvent._id})
-            );
-
             setMembers(editeEvent.criteria.members);
             setMale(editeEvent.criteria.male);
             setFemale(editeEvent.criteria.female);

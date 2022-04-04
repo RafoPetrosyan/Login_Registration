@@ -24,6 +24,8 @@ import About from "../main/About/About";
 import Home from "../main/Home/Home";
 import NoMatch from "../noMatch/NoMatch";
 import EditeAndCreateEvent from "../admin/Events/EditeAndCreate/EditeAndCreate";
+import AddUser from "../admin/Users/EditeAndAdd/AddUser";
+import EditeUser from "../admin/Users/EditeAndAdd/EditeUser";
 
 
 const RouterView = () =>{
@@ -60,10 +62,16 @@ const RouterView = () =>{
                 <Route path="/admin" element={<Admin/>}>
                     {/* Events */}
                     <Route path="events" element={<Events/>}/>
-                    <Route path="events/edite" element={<EditeAndCreateEvent/>}/>
                     <Route path="events/create" element={<EditeAndCreateEvent/>}/>
+                    <Route path="events/edite">
+                        <Route path=":id" element={<EditeAndCreateEvent/>}/>
+                    </Route>
                     {/* Users */}
                     <Route path="users" element={<Users/>}/>
+                    <Route path="users/create" element={<AddUser/>}/>
+                    <Route path="users/edite" >
+                        <Route path=":id" element={<EditeUser/>}/> 
+                    </Route>
                     {/* Types */}
                     <Route path="types" element={<Types/>}/> 
                     {/* Support */}

@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams, createSearchParams } from 'react-router-dom';
+import { useSearchParams, createSearchParams, useNavigate } from 'react-router-dom';
 import { Collapse, Switch, Button, Popover, Radio, Avatar } from 'antd';
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import { CloseCircleOutlined, CheckCircleTwoTone, DeleteOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import { getUsers } from "../../../store/adminStore/users/usersActions";
+import { deleteSelectedUsers, deleteUser, DELETE_SELECTED, getUsers } from "../../../store/adminStore/users/usersActions";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import 'antd/dist/antd.css';
 import styles from '../Admin.module.css';
+
 
 
 const { Panel } = Collapse;
@@ -19,6 +20,7 @@ const Users = () =>{
 
     const data = useSelector(state => state.adminData);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // useState
     const [disabled, setDisablet] = useState(true);
@@ -54,7 +56,12 @@ const Users = () =>{
     }
 
     useEffect(() =>{
-        getData();
+        let timeout = setTimeout(() =>{
+            getData();
+        }, 100);
+        return () =>{
+            clearTimeout(timeout);
+        }
     }, [searchValue, page, onlyInActive, date]);
 
 
@@ -82,17 +89,22 @@ const Users = () =>{
         
     }, []);
 
-    const dleteElement = () =>{
-        console.log('del');
+    const deleteSelected = () =>{ 
+        dispatch(deleteSelectedUsers({usersId: selectedRowKeys}))
     }
 
-    const editeChange = item =>{
-        console.log(item);
+    const userEdite = (id) =>{
+        navigate(`edite/${id}`)
     }
 
     const switchChange = (e) =>{
         setPage(1);
         setOnlyInActive(e)
+    }
+
+    const userDelete = (id) =>{
+        dispatch(deleteUser(id))
+        getData();
     }
     
     const columns = [
@@ -161,10 +173,10 @@ const Users = () =>{
           render: (record) =>{
             return (
               <div className={styles.renderDiv}>
-                <Button type="primary" className={styles.btn} onClick={() => editeChange(record)}>
+                <Button type="primary" className={styles.btn} onClick={() => userEdite(record._id)}>
                     <EditOutlined /> Edite
                 </Button>
-                <Button type="primary" danger className={styles.btn}>
+                <Button type="primary" danger className={styles.btn} onClick={() => userDelete(record._id)}>
                     <DeleteOutlined />  Delete
                 </Button>
                 <Popover content={record.active ? 'Acount active' : 'Acount is not active'} >
@@ -201,7 +213,7 @@ const Users = () =>{
             selectedRowKeys,
             reload,
             searchChange,
-            dleteElement,
+            deleteSelected,
         };
 
     return (

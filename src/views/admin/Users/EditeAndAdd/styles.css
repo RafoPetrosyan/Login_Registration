@@ -1,0 +1,31 @@
+.title{
+    display: flex;
+}
+.title h2 {
+    margin-left: 50px;
+}
+.ant-row {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.editeForm{
+    display: flex;
+}
+.leftDivEditeForm, .rightDivEditeForm{
+    width: 600px;
+}
+.rightDivEditeForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.ant-input{
+    width: 100%;
+}
+.ant-form-item-label{
+    align-items: flex-start;
+}
+.ant-col{
+    margin-top: 10px;
+}

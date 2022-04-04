@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Input, Space, Popover } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
 import styles from './CollapsePanel.module.css';
@@ -7,9 +8,11 @@ const { Search } = Input;
 
 const CollapsePanel = ({propsCollapse}) =>{    
 
+    const navigate = useNavigate();
+
     const { 
             disabled, buttonText, tableLength, searchChange, 
-            deleteSelected, reload, create, searchParams,
+            deleteSelected, reload, searchParams,
         } = propsCollapse;
 
 
@@ -49,7 +52,7 @@ const CollapsePanel = ({propsCollapse}) =>{
                     </Button>
                 }
 
-                <Button type="primary" className={styles.btn} onClick={() => create()}>
+                <Button type="primary" className={styles.btn} onClick={() => navigate('create')}>
                     {buttonText}
                 </Button>
             </div>
