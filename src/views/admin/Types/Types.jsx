@@ -1,27 +1,63 @@
-import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-import { Button, Popover } from 'antd';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams, createSearchParams, useNavigate } from "react-router-dom";
+import { Button, Popover, Avatar } from 'antd';
+import { DeleteOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
+import moment from 'moment';
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
+import { deleteSelectedType, deleteType, getTypes } from "../../../store/adminStore/types/typesActions";
 import styles from '../Admin.module.css';
+
 
 
 
 const Types = () =>{
 
-    const rows = useSelector(state => state.adminData.typeList);
+    const data = useSelector(state => state.adminData);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    console.log(data.typeList);
 
     // useState
     const [disabled, setDisablet] = useState(true);
     const [searchValue, setSearchValue] = useState('');
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [page, setPage] = useState(1);
 
-
-     // useCallback
-     const reload = useCallback(() => {
-        console.log('reload');
+    useEffect(() =>{
+        if(searchParams.get('page')) setPage(searchParams.get('page'));
+        if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
     }, []);
+
+    const getData = () =>{
+        setSearchParams(
+            createSearchParams({
+                page: page,
+                search: searchValue,
+            })
+        );
+
+        const url = `?search=${searchValue}&page=${page}&limit=${7}&`;
+
+        dispatch(getTypes(url));
+    }
+
+    useEffect(() =>{
+        let timeout = setTimeout(() =>{
+            getData();
+        }, 100)
+        return () =>{
+            clearTimeout(timeout)
+        }
+    }, [page, searchValue]);
+
+
+     const reload = () =>{
+        getData();
+     }
 
     const selectedElement = useCallback((selectedRowKeys) =>{
         setSelectedRowKeys(selectedRowKeys);
@@ -29,17 +65,27 @@ const Types = () =>{
     }, []);
 
     const searchChange = useCallback((value) =>{
-        setSearchValue(value);
+        setSearchValue(prev =>{
+            if(prev !== value) {
+                setPage(1);
+                return value
+            }
+            return prev;
+        });
     }, []);
 
-    const hendleForm = useCallback(() =>{
-        console.log('add');
-    }, []);
+    const pageChange = (page) =>{
+        setPage(page)
+    }
 
-    const dleteElement = useCallback(() =>{
-        console.log('delete');
-    }, []);
+    const dleteElement = (id) =>{
+        dispatch(deleteType(id));
+        getData();
+    }
 
+    const deleteSelected = () =>{
+        dispatch(deleteSelectedType(selectedRowKeys))
+    }
 
     const columns = [
         { 
@@ -48,10 +94,10 @@ const Types = () =>{
             fixed: 'left',  
             render: record => (
                 <>
-                  {record.image ? 
-                        <div style={{backgroundImage: `url(${record.image})`}} className={styles.img}/> 
-                        : 
-                        <div className={styles.avatarName}>{record.name[0]}</div>
+                    { record.image.url ? 
+                         <div style={{backgroundImage: `url(${record.image.url})`}} className={styles.userImg}/> 
+                         : 
+                         <Avatar size={70} icon={<UserOutlined />} />
                     }
                 </>
             )
@@ -71,8 +117,8 @@ const Types = () =>{
             sorter: (a, b) => a.age - b.age,
             width: 150,
             render: (record) => (
-                <Popover content={record.date} className={styles.textPopover}>
-                    {record.date}
+                <Popover content={moment(record.createdAt).format('llll')} className={styles.textPopover}>
+                    {moment(record.createdAt).format('LL')}
                 </Popover>
             )
         },
@@ -83,10 +129,10 @@ const Types = () =>{
           render: (record) =>{
             return (
               <div className={styles.renderDiv}>
-                <Button type="primary" className={styles.btn}>
+                <Button type="primary" className={styles.btn} onClick={() => navigate(`edite/${record._id}`)}>
                     <EditOutlined /> Edite
                 </Button>
-                <Button type="primary" danger className={styles.btn}>
+                <Button type="primary" danger className={styles.btn} onClick={() => dleteElement(record._id)}>
                     <DeleteOutlined />  Delete
                 </Button>
               </div>
@@ -96,16 +142,26 @@ const Types = () =>{
     ];
       
     // propsComponents
-    const propsTable = { columns, rows, selection: true, selectedElement };
+    const propsTable = { 
+        columns,
+        rows: data.typeList,
+        selection: true,
+        page,
+        dataCount: data.typeListCount,
+        selectedRowKeys,
+        selectedElement,
+        pageChange,
+    };
+
     const propsCollapse = { 
-            disabled, 
-            buttonText: '+ Add Type',
-            tableLength: `${rows.length}  Types`,
-            reload,
-            searchChange,
-            hendleForm,
-            dleteElement,
-        };
+        disabled, 
+        buttonText: '+ Add Type',
+        tableLength: `${data.typeListCount} Types`,
+        searchParams,
+        reload,
+        searchChange,
+        deleteSelected,
+    };
 
     return (
         <div >

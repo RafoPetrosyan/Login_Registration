@@ -31,7 +31,7 @@ const EditeUser = () =>{
         setTimeout(() => {
           onSuccess("ok");
         }, 0);
-      };
+    };
 
     const onChangeImage = ({ fileList: newFileList }) => {
       setFileList(newFileList);
@@ -141,18 +141,18 @@ const EditeUser = () =>{
                     </Form.Item>
 
                     <Form.Item label="Uload image" name={['data', 'imageOptions']}>
-                    <ImgCrop rotate >
-                        <Upload 
-                            listType="picture-card"
-                            fileList={fileList}
-                            onChange={onChangeImage}
-                            // onPreview={onPreview}
-                            customRequest={dummyRequest}      
-                        >
-                            {fileList.length < 1 && '+ Upload'}
-                        </Upload>
-                    </ImgCrop>
-                </Form.Item>
+                        <ImgCrop rotate >
+                            <Upload 
+                                listType="picture-card"
+                                fileList={fileList}
+                                onChange={onChangeImage}
+                                // onPreview={onPreview}
+                                customRequest={dummyRequest}      
+                            >
+                                {fileList.length < 1 && '+ Upload'}
+                            </Upload>
+                        </ImgCrop>
+                    </Form.Item>
 
                     <Form.Item>
                         <Button htmlType="reset" onClick={() => navigate(-1)}>

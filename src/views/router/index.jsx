@@ -26,6 +26,7 @@ import NoMatch from "../noMatch/NoMatch";
 import EditeAndCreateEvent from "../admin/Events/EditeAndCreate/EditeAndCreate";
 import AddUser from "../admin/Users/EditeAndAdd/AddUser";
 import EditeUser from "../admin/Users/EditeAndAdd/EditeUser";
+import EditeAndCreateTypes from "../admin/Types/EditeAndCreate/EditeAndCreateTypes";
 
 
 const RouterView = () =>{
@@ -73,7 +74,11 @@ const RouterView = () =>{
                         <Route path=":id" element={<EditeUser/>}/> 
                     </Route>
                     {/* Types */}
-                    <Route path="types" element={<Types/>}/> 
+                    <Route path="types" element={<Types/>}/>
+                    <Route path="types/create" element={<EditeAndCreateTypes/>}/>
+                    <Route path="types/edite">
+                        <Route path=":id" element={<EditeAndCreateTypes/>}/>
+                    </Route>
                     {/* Support */}
                     <Route path="support" element={<Support/>}/>
                     {/* Reports */}
