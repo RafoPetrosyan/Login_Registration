@@ -131,13 +131,13 @@ const ReportEvents = () =>{
         }
         },
 ];
-
+    console.log(data.tableCount);
    
     const propsTable = { 
         columns, 
         page,
         rows: data.reportEvents,
-        dataCount: 0, 
+        dataCount: data.tableCount, 
         selection: true, 
         selectedRowKeys,
         pageChange,
@@ -152,7 +152,7 @@ const ReportEvents = () =>{
                         <SyncOutlined className={styles.reloadIcon}/>    
                     </div>
                 </Popover>
-                <div className={styles.quantity}>{data.reportEventsCount} Report</div>
+                <div className={styles.quantity}>{data.tableCount} Report</div>
             </div>
             <div className={styles.table}>
                 <AdminTable propsTable={propsTable}/>

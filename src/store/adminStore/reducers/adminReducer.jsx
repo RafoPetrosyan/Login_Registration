@@ -1,28 +1,25 @@
-import { SET_CURRENT_ADMIN, SET_EDITE_EVENT, SET_EVENTS } from "../actions/eventActions";
+import { SET_EDITE_EVENT, SET_EVENTS } from "../actions/eventActions";
 import { SET_REPORTS_COMMENT } from "../actions/reportCommentActions";
 import { SET_REPORT_EVENTS } from "../actions/reportEventActions";
 import { SET_REPORTS, SET_REPORTS_BY_ID } from "../actions/reportActions";
 import { SET_EDITE_TYPE, SET_TYPES } from "../actions/typesActions";
 import { SET_USERS } from "../actions/usersActions";
+import { SET_CURRENT_ADMIN, SET_TABLE_COUNT } from "../actions/mainActions";
 
 const initialState = {
 
     currentAdmin: null,
     eventsList: null,
-    eventsListCount: 0,
     editeEvent: null,
     userList: null,
-    usersListCount: 0,
     typeList: null,
-    typeListCount: 0,
     editeType: null,
     reportMessages: null,
     reportsById: null,
     reportUsers: null,
     reportEvents: null,
-    reportEventsCount: 0,
     reportComments: null,
-    reportCommentsCount: 0
+    tableCount: 0,
       
 }
 
@@ -35,11 +32,16 @@ export const adminReducer = (state = initialState, action) =>{
                 currentAdmin: action.payload
             }
 
+        case SET_TABLE_COUNT:
+            return {
+                ...state,
+                tableCount: action.payload
+            }
+
         case SET_EVENTS:
             return {
                 ...state,
-                eventsList: action.payload.eventList,
-                eventsListCount: action.payload.dataCount
+                eventsList: action.payload,
             }
           
         case SET_EDITE_EVENT:
@@ -51,15 +53,13 @@ export const adminReducer = (state = initialState, action) =>{
         case SET_USERS:
             return {
                 ...state,
-                userList: action.payload.list,
-                usersListCount: action.payload.dataCount
+                userList: action.payload,
             }
 
         case SET_TYPES:
             return {
                 ...state,
-                typeList: action.payload.types,
-                typeListCount: action.payload.dataCount
+                typeList: action.payload,
             }
 
         case SET_EDITE_TYPE:
@@ -83,15 +83,13 @@ export const adminReducer = (state = initialState, action) =>{
         case SET_REPORT_EVENTS:
               return {
                 ...state,
-                reportEvents: action.payload.reportEvents,
-                reportEventsCount: action.payload.dataCount
+                reportEvents: action.payload,
             }
         
         case SET_REPORTS_COMMENT:
               return {
                 ...state,
-                reportComments: action.payload.reportComments,
-                reportCommentsCount: action.payload.dataCount
+                reportComments: action.payload,
             }
 
         default:

@@ -197,7 +197,7 @@ const Users = () =>{
         selection: true, 
         page, 
         selectedRowKeys,
-        dataCount: data.usersListCount,
+        dataCount: data.tableCount,
         pageChange, 
         selectedElement
     };
@@ -206,7 +206,7 @@ const Users = () =>{
             searchParams,
             disabled, 
             buttonText: '+ Add User',
-            tableLength: `${data.usersListCount}  Users`,
+            tableLength: `${data.tableCount}  Users`,
             selectedRowKeys,
             reload,
             searchChange,

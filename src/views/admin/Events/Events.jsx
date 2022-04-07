@@ -244,7 +244,7 @@ const Events = () => {
         columns, 
         rows: data.eventsList, 
         selection: true, 
-        dataCount: data.eventsListCount,
+        dataCount: data.tableCount,
         page, 
         selectedRowKeys,
         selectedElement,
@@ -254,7 +254,7 @@ const Events = () => {
     const propsCollapse = { 
         disabled, 
         buttonText: '+ Add Event',
-        tableLength: `${data.eventsListCount}  Events`,
+        tableLength: `${data.tableCount}  Events`,
         searchParams,
         reload,
         searchChange,

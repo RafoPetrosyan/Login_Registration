@@ -103,7 +103,7 @@ const ReportComments = () =>{
         columns, 
         page,
         rows: data.reportComments,
-        dataCount: data.reportCommentsCount, 
+        dataCount: data.tableCount, 
         selection: false, 
         selectedRowKeys: [],
         pageChange,
@@ -117,7 +117,7 @@ const ReportComments = () =>{
                         <SyncOutlined className={styles.reloadIcon}/>    
                     </div>
                 </Popover>
-                <div className={styles.quantity}>{data.reportCommentsCount} Report</div>
+                <div className={styles.quantity}>{data.tableCount} Report</div>
             </div>
             <div className={styles.table}>
                 <AdminTable propsTable={propsTable}/>

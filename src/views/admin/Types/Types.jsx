@@ -19,8 +19,6 @@ const Types = () =>{
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
 
-    console.log(data.typeList);
-
     // useState
     const [disabled, setDisablet] = useState(true);
     const [searchValue, setSearchValue] = useState('');
@@ -147,7 +145,7 @@ const Types = () =>{
         rows: data.typeList,
         selection: true,
         page,
-        dataCount: data.typeListCount,
+        dataCount: data.tableCount,
         selectedRowKeys,
         selectedElement,
         pageChange,
@@ -156,7 +154,7 @@ const Types = () =>{
     const propsCollapse = { 
         disabled, 
         buttonText: '+ Add Type',
-        tableLength: `${data.typeListCount} Types`,
+        tableLength: `${data.tableCount} Types`,
         searchParams,
         reload,
         searchChange,

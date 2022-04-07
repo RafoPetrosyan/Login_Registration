@@ -1,4 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { setTableCount } from '../actions/mainActions';
 import { 
     CREATE_TYPE,
     DELETE_SELECTED_TYPE,
@@ -15,7 +16,9 @@ import { createType, deleteSelectedType, deleteType, getTypeById, getTypes, upda
 function* workerGetTypes(action){
     try {
         const { dataCount, types } = yield call(getTypes, action.payload);
-        yield put(setTypes({dataCount, types}))
+        yield put(setTableCount(dataCount));
+        yield put(setTypes(types));
+        
     } catch (error) {
         console.log(error);
     }
