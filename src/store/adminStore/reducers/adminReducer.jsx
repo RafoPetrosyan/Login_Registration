@@ -1,4 +1,6 @@
 import { SET_CURRENT_ADMIN, SET_EDITE_EVENT, SET_EVENTS } from "../events/eventActions";
+import { SET_REPORTS_COMMENT } from "../reportComments/reportCommentActions";
+import { SET_REPORT_EVENTS } from "../reportEvents/reportEventActions";
 import { SET_REPORTS, SET_REPORTS_BY_ID } from "../reports/reportActions";
 import { SET_EDITE_TYPE, SET_TYPES } from "../types/typesActions";
 import { SET_USERS } from "../users/usersActions";
@@ -16,78 +18,12 @@ const initialState = {
     editeType: null,
     reportMessages: null,
     reportsById: null,
-    reportUsers: [
-      {
-        id: 1,
-        report: 'sdfsdg',
-        date: '02/03/22',
-        comment: 'sdfg',
-      },
-      {
-        id: 2,
-        report: 'sdfsdg',
-        date: '02/03/22',
-        comment: 'sdfghjgfdsfg',
-      },
-      {
-        id: 3,
-        report: 'sdfsdg',
-        date: '02/03/22',
-        comment: 'sdfghjgfdsfg',
-      },
-    ],
-    reportEvents: [
-      {
-        id: 1,
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsIlzGp1laQheiAAjrbJJ3pasHLjMBnIUEZg&usqp=CAU',
-        date: '02/03/22',
-        report: 'dfssvverdv',
-        description: 'fsdredfv',
-        title: 'sdfgxc',
-        location: 'sfddgbfg',
-
-      },
-      {
-        id: 2,
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsIlzGp1laQheiAAjrbJJ3pasHLjMBnIUEZg&usqp=CAU',
-        date: '02/03/22',
-        report: 'dfssvverdv',
-        description: 'fsdredfv',
-        title: 'sdfgxc',
-        location: 'sfddgbfg',
-
-      },
-      {
-        id: 3,
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsIlzGp1laQheiAAjrbJJ3pasHLjMBnIUEZg&usqp=CAU',
-        date: '02/03/22',
-        report: 'dfssvverdv',
-        description: 'fsdredfv',
-        title: 'sdfgxc',
-        location: 'sfddgbfg',
-
-      },
-    ],
-    reportComments: [
-      {
-        id: 1,
-        report: 'Нарушение прав на интеллектуальную собственность',
-        comment: 'dsfgvds',
-        date: '03/03/22',
-      },
-      {
-        id: 2,
-        report: 'Нарушение прав на интеллектуальную собственность',
-        comment: null,
-        date: '03/03/22',
-      },
-      {
-        id: 3,
-        report: 'Нарушение прав на интеллектуальную собственность',
-        comment: null,
-        date: '03/03/22',
-      }
-    ],
+    reportUsers: null,
+    reportEvents: null,
+    reportEventsCount: 0,
+    reportComments: null,
+    reportCommentsCount: 0
+      
 }
 
 export const adminReducer = (state = initialState, action) =>{
@@ -142,7 +78,21 @@ export const adminReducer = (state = initialState, action) =>{
               return {
                 ...state,
                 reportsById: action.payload
-              }
+            }
+
+        case SET_REPORT_EVENTS:
+              return {
+                ...state,
+                reportEvents: action.payload.reportEvents,
+                reportEventsCount: action.payload.dataCount
+            }
+        
+        case SET_REPORTS_COMMENT:
+              return {
+                ...state,
+                reportComments: action.payload.reportComments,
+                reportCommentsCount: action.payload.dataCount
+            }
 
         default:
             return state;

@@ -1,20 +1,58 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams, createSearchParams } from "react-router-dom";
 import { Button, Popover } from 'antd';
 import { SyncOutlined, DeleteOutlined } from '@ant-design/icons';
+import moment from 'moment';
 import AdminTable from "../../AdminComponents/AdminTable/AdminTable";
-import 'antd/dist/antd.css';
+import { getReportsComment } from "../../../../store/adminStore/reportComments/reportCommentActions";
 import styles from '../Report.module.css';
 
 
 
 const ReportComments = () =>{
 
-    const rows = useSelector(state => state.adminData.reportComments);
+    const data = useSelector(state => state.adminData);
+    const dispatch = useDispatch();
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [page, setPage] = useState(1);
+
+    useEffect(() =>{
+        if(searchParams.get('page')) setPage(searchParams.get('page'));
+    }, []);
+
+    const getData = () =>{
+        setSearchParams(
+            createSearchParams({
+                page: page,
+            })
+        );
+        const url = `?page=${page}&limit=${7}&`;
+
+        dispatch(getReportsComment(url))
+    }
+
+    useEffect(() =>{
+        let timeout = setTimeout(() =>{
+            getData();
+        }, 100);
+
+        return () =>{
+            clearTimeout(timeout);
+        }
+    }, [page]);
     
     const hendleReload = () =>{
         console.log('reload');
     }
+
+    const pageChange = (page) =>{
+        setPage(page)
+    }
+
+    
+    console.log(data.reportComments);
 
     const columns = [
         { 
@@ -22,8 +60,8 @@ const ReportComments = () =>{
             width: 200,
             fixed: 'left',  
             render: (record) => (
-                <Popover content={record.report} className={styles.textPopover}>
-                    {record.report.substring(0, 28) + '...'}
+                <Popover content={record.content} className={styles.textPopover}>
+                    {record.content.substring(0, 28) + '...'}
                 </Popover>
             )
         },
@@ -36,8 +74,8 @@ const ReportComments = () =>{
             title: 'Date', 
             width: 150,
             render: (record) => (
-                <Popover content={record.date} className={styles.textPopover}>
-                    {record.date}
+                <Popover content={moment(record.createdAt).format('llll')} className={styles.textPopover}>
+                    {moment(record.createdAt).format('LL')}
                 </Popover>
             )
         },
@@ -61,7 +99,15 @@ const ReportComments = () =>{
     ];
       
 
-    const propsTable = { columns, rows };
+    const propsTable = { 
+        columns, 
+        page,
+        rows: data.reportComments,
+        dataCount: data.reportCommentsCount, 
+        selection: false, 
+        selectedRowKeys: [],
+        pageChange,
+    };
 
     return (
         <div className={styles.main}>
@@ -71,7 +117,7 @@ const ReportComments = () =>{
                         <SyncOutlined className={styles.reloadIcon}/>    
                     </div>
                 </Popover>
-                <div className={styles.quantity}>{rows.length} Report</div>
+                <div className={styles.quantity}>{data.reportCommentsCount} Report</div>
             </div>
             <div className={styles.table}>
                 <AdminTable propsTable={propsTable}/>

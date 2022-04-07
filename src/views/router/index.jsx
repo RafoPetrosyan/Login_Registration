@@ -96,7 +96,7 @@ const RouterView = () =>{
             </Route>
 
 
-             <Route path="*" element={<NoMatch/>}/> 
+             <Route path="/*" element={<NoMatch/>}/> 
         </Routes>
         </>
     )

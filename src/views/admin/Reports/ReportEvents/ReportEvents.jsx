@@ -1,18 +1,48 @@
-import React, { useCallback, useState } from "react";
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams, createSearchParams } from "react-router-dom";
 import { Button, Popover } from 'antd';
 import { SyncOutlined, DeleteOutlined } from '@ant-design/icons';
+import moment from "moment";
 import AdminTable from "../../AdminComponents/AdminTable/AdminTable";
-import 'antd/dist/antd.css';
+import { approveReportEvent, getreportEvents } from "../../../../store/adminStore/reportEvents/reportEventActions";
 import styles from '../Report.module.css';
 
 
 
 const ReportEvents = () =>{
 
-    const rows = useSelector(state => state.adminData.reportEvents);
+    const data = useSelector(state => state.adminData);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const dispatch = useDispatch();
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [page, setPage] = useState(1);
+
+    useEffect(() =>{
+        if(searchParams.get('page')) setPage(searchParams.get('page'));
+    }, []);
+    
+    const getData = () =>{
+        setSearchParams(
+            createSearchParams({
+                page: page,
+            })
+        );
+        const url = `?page=${page}&limit=${7}&`;
+
+        dispatch(getreportEvents(url));
+    }
+
+    useEffect(() =>{
+        let timeout = setTimeout(() =>{
+            getData();
+        }, 100);
+
+        return () =>{
+            clearTimeout(timeout);
+        }
+    }, [page]);
 
     const selectedElement = useCallback((selectedRowKeys) =>{
         setSelectedRowKeys(selectedRowKeys);
@@ -21,6 +51,15 @@ const ReportEvents = () =>{
     const hendleReload = () =>{
         console.log('reload');
     }
+
+    const pageChange = (page) =>{
+        setPage(page)
+    }
+
+    const approve = (record) =>{
+        dispatch(approveReportEvent({type: record.event.type, id: record._id}))
+    }
+
         
     const columns = [
         { 
@@ -28,22 +67,22 @@ const ReportEvents = () =>{
             width: 160,
             fixed: 'left',  
             render: (record) => (
-                <Popover content={record.report} className={styles.textPopover}>
-                    {record.report}
+                <Popover content={record.content} className={styles.textPopover}>
+                    {record.content}
                 </Popover>
             )
         },
         { 
             title: 'image', 
             width: 150,
-            render: (record) => <img src={record.image} className={styles.img}/>
+            render: (record) => <img src={record.event.image[0].url} className={styles.img}/>
         },
         { 
             title: 'Description', 
             width: 150,
             render: (record) => (
-                <Popover content={record.description} className={styles.textPopover}>
-                    {record.description}
+                <Popover content={record.event.description} className={styles.textPopover}>
+                    {record.event.description}
                 </Popover>
             ) 
         },
@@ -51,8 +90,8 @@ const ReportEvents = () =>{
             title: 'Title', 
             width: 150,
             render: (record) => (
-                <Popover content={record.title} className={styles.textPopover}>
-                    {record.title}
+                <Popover content={record.event.title} className={styles.textPopover}>
+                    {record.event.title}
                 </Popover>
             )
         },
@@ -60,8 +99,8 @@ const ReportEvents = () =>{
             title: 'Date', 
             width: 150,
             render: (record) => (
-                <Popover content={record.date} className={styles.textPopover}>
-                    {record.date}
+                <Popover content={moment(record.event.createdAt).format('llll')} className={styles.textPopover}>
+                    {moment(record.event.createdAt).format('LL')}
                 </Popover>
             )
         },
@@ -69,8 +108,8 @@ const ReportEvents = () =>{
             title: 'Location', 
             width: 150,
             render: (record) => (
-                <Popover content={record.location} className={styles.textPopover}>
-                    {record.location}
+                <Popover content={record.event.location.name} className={styles.textPopover}>
+                    {`${record.event.location.name.substring(0, 15)}...`}
                 </Popover>
             )
         },
@@ -81,7 +120,7 @@ const ReportEvents = () =>{
         render: (record) =>{
             return (
             <div className={styles.renderDiv}>
-                <Button type="primary" className={styles.btn}>
+                <Button type="primary" className={styles.btn} onClick={() => approve(record)}>
                     Confirm
                 </Button>
                 <Button type="primary" danger className={styles.btn}>
@@ -94,7 +133,16 @@ const ReportEvents = () =>{
 ];
 
    
-    const propsTable = { columns, rows, selection: true, selectedElement };
+    const propsTable = { 
+        columns, 
+        page,
+        rows: data.reportEvents,
+        dataCount: 0, 
+        selection: true, 
+        selectedRowKeys,
+        pageChange,
+        selectedElement 
+    };
 
     return (
         <div className={styles.reportEvents}>
@@ -104,7 +152,7 @@ const ReportEvents = () =>{
                         <SyncOutlined className={styles.reloadIcon}/>    
                     </div>
                 </Popover>
-                <div className={styles.quantity}>{rows.length} Report</div>
+                <div className={styles.quantity}>{data.reportEventsCount} Report</div>
             </div>
             <div className={styles.table}>
                 <AdminTable propsTable={propsTable}/>

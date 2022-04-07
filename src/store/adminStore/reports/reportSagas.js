@@ -43,4 +43,5 @@ export function* watcherAdminReports(){
     yield takeEvery(GET_REPORTS_BY_ID, workerGetReportsById)
     yield takeEvery(EDITE_REPORTS, workerEditeReports)
     yield takeEvery(DELETE_REPORT, workerDeleteReport)
+    
 }

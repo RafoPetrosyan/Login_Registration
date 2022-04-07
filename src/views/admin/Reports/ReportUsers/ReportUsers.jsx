@@ -12,14 +12,17 @@ import styles from '../Report.module.css';
 
 const ReportUsers = () =>{
 
-    const rows = useSelector(state => state.adminData.reportUsers);
-
+    const data = useSelector(state => state.adminData);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [page, setPage] = useState(1);
 
     const selectedElement = useCallback((selectedRowKeys) =>{
         setSelectedRowKeys(selectedRowKeys);
     }, []);
 
+    const pageChange = (page) =>{
+        setPage(page)
+    }
 
     const hendleReload = () =>{
         console.log('reload');
@@ -66,7 +69,16 @@ const ReportUsers = () =>{
     ];
  
     // propsComponents
-    const propsTable = { columns, rows, selection: true, selectedElement };
+    const propsTable = { 
+        columns, 
+        page,
+        rows: data.reportUsers,
+        dataCount: 0, 
+        selection: true, 
+        selectedRowKeys,
+        pageChange,
+        selectedElement 
+    };
 
     return (
         <div className={styles.main}>
@@ -76,7 +88,7 @@ const ReportUsers = () =>{
                         <SyncOutlined className={styles.reloadIcon}/>    
                     </div>
                 </Popover>
-                <div className={styles.quantity}>{rows.length} Report</div>
+                <div className={styles.quantity}>0 Report</div>
             </div>
             <div className={styles.table}>
                 <AdminTable propsTable={propsTable}/>
