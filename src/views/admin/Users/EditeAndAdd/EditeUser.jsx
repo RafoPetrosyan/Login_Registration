@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { editeUser } from "../../../../store/adminStore/actions/usersActions";
 import { Form, Input, Button, Radio, Upload } from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
-import { editeUser } from "../../../../store/adminStore/users/usersActions";
 import './styles.css';
 
 const { TextArea } = Input;

@@ -5,7 +5,7 @@ import { Button, Popover } from 'antd';
 import { SyncOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import AdminTable from "../../AdminComponents/AdminTable/AdminTable";
-import { getReportsComment } from "../../../../store/adminStore/reportComments/reportCommentActions";
+import { getReportsComment } from "../../../../store/adminStore/actions/reportCommentActions";
 import styles from '../Report.module.css';
 
 

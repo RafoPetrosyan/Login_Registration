@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { GET_REPORTS_COMMENT, setReportsComment } from './reportCommentActions';
-import { getReportComments } from './reportCommentsApi';
+import { GET_REPORTS_COMMENT, setReportsComment } from '../actions/reportCommentActions';
+import { getReportComments } from '../api/reportCommentsApi';
 
 
 function* worketGetReportComments(action){

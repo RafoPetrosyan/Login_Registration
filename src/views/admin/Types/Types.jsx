@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, createSearchParams, useNavigate } from "react-router-dom";
 import { Button, Popover, Avatar } from 'antd';
 import { DeleteOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
-import moment from 'moment';
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
-import { deleteSelectedType, deleteType, getTypes } from "../../../store/adminStore/types/typesActions";
+import { deleteSelectedType, deleteType, getTypes } from "../../../store/adminStore/actions/typesActions";
+import moment from 'moment';
 import styles from '../Admin.module.css';
 
 

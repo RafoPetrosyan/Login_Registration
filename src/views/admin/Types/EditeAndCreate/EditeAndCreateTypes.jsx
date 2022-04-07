@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { 
+    createType, getTypeById, setEditeType, updateType 
+} from "../../../../store/adminStore/actions/typesActions";
 import { Form, Input, Button, Upload } from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
 import './styles.css';
-import { createType, getTypeById, setEditeType, updateType } from "../../../../store/adminStore/types/typesActions";
 
 
 

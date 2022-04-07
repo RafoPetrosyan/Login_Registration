@@ -1,6 +1,15 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { CREATE_TYPE, DELETE_SELECTED_TYPE, DELETE_TYPE, GET_TYPES, GET_TYPE_BY_ID, setEditeType, setTypes, UPDATE_TYPE } from './typesActions';
-import { createType, deleteSelectedType, deleteType, getTypeById, getTypes, updateType } from './typesApi';
+import { 
+    CREATE_TYPE,
+    DELETE_SELECTED_TYPE,
+    DELETE_TYPE,
+    GET_TYPES,
+    GET_TYPE_BY_ID, 
+    setEditeType, 
+    setTypes, 
+    UPDATE_TYPE 
+} from '../actions/typesActions';
+import { createType, deleteSelectedType, deleteType, getTypeById, getTypes, updateType } from '../api/typesApi';
 
 
 function* workerGetTypes(action){

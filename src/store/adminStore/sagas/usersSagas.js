@@ -6,8 +6,8 @@ import {
     DELETE_USER,
     EDITE_USER,
     GET_USERS, setUsers 
-} from './usersActions';
-import { addUser, deleteSelected, deleteUser, editeUser, getUsers } from './usersApi';
+} from '../actions/usersActions';
+import { addUser, deleteSelected, deleteUser, editeUser, getUsers } from '../api/usersApi';
 
 
 function* workerGetUsers(action){

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../../../../store/adminStore/users/usersActions";
+import { addUser } from "../../../../store/adminStore/actions/usersActions";
 import { Form, Input, Button } from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import './styles.css';

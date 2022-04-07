@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Button, Space, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import { edteReports, getReportsById, setReportsById } from "../../../../../store/adminStore/reports/reportActions";
+import {
+    edteReports, getReportsById, setReportsById 
+} from "../../../../../store/adminStore/actions/reportActions";
 import { useForm } from "antd/lib/form/Form";
 import './style.css';
 

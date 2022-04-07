@@ -1,6 +1,13 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { DELETE_REPORT, EDITE_REPORTS, GET_REPORTS, GET_REPORTS_BY_ID, setReports, setReportsById } from './reportActions';
-import { deleteReport, editeReports, getReports, getReportsById } from './reportApi';
+import { 
+    DELETE_REPORT,
+    EDITE_REPORTS, 
+    GET_REPORTS, 
+    GET_REPORTS_BY_ID, 
+    setReports, 
+    setReportsById 
+} from '../actions/reportActions';
+import { deleteReport, editeReports, getReports, getReportsById } from '../api/reportApi';
 
 function* workerGetReports(){
     try {

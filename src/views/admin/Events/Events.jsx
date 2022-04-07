@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
-import { deleteEvent, deleteSelectedEvent, getEvents } from "../../../store/adminStore/events/eventActions";
+import { deleteEvent, deleteSelectedEvent, getEvents } from "../../../store/adminStore/actions/eventActions";
 import { Collapse, DatePicker, Space, Select, Button, Popover } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";

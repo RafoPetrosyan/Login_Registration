@@ -1,6 +1,10 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { APPROVE_REPORT_EVENT, GET_REPORT_EVENTS, setReportEvents } from './reportEventActions';
-import { approveReportEvent, getReportsEvents } from './reportEventApi';
+import { 
+    APPROVE_REPORT_EVENT, 
+    GET_REPORT_EVENTS, 
+    setReportEvents 
+} from '../actions/reportEventActions';
+import { approveReportEvent, getReportsEvents } from '../api/reportEventApi';
 
 
 function* workerGetReportEvents(action){

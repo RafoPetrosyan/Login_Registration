@@ -15,7 +15,7 @@ import {
     DELETE_EVENT,
     DELETE_SELECTED_EVENT
 
-} from './eventActions';
+} from '../actions/eventActions';
 
 import { 
     createEvent,
@@ -27,7 +27,7 @@ import {
     loginAdmin, 
     updateEvent 
 
-} from './eventsApi';
+} from '../api/eventsApi';
 
 
 

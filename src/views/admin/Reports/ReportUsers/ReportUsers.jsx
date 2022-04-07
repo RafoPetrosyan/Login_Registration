@@ -4,12 +4,9 @@ import { Button, Popover } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import AdminTable from "../../AdminComponents/AdminTable/AdminTable";
-import 'antd/dist/antd.css';
 import styles from '../Report.module.css';
 
  
-
-
 const ReportUsers = () =>{
 
     const data = useSelector(state => state.adminData);

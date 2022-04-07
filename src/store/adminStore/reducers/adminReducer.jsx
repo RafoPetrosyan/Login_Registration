@@ -1,9 +1,9 @@
-import { SET_CURRENT_ADMIN, SET_EDITE_EVENT, SET_EVENTS } from "../events/eventActions";
-import { SET_REPORTS_COMMENT } from "../reportComments/reportCommentActions";
-import { SET_REPORT_EVENTS } from "../reportEvents/reportEventActions";
-import { SET_REPORTS, SET_REPORTS_BY_ID } from "../reports/reportActions";
-import { SET_EDITE_TYPE, SET_TYPES } from "../types/typesActions";
-import { SET_USERS } from "../users/usersActions";
+import { SET_CURRENT_ADMIN, SET_EDITE_EVENT, SET_EVENTS } from "../actions/eventActions";
+import { SET_REPORTS_COMMENT } from "../actions/reportCommentActions";
+import { SET_REPORT_EVENTS } from "../actions/reportEventActions";
+import { SET_REPORTS, SET_REPORTS_BY_ID } from "../actions/reportActions";
+import { SET_EDITE_TYPE, SET_TYPES } from "../actions/typesActions";
+import { SET_USERS } from "../actions/usersActions";
 
 const initialState = {
 

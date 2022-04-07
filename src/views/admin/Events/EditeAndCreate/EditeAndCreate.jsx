@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Select, Button, DatePicker, Slider, Upload } from 'antd';
 import moment from 'moment';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { createEvent, getEditeEvent, setEditeEvent, updateEvent } from '../../../../store/adminStore/events/eventActions';
+import { createEvent, getEditeEvent, setEditeEvent, updateEvent } from '../../../../store/adminStore/actions/eventActions';
 import ImgCrop from 'antd-img-crop';
 import './EditeAndCreate.css';
 

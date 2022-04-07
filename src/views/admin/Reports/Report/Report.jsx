@@ -5,7 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { Table, Button, Popover } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { deleteReport, getReports } from "../../../../store/adminStore/reports/reportActions";
+import { deleteReport, getReports } from "../../../../store/adminStore/actions/reportActions";
 import styles from '../Report.module.css';
 
 

@@ -2,8 +2,8 @@ import React from "react";
 import styles from './AdminHeader.module.css';
 import { LogoutOutlined } from  '@ant-design/icons';
 import { useDispatch } from "react-redux";
-import { logauth } from "../../../../store/adminStore/events/eventActions";
 import { useNavigate } from "react-router-dom";
+import { logauth } from "../../../../store/adminStore/actions/eventActions";
 
 const AdminHeader = () =>{
 

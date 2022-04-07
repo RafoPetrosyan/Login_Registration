@@ -1,4 +1,4 @@
-import client from '../client';
+import client from "../client"
 
 export const loginAdmin = async (payload) => {
     const { data } = await client.post('user/loginAdminPanel', payload)

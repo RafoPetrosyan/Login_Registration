@@ -2,15 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, createSearchParams, useNavigate } from 'react-router-dom';
 import { Collapse, Switch, Button, Popover, Radio, Avatar } from 'antd';
-import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import { CloseCircleOutlined, CheckCircleTwoTone, DeleteOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
-import moment from 'moment';
-import { deleteSelectedUsers, deleteUser, DELETE_SELECTED, getUsers } from "../../../store/adminStore/users/usersActions";
+import { deleteSelectedUsers, deleteUser, DELETE_SELECTED, getUsers } from "../../../store/adminStore/actions/usersActions";
+import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
-import 'antd/dist/antd.css';
+import moment from 'moment';
 import styles from '../Admin.module.css';
-
-
 
 const { Panel } = Collapse;
 

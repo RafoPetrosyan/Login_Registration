@@ -3,7 +3,8 @@ import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { userReducer } from './userStore/reducers/userReducer';
 import { adminReducer } from './adminStore/reducers/adminReducer';
-import { watcherAll } from './watcherAll';
+import { watcherAll } from './adminStore/sagas/watcherAll';
+
 
 
 const rootReducer = combineReducers({
