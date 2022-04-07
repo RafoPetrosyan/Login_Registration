@@ -12,6 +12,7 @@ export const DELETE_EVENT = 'DELETE_EVENT';
 export const DELETE_SELECTED_EVENT = 'DELETE_SELECTED_EVENT';
 
 
+
 export const login = (payload) =>{
     return {
         type: LOGIN_ADMIN,

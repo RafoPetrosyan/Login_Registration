@@ -27,6 +27,7 @@ import EditeAndCreateEvent from "../admin/Events/EditeAndCreate/EditeAndCreate";
 import AddUser from "../admin/Users/EditeAndAdd/AddUser";
 import EditeUser from "../admin/Users/EditeAndAdd/EditeUser";
 import EditeAndCreateTypes from "../admin/Types/EditeAndCreate/EditeAndCreateTypes";
+import EditeAndCreateReport from "../admin/Reports/Report/EditeAndCreateReport/EditeAndCreateReport";
 
 
 const RouterView = () =>{
@@ -84,6 +85,9 @@ const RouterView = () =>{
                     {/* Reports */}
                     <Route path="reports" element={<Reports/>}>
                         <Route path="" element={<Report/>}/>
+                        <Route path="">
+                            <Route path=":id" element={<EditeAndCreateReport/>}/>
+                        </Route>
                         <Route path="users" element={<ReportUsers/>}/>
                         <Route path="events" element={<ReportEvents/>}/>
                         <Route path="comments" element={<ReportComments/>}/>

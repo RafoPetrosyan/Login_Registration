@@ -1,0 +1,56 @@
+/* .ant-btn.ant-btn-block{
+    width: 300px;
+} */
+.ant-form{
+    width: 550px;
+}
+
+.anticon svg {
+    display: flex;
+}
+.title{
+    display: flex;
+}
+.title h2 {
+    margin-left: 50px;
+}
+.ant-space-align-baseline{
+    display: flex;
+    align-items: center;
+}
+.delete{
+    margin-top: 23px;
+    font-size: 18px;
+}
+.delete:hover{
+    color: red;
+}
+
+.ant-form-item, .ant-form-item, .ant-form-item-control-input-content, .ant-btn.ant-btn-block, .ant-select{
+    width: 300px;
+}
+.addAndSelect{
+    width: 550px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.btnDiv{
+    width: 550px;
+    display: flex;
+    justify-content: flex-end;
+}
+.labelInputs{
+    width: 550px;
+    display: flex;
+    justify-content: space-around;
+}
+.addBtn{
+    margin-left: 10px;
+}
+.title{
+    display: flex;
+}
+.title h2 {
+    margin-left: 50px;
+}

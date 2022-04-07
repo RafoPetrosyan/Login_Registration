@@ -1,4 +1,5 @@
 import { SET_CURRENT_ADMIN, SET_EDITE_EVENT, SET_EVENTS } from "../events/eventActions";
+import { SET_REPORTS, SET_REPORTS_BY_ID } from "../reports/reportActions";
 import { SET_EDITE_TYPE, SET_TYPES } from "../types/typesActions";
 import { SET_USERS } from "../users/usersActions";
 
@@ -13,65 +14,8 @@ const initialState = {
     typeList: null,
     typeListCount: 0,
     editeType: null,
-    reportList: [
-      {
-        id: 1,
-        type: 'comments',
-        date: '02/03/22',
-        text: [
-          {
-            en: 'Nudity or sexual activity',
-            ru: 'Изображение обнаженного тела или действие сексуального характера',
-          },
-          {
-            en: 'Hostile language or symbols',
-            ru: 'Враждебные высказывание или символы',
-          },
-          {
-            en: 'Violence or dangerous organizations',
-            ru: 'Насилие или опасные организации',
-          },
-        ]
-      },
-      {
-        id: 2,
-        type: 'users',
-        date: '02/03/22',
-        text: [
-          {
-            en: 'asassssssssssssssssssssssssssssssss or sexual activity',
-            ru: 'Изображение обнаженного тела или действие сексуального характера',
-          },
-          {
-            en: 'Hostile language or symbols',
-            ru: 'Враждебные высказывание или символы',
-          },
-          {
-            en: 'Violence or dangerous organizations',
-            ru: 'Насилие или опасные организации',
-          }
-        ]
-      },
-      {
-        id: 3,
-        type: 'events',
-        date: '02/03/22',
-        text: [
-          {
-            en: 'Nudity or sexual activity',
-            ru: 'Изображение обнаженного тела или действие сексуального характера',
-          },
-          {
-            en: 'Hostile language or symbols',
-            ru: 'Враждебные высказывание или символы',
-          },
-          {
-            en: 'Violence or dangerous organizations',
-            ru: 'Насилие или опасные организации',
-          }
-        ]
-      },
-    ],
+    reportMessages: null,
+    reportsById: null,
     reportUsers: [
       {
         id: 1,
@@ -186,7 +130,19 @@ export const adminReducer = (state = initialState, action) =>{
             return {
                 ...state,
                 editeType: action.payload
-            }        
+            }   
+            
+        case SET_REPORTS:
+            return {
+                ...state,
+                reportMessages: action.payload
+            }
+
+        case SET_REPORTS_BY_ID:
+              return {
+                ...state,
+                reportsById: action.payload
+              }
 
         default:
             return state;

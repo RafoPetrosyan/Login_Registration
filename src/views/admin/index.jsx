@@ -6,11 +6,12 @@ import AdminHeader from "./AdminComponents/AdminHeader/AdminHeader";
 import 'antd/dist/antd.css';
 import styles from './index.module.css';
 
+
 const { Header, Content, Footer } = Layout;
 
   
 const Admin = () => {
-    
+
     return (
         <Layout>
 
