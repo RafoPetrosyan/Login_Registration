@@ -3,7 +3,6 @@ import {
     CREATE_EVENT, 
     GET_EVENTS,
     GET_EDITE_EVENT,
-    setEvents,
     setEditeEvent,
     UPDATE_EVENT,
     DELETE_EVENT,
@@ -21,14 +20,14 @@ import {
 
 } from '../api/eventsApi';
 
-import { setTableCount } from '../actions/mainActions';
+import { setTableCount, setTableList } from '../actions/mainActions';
 
 
 function* workerGetEvents(action) {
     try {
         const { eventList, dataCount } = yield call(events, action.payload);
         yield put(setTableCount(dataCount))
-        yield put(setEvents(eventList));
+        yield put(setTableList(eventList))
 
     } catch (error) {
         console.log(error);

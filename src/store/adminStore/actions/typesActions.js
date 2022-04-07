@@ -1,5 +1,4 @@
 export const GET_TYPES = 'GET_TYPES';
-export const SET_TYPES = 'SET_TYPES';
 export const GET_TYPE_BY_ID = 'GET_TYPE_BY_ID';
 export const SET_EDITE_TYPE = 'SET_EDITE_TYPE';
 export const UPDATE_TYPE = 'UPDATE_TYPE';
@@ -14,13 +13,6 @@ export const getTypes = (payload) =>{
         payload
     }
 }
-
-export const setTypes = (payload) =>{
-    return {
-        type: SET_TYPES,
-        payload
-    }
-} 
 
 export const getTypeById = (payload) =>{
     return {

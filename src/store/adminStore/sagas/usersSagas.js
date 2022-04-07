@@ -5,17 +5,18 @@ import {
     DELETE_SELECTED,
     DELETE_USER,
     EDITE_USER,
-    GET_USERS, setUsers 
+    GET_USERS, 
 } from '../actions/usersActions';
 import { addUser, deleteSelected, deleteUser, editeUser, getUsers } from '../api/usersApi';
-import { setTableCount } from '../actions/mainActions';
+import { setTableCount, setTableList } from '../actions/mainActions';
 
 
 function* workerGetUsers(action){
     try {
         const { list, dataCount } = yield call(getUsers, action.payload);
-        yield put(setTableCount(dataCount))
-        yield put(setUsers(list))
+        yield put(setTableCount(dataCount));
+        yield put(setTableList(list));
+
         
     } catch (error) {
         console.log(error);

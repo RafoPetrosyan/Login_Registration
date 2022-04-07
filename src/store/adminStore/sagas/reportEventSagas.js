@@ -1,9 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { setTableCount } from '../actions/mainActions';
+import { setTableCount, setTableList } from '../actions/mainActions';
 import { 
     APPROVE_REPORT_EVENT, 
-    GET_REPORT_EVENTS, 
-    setReportEvents 
+    GET_REPORT_EVENTS 
 } from '../actions/reportEventActions';
 import { approveReportEvent, getReportsEvents } from '../api/reportEventApi';
 
@@ -12,7 +11,7 @@ function* workerGetReportEvents(action){
     try {
       const { dataCount, reportEvents } = yield call(getReportsEvents, action.payload);
       yield put(setTableCount(dataCount));
-      yield put(setReportEvents(reportEvents));
+      yield put(setTableList(reportEvents));
     } catch (error) {
         console.log(error);
     }

@@ -1,13 +1,12 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { setTableCount } from '../actions/mainActions';
+import { setTableCount, setTableList } from '../actions/mainActions';
 import { 
     CREATE_TYPE,
     DELETE_SELECTED_TYPE,
     DELETE_TYPE,
     GET_TYPES,
     GET_TYPE_BY_ID, 
-    setEditeType, 
-    setTypes, 
+    setEditeType,  
     UPDATE_TYPE 
 } from '../actions/typesActions';
 import { createType, deleteSelectedType, deleteType, getTypeById, getTypes, updateType } from '../api/typesApi';
@@ -17,7 +16,7 @@ function* workerGetTypes(action){
     try {
         const { dataCount, types } = yield call(getTypes, action.payload);
         yield put(setTableCount(dataCount));
-        yield put(setTypes(types));
+        yield put(setTableList(types));
         
     } catch (error) {
         console.log(error);

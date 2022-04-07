@@ -8,10 +8,3 @@ export const getReportsComment = (payload) =>{
         payload
     }
 }
-
-export const setReportsComment = (payload) =>{
-    return {
-        type: SET_REPORTS_COMMENT,
-        payload
-    }
-}

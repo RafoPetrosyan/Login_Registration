@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, createSearchParams } from "react-router-dom";
 import { Button, Popover } from 'antd';
 import { SyncOutlined, DeleteOutlined } from '@ant-design/icons';
-import moment from 'moment';
 import AdminTable from "../../AdminComponents/AdminTable/AdminTable";
 import { getReportsComment } from "../../../../store/adminStore/actions/reportCommentActions";
+import moment from 'moment';
 import styles from '../Report.module.css';
+import { setTableList } from "../../../../store/adminStore/actions/mainActions";
 
 
 
@@ -20,6 +21,9 @@ const ReportComments = () =>{
 
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
+        return () =>{
+            dispatch(setTableList(null));
+        }
     }, []);
 
     const getData = () =>{
@@ -102,7 +106,7 @@ const ReportComments = () =>{
     const propsTable = { 
         columns, 
         page,
-        rows: data.reportComments,
+        rows: data.tableList,
         dataCount: data.tableCount, 
         selection: false, 
         selectedRowKeys: [],

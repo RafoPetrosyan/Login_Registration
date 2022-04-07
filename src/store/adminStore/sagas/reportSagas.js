@@ -1,10 +1,10 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { setTableList } from '../actions/mainActions';
 import { 
     DELETE_REPORT,
     EDITE_REPORTS, 
     GET_REPORTS, 
     GET_REPORTS_BY_ID, 
-    setReports, 
     setReportsById 
 } from '../actions/reportActions';
 import { deleteReport, editeReports, getReports, getReportsById } from '../api/reportApi';
@@ -12,7 +12,7 @@ import { deleteReport, editeReports, getReports, getReportsById } from '../api/r
 function* workerGetReports(){
     try {
         const { reportMessages } = yield call(getReports)
-        yield put(setReports(reportMessages))
+        yield put(setTableList(reportMessages))
     } catch (error) {
         console.log(error);
     }

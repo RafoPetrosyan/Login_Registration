@@ -6,8 +6,10 @@ import { CloseCircleOutlined, CheckCircleTwoTone, DeleteOutlined, EditOutlined, 
 import { deleteSelectedUsers, deleteUser, DELETE_SELECTED, getUsers } from "../../../store/adminStore/actions/usersActions";
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
+import { setTableList } from "../../../store/adminStore/actions/mainActions";
 import moment from 'moment';
 import styles from '../Admin.module.css';
+
 
 const { Panel } = Collapse;
 
@@ -31,9 +33,12 @@ const Users = () =>{
 
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
-        // if(searchParams.get('onlyInActive')) setOnlyInActive(searchParams.get('onlyInActive'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
         if(searchParams.get('date')) setDate(searchParams.get('date'));
+
+        return () =>{
+            dispatch(setTableList(null))
+        }
     }, []);
 
     const getData = () => {
@@ -193,7 +198,7 @@ const Users = () =>{
     // propsComponents
     const propsTable = { 
         columns,
-        rows: data.userList,
+        rows: data.tableList,
         selection: true, 
         page, 
         selectedRowKeys,

@@ -7,8 +7,10 @@ import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } 
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import Particpants from "../AdminComponents/Particpants/Particpants";
+import { setTableList } from "../../../store/adminStore/actions/mainActions";
 import moment from 'moment';
 import styles from '../Admin.module.css';
+
 
 const { Panel } = Collapse;
 const { RangePicker } = DatePicker;
@@ -39,6 +41,9 @@ const Events = () => {
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         if(searchParams.get('searchType')) setType(searchParams.get('searchType'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
+        return () =>{
+            dispatch(setTableList(null));
+        }
     }, []);
 
 
@@ -242,7 +247,7 @@ const Events = () => {
     // propsComponents
     const propsTable = { 
         columns, 
-        rows: data.eventsList, 
+        rows: data.tableList, 
         selection: true, 
         dataCount: data.tableCount,
         page, 

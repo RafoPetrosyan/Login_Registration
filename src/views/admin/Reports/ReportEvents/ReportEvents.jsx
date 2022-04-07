@@ -7,6 +7,7 @@ import moment from "moment";
 import AdminTable from "../../AdminComponents/AdminTable/AdminTable";
 import { approveReportEvent, getreportEvents } from "../../../../store/adminStore/actions/reportEventActions";
 import styles from '../Report.module.css';
+import { setTableList } from "../../../../store/adminStore/actions/mainActions";
 
 
 
@@ -21,6 +22,9 @@ const ReportEvents = () =>{
 
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
+        return () =>{
+            dispatch(setTableList(null));
+        }
     }, []);
     
     const getData = () =>{
@@ -136,7 +140,7 @@ const ReportEvents = () =>{
     const propsTable = { 
         columns, 
         page,
-        rows: data.reportEvents,
+        rows: data.tableList,
         dataCount: data.tableCount, 
         selection: true, 
         selectedRowKeys,

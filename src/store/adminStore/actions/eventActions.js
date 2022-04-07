@@ -1,6 +1,5 @@
 export const GET_EVENTS = 'GET_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
-export const SET_EVENTS = 'SET_EVENTS';
 export const GET_EDITE_EVENT = 'GET_EDITE_EVENT';
 export const SET_EDITE_EVENT = 'SET_EDITE_EVENT';
 export const UPDATE_EVENT = 'UPDATE_EVENT';
@@ -12,13 +11,6 @@ export const DELETE_SELECTED_EVENT = 'DELETE_SELECTED_EVENT';
 export const getEvents = (payload) =>{
     return {
         type: GET_EVENTS,
-        payload
-    }
-}
-
-export const setEvents = (payload) =>{
-    return {
-        type: SET_EVENTS,
         payload
     }
 }

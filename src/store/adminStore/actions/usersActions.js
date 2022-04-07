@@ -1,5 +1,4 @@
 export const GET_USERS = 'GET_USERS';
-export const SET_USERS = 'SET_USERS';
 export const ADD_USER = 'ADD_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const EDITE_USER = 'EDITE_USER';
@@ -9,13 +8,6 @@ export const DELETE_SELECTED = 'DELETE_SELECTED';
 export const getUsers = (payload) =>{
     return {
         type: GET_USERS,
-        payload
-    }
-}
-
-export const setUsers = (payload) =>{
-    return {
-        type: SET_USERS,
         payload
     }
 }

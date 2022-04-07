@@ -8,6 +8,7 @@ import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import { deleteSelectedType, deleteType, getTypes } from "../../../store/adminStore/actions/typesActions";
 import moment from 'moment';
 import styles from '../Admin.module.css';
+import { setTableList } from "../../../store/adminStore/actions/mainActions";
 
 
 
@@ -28,6 +29,9 @@ const Types = () =>{
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
+        return () =>{
+            dispatch(setTableList(null));
+        }
     }, []);
 
     const getData = () =>{
@@ -142,7 +146,7 @@ const Types = () =>{
     // propsComponents
     const propsTable = { 
         columns,
-        rows: data.typeList,
+        rows: data.tableList,
         selection: true,
         page,
         dataCount: data.tableCount,

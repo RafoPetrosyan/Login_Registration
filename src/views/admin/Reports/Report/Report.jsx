@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import _ from 'lodash';
-import moment from 'moment';
 import { Table, Button, Popover } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { deleteReport, getReports } from "../../../../store/adminStore/actions/reportActions";
+import _ from 'lodash';
+import moment from 'moment';
 import styles from '../Report.module.css';
+import { setTableList } from "../../../../store/adminStore/actions/mainActions";
 
 
 
 
 const Report = () =>{
 
-    const reportMessages = useSelector(state => state.adminData.reportMessages);
+    const reportMessages = useSelector(state => state.adminData.tableList);
     console.log(reportMessages);
     const [data, setData] = useState(null);
     const dispatch = useDispatch();
@@ -21,6 +22,9 @@ const Report = () =>{
 
     useEffect(() =>{
         dispatch(getReports())
+        return () =>{
+            dispatch(setTableList(null));
+        }
     }, []);
     
     useEffect(() =>{
