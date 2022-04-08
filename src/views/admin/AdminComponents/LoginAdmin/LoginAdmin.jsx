@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useInput } from "../../../../CustomHooks/useInput";
-import { login } from "../../../../store/adminStore/actions/mainActions";
+import { createAction } from "../../../../store/adminStore/actions/createAction";
+import { LOGIN_ADMIN } from "../../../../store/adminStore/actions/actionType";
 import styles from './LoginAdmin.module.css';
+
 
 const LoginAdmin = () =>{
 
@@ -19,7 +21,7 @@ const LoginAdmin = () =>{
             username: email.value,
             password: password.value,
         }
-        dispatch(login(loginObj))
+        dispatch(createAction(LOGIN_ADMIN, loginObj))
       
     }
 

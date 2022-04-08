@@ -2,12 +2,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Select, Button, DatePicker, Slider, Upload } from 'antd';
-import moment from 'moment';
+import { CREATE_EVENT, GET_EDITE_EVENT, UPDATE_EVENT, SET_EDITE_ITEM } from '../../../../store/adminStore/actions/actionType';
+import { createAction } from '../../../../store/adminStore/actions/createAction';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { createEvent, getEditeEvent, updateEvent } from '../../../../store/adminStore/actions/eventActions';
 import ImgCrop from 'antd-img-crop';
+import moment from 'moment';
 import './EditeAndCreate.css';
-import { setEditeItem } from '../../../../store/adminStore/actions/mainActions';
+
 
 const { Option } = Select;
 
@@ -102,7 +103,7 @@ const EditeAndCreateEvent = () =>{
     
 
     useEffect(() =>{
-        if(id) dispatch(getEditeEvent(id))
+        if(id) dispatch(createAction(GET_EDITE_EVENT, id))
     }, []);
 
     useEffect(() =>{
@@ -117,7 +118,7 @@ const EditeAndCreateEvent = () =>{
 
     const backEvent = () =>{
         if(editeEvent) {
-            dispatch(setEditeItem(null));
+            dispatch(createAction(SET_EDITE_ITEM, null));
             navigate(-2);
         }else{
             navigate(-1);
@@ -155,7 +156,7 @@ const EditeAndCreateEvent = () =>{
         values.data.imageCount = fileList.length;
         values.data.imageOptions = fileList[0] ? fileList[0] : {};
         // values.data.imageOptions = {};
-        dispatch(createEvent(JSON.stringify(values)));
+        dispatch(createAction(CREATE_EVENT, JSON.stringify(values)));
         console.log(values);
     };
 
@@ -165,7 +166,7 @@ const EditeAndCreateEvent = () =>{
         values.data.imageOptions = fileList[0] ? fileList[0] : {};
         values.data.deleteFiles = [''];
         console.log(values);
-        // dispatch(updateEvent({values, id: editeEvent._id}));
+        // dispatch(createAction(UPDATE_EVENT, {values, id: editeEvent._id}))
     }
 
     const fields = useMemo(() =>(

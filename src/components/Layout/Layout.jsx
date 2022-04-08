@@ -2,7 +2,6 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { Layout } from 'antd';
 import NavHeader from "../NavHeader/NavHeader";
-import 'antd/dist/antd.css';
 import styles from './Layout.module.css';
 
 const { Header, Content, Footer } = Layout;

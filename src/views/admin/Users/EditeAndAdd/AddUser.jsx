@@ -1,11 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../../../../store/adminStore/actions/usersActions";
+import { ADD_USER } from "../../../../store/adminStore/actions/actionType";
+import { createAction } from "../../../../store/adminStore/actions/createAction";
 import { Form, Input, Button } from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import './styles.css';
-
 
 
 
@@ -24,7 +24,7 @@ const AddUser = () =>{
         if(values.confirm !== values.password){
            setConfirm('');
         }else{
-            dispatch(addUser(values))
+            dispatch(createAction(ADD_USER, values))
         }
         
     };

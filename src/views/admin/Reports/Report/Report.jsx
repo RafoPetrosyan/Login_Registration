@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Table, Button, Popover } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { deleteReport, getReports } from "../../../../store/adminStore/actions/reportActions";
-import _ from 'lodash';
+import { GET_REPORTS, DELETE_REPORT, SET_TABLE_LIST } from "../../../../store/adminStore/actions/actionType"; 
+import { createAction } from "../../../../store/adminStore/actions/createAction";
 import moment from 'moment';
+import _ from 'lodash';
 import styles from '../Report.module.css';
-import { setTableList } from "../../../../store/adminStore/actions/mainActions";
 
 
 
@@ -15,15 +15,14 @@ import { setTableList } from "../../../../store/adminStore/actions/mainActions";
 const Report = () =>{
 
     const reportMessages = useSelector(state => state.adminData.tableList);
-    console.log(reportMessages);
     const [data, setData] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() =>{
-        dispatch(getReports())
+        dispatch(createAction(GET_REPORTS))
         return () =>{
-            dispatch(setTableList(null));
+            dispatch(createAction(SET_TABLE_LIST, null));
         }
     }, []);
     
@@ -39,7 +38,7 @@ const Report = () =>{
     }, [reportMessages])
 
     const deleteReportMessage = (id) =>{
-        dispatch(deleteReport(id))
+        dispatch(createAction(DELETE_REPORT, id))
     }
 
     const createAndEdite = (id) =>{

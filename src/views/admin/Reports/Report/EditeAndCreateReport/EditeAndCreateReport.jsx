@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Button, Space, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import { edteReports, getReportsById } from "../../../../../store/adminStore/actions/reportActions";
-import { setEditeItem } from "../../../../../store/adminStore/actions/mainActions";
+import { GET_REPORTS_BY_ID, EDITE_REPORTS, SET_EDITE_ITEM } from "../../../../../store/adminStore/actions/actionType"; 
+import { createAction } from "../../../../../store/adminStore/actions/createAction";
 import { useForm } from "antd/lib/form/Form";
 import './style.css';
+
 
 const { Option } = Select;
 
@@ -14,16 +15,16 @@ const { Option } = Select;
 const EditeAndCreateReport = () =>{
 
     const report = useSelector(state => state.adminData.editeItem);
-    console.log(report);
+    
     const [type, setType] = useState();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
     const [form] = useForm();
-    console.log(report);
+
  
     useEffect(() =>{
-        dispatch(getReportsById(id))
+        dispatch(createAction(GET_REPORTS_BY_ID, id))
     }, []);
 
     useEffect(() =>{
@@ -45,7 +46,7 @@ const EditeAndCreateReport = () =>{
 
     const back = () =>{
         navigate(-1);
-        if(report) dispatch(setEditeItem(null));
+        if(report) dispatch(createAction(SET_EDITE_ITEM, null));
     }
 
     const types = [
@@ -56,7 +57,7 @@ const EditeAndCreateReport = () =>{
         
     const onFinish = values => {
         values.type = type;
-        dispatch( edteReports({id, messages: values}));
+        dispatch( createAction(EDITE_REPORTS, {id, messages: values}));
     }
 
     return (

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { editeUser } from "../../../../store/adminStore/actions/usersActions";
+import { EDITE_USER } from "../../../../store/adminStore/actions/actionType";
 import { Form, Input, Button, Radio, Upload } from "antd";
+import { createAction } from "../../../../store/adminStore/actions/createAction";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
 import './styles.css';
+
 
 const { TextArea } = Input;
 
@@ -20,7 +22,7 @@ const EditeUser = () =>{
 
     const onFinish = (values) =>{
         values.deletePictures = [''];
-        dispatch(editeUser({id, data: JSON.stringify(values)}))
+        dispatch(createAction(EDITE_USER, {id, data: JSON.stringify(values)}))
     }
 
     const onFinishFailed = (errorInfo) =>{

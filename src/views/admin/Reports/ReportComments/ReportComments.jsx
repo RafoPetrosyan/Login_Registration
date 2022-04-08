@@ -4,10 +4,10 @@ import { useSearchParams, createSearchParams } from "react-router-dom";
 import { Button, Popover } from 'antd';
 import { SyncOutlined, DeleteOutlined } from '@ant-design/icons';
 import AdminTable from "../../AdminComponents/AdminTable/AdminTable";
-import { getReportsComment } from "../../../../store/adminStore/actions/reportCommentActions";
+import { GET_REPORTS_COMMENT, SET_TABLE_COUNT, SET_TABLE_LIST } from "../../../../store/adminStore/actions/actionType";
+import { createAction } from "../../../../store/adminStore/actions/createAction";
 import moment from 'moment';
 import styles from '../Report.module.css';
-import { setTableList } from "../../../../store/adminStore/actions/mainActions";
 
 
 
@@ -22,7 +22,8 @@ const ReportComments = () =>{
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         return () =>{
-            dispatch(setTableList(null));
+            dispatch(createAction(SET_TABLE_LIST, null));
+            dispatch(createAction(SET_TABLE_COUNT, 0));
         }
     }, []);
 
@@ -34,7 +35,7 @@ const ReportComments = () =>{
         );
         const url = `?page=${page}&limit=${7}&`;
 
-        dispatch(getReportsComment(url))
+        dispatch(createAction(GET_REPORTS_COMMENT, url))
     }
 
     useEffect(() =>{
@@ -48,15 +49,12 @@ const ReportComments = () =>{
     }, [page]);
     
     const hendleReload = () =>{
-        console.log('reload');
+        getData();
     }
 
     const pageChange = (page) =>{
         setPage(page)
     }
-
-    
-    console.log(data.reportComments);
 
     const columns = [
         { 

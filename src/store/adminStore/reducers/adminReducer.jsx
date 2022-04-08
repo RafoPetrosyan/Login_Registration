@@ -1,4 +1,4 @@
-import { SET_CURRENT_ADMIN, SET_EDITE_ITEM, SET_TABLE_COUNT, SET_TABLE_LIST } from "../actions/mainActions";
+import { SET_CURRENT_ADMIN, SET_EDITE_ITEM, SET_TABLE_COUNT, SET_TABLE_LIST } from "../actions/actionType";
 
 const initialState = {
     currentAdmin: null,
@@ -23,6 +23,7 @@ export const adminReducer = (state = initialState, action) =>{
             }
         
         case SET_TABLE_LIST:
+            console.log(action.payload);
             return {
                 ...state,
                 tableList: action.payload

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { setEditeItem } from "../../../../store/adminStore/actions/mainActions";
-import { createType, getTypeById, updateType } from "../../../../store/adminStore/actions/typesActions";
+import { CREATE_TYPE, UPDATE_TYPE, GET_TYPE_BY_ID, SET_EDITE_ITEM } from "../../../../store/adminStore/actions/actionType";
+import { createAction } from "../../../../store/adminStore/actions/createAction";
 import { Form, Input, Button, Upload } from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
@@ -20,7 +20,7 @@ const EditeAndCreateTypes = () =>{
     const { id } = useParams();
 
     useEffect(() =>{
-        if(id) dispatch(getTypeById(id));
+        if(id) dispatch(createAction(GET_TYPE_BY_ID, id));
     }, []);
 
     const onChangeImage = ({ fileList: newFileList }) => {
@@ -36,11 +36,11 @@ const EditeAndCreateTypes = () =>{
 
     const onFinishEdite = (values) =>{
         values.id = id;
-        dispatch(updateType(values))
+        dispatch(createAction(UPDATE_TYPE, values))
     }
 
     const onFinishCreate = (values) =>{
-        dispatch(createType(values))
+        dispatch(createAction(CREATE_TYPE, values))
      }
 
     const onFinishFailed = (errorInfo) =>{
@@ -49,7 +49,7 @@ const EditeAndCreateTypes = () =>{
 
     const back = () =>{
         navigate(-1);
-        if(type) dispatch(setEditeItem(null));
+        if(type) dispatch(createAction(SET_EDITE_ITEM, null));
     }
 
     const fields = [

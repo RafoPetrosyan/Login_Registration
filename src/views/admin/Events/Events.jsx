@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
-import { deleteEvent, deleteSelectedEvent, getEvents } from "../../../store/adminStore/actions/eventActions";
+import { GET_EVENTS, DELETE_EVENT, DELETE_SELECTED_EVENT, SET_TABLE_LIST, SET_TABLE_COUNT } from "../../../store/adminStore/actions/actionType"; 
+import { createAction } from "../../../store/adminStore/actions/createAction";
 import { Collapse, DatePicker, Space, Select, Button, Popover } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import Particpants from "../AdminComponents/Particpants/Particpants";
-import { setTableList } from "../../../store/adminStore/actions/mainActions";
 import moment from 'moment';
 import styles from '../Admin.module.css';
 
@@ -15,7 +15,6 @@ import styles from '../Admin.module.css';
 const { Panel } = Collapse;
 const { RangePicker } = DatePicker;
 const { Option } = Select;
-
 
 
 const Events = () => {
@@ -42,7 +41,8 @@ const Events = () => {
         if(searchParams.get('searchType')) setType(searchParams.get('searchType'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
         return () =>{
-            dispatch(setTableList(null));
+            dispatch(createAction(SET_TABLE_LIST, null));
+            dispatch(createAction(SET_TABLE_COUNT, 0));
         }
     }, []);
 
@@ -60,7 +60,7 @@ const Events = () => {
         const url = `?searchQuery=${searchValue}&page=${page}&limit=${5}&searchType=${type}&`;
         const dateUrl = `&startDate=${rangeDate.startDate}&endDate=${rangeDate.endDate}`;
 
-        dispatch(getEvents({url, dateUrl}))
+        dispatch(createAction(GET_EVENTS, {url, dateUrl}))
 
     }
 
@@ -73,9 +73,6 @@ const Events = () => {
         }
     }, [searchValue, page, type, rangeDate]);
     
-
-
-    // children-function
 
     const reload = () =>{
         getData();
@@ -93,11 +90,11 @@ const Events = () => {
     }, []);
 
     const deleteElement = (id) =>{
-        // dispatch(deleteEvent(id))
+    //    dispatch(createAction(DELETE_EVENT, id))
     }
 
     const deleteSelected = () =>{
-        // dispatch(deleteSelectedEvent({eventsId: selectedRowKeys}))
+        // dispatch(createAction(DELETE_SELECTED_EVENT, {eventsId: selectedRowKeys}))
     }
 
     const pageChange = (page) =>{

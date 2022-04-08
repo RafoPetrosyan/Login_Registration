@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, createSearchParams } from "react-router-dom";
 import { Button, Popover } from 'antd';
 import { SyncOutlined, DeleteOutlined } from '@ant-design/icons';
-import moment from "moment";
 import AdminTable from "../../AdminComponents/AdminTable/AdminTable";
-import { approveReportEvent, getreportEvents } from "../../../../store/adminStore/actions/reportEventActions";
+import { GET_REPORT_EVENTS, APPROVE_REPORT_EVENT, SET_TABLE_LIST, SET_TABLE_COUNT } from "../../../../store/adminStore/actions/actionType";
+import { createAction } from "../../../../store/adminStore/actions/createAction";
+import moment from "moment";
 import styles from '../Report.module.css';
-import { setTableList } from "../../../../store/adminStore/actions/mainActions";
+
 
 
 
@@ -23,7 +24,8 @@ const ReportEvents = () =>{
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         return () =>{
-            dispatch(setTableList(null));
+            dispatch(createAction(SET_TABLE_LIST, null));
+            dispatch(createAction(SET_TABLE_COUNT, 0));
         }
     }, []);
     
@@ -35,7 +37,7 @@ const ReportEvents = () =>{
         );
         const url = `?page=${page}&limit=${7}&`;
 
-        dispatch(getreportEvents(url));
+        dispatch(createAction(GET_REPORT_EVENTS, url));
     }
 
     useEffect(() =>{
@@ -53,7 +55,7 @@ const ReportEvents = () =>{
     }, []);
 
     const hendleReload = () =>{
-        console.log('reload');
+        getData();
     }
 
     const pageChange = (page) =>{
@@ -61,7 +63,7 @@ const ReportEvents = () =>{
     }
 
     const approve = (record) =>{
-        dispatch(approveReportEvent({type: record.event.type, id: record._id}))
+        dispatch(createAction(APPROVE_REPORT_EVENT, {type: record.event.type, id: record._id}))
     }
 
         
@@ -135,7 +137,7 @@ const ReportEvents = () =>{
         }
         },
 ];
-    console.log(data.tableCount);
+    
    
     const propsTable = { 
         columns, 

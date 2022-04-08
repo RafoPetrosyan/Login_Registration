@@ -3,7 +3,8 @@ import styles from './AdminHeader.module.css';
 import { LogoutOutlined } from  '@ant-design/icons';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logauth } from "../../../../store/adminStore/actions/mainActions";
+import { LOGAUTH_ADMIN } from "../../../../store/adminStore/actions/actionType";
+import { createAction } from "../../../../store/adminStore/actions/createAction";
 
 
 const AdminHeader = () =>{
@@ -12,7 +13,7 @@ const AdminHeader = () =>{
     const navigate = useNavigate()
 
     const logauthAdmin = () =>{
-        dispath(logauth());
+        dispath(createAction(LOGAUTH_ADMIN));
         navigate('/admin/login');
     }
 

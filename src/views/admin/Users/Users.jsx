@@ -3,17 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, createSearchParams, useNavigate } from 'react-router-dom';
 import { Collapse, Switch, Button, Popover, Radio, Avatar } from 'antd';
 import { CloseCircleOutlined, CheckCircleTwoTone, DeleteOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
-import { deleteSelectedUsers, deleteUser, DELETE_SELECTED, getUsers } from "../../../store/adminStore/actions/usersActions";
+import { GET_USERS, DELETE_USER, DELETE_SELECTED_USERS } from "../../../store/adminStore/actions/actionType";
+import { createAction } from "../../../store/adminStore/actions/createAction";
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
-import { setTableList } from "../../../store/adminStore/actions/mainActions";
+import { SET_TABLE_COUNT, SET_TABLE_LIST } from "../../../store/adminStore/actions/actionType";
 import moment from 'moment';
 import styles from '../Admin.module.css';
 
-
 const { Panel } = Collapse;
-
-
 
 const Users = () =>{
 
@@ -37,7 +35,8 @@ const Users = () =>{
         if(searchParams.get('date')) setDate(searchParams.get('date'));
 
         return () =>{
-            dispatch(setTableList(null))
+            dispatch(createAction(SET_TABLE_LIST, null));
+            dispatch(createAction(SET_TABLE_COUNT, 0));
         }
     }, []);
 
@@ -53,7 +52,7 @@ const Users = () =>{
         );
 
         const url = `?page=${page}&search=${searchValue}&limit=${7}&onlyInActive=${onlyInActive ? 'disable' : 'enable'}&date=${date}&`;
-        dispatch(getUsers(url))
+        dispatch(createAction(GET_USERS, url))
 
     }
 
@@ -92,7 +91,7 @@ const Users = () =>{
     }, []);
 
     const deleteSelected = () =>{ 
-        dispatch(deleteSelectedUsers({usersId: selectedRowKeys}))
+        dispatch(createAction(DELETE_SELECTED_USERS, {usersId: selectedRowKeys}))
     }
 
     const userEdite = (id) =>{
@@ -105,7 +104,7 @@ const Users = () =>{
     }
 
     const userDelete = (id) =>{
-        dispatch(deleteUser(id))
+        dispatch(createAction(DELETE_USER, id))
         getData();
     }
     

@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { getCurrent } from "../../store/adminStore/actions/mainActions";
+import { GET_CURRENT_ADMIN } from "../../store/adminStore/actions/actionType";
+import { createAction } from "../../store/adminStore/actions/createAction";
+
 
 
 
@@ -16,7 +18,7 @@ const AdminGuard = () => {
        if(pathname === '/admin'){
            navigate('/admin/events');
        }
-       dispatch(getCurrent())
+       dispatch(createAction(GET_CURRENT_ADMIN))
        
     }, []);
 

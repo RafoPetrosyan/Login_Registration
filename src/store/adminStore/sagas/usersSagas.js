@@ -2,20 +2,22 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { Navigate } from 'react-router-dom';
 import { 
     ADD_USER,
-    DELETE_SELECTED,
+    DELETE_SELECTED_USERS,
     DELETE_USER,
     EDITE_USER,
-    GET_USERS, 
-} from '../actions/usersActions';
+    GET_USERS,
+    SET_TABLE_COUNT,
+    SET_TABLE_LIST 
+} from '../actions/actionType';
 import { addUser, deleteSelected, deleteUser, editeUser, getUsers } from '../api/usersApi';
-import { setTableCount, setTableList } from '../actions/mainActions';
+import { createAction } from '../actions/createAction';
 
 
 function* workerGetUsers(action){
     try {
         const { list, dataCount } = yield call(getUsers, action.payload);
-        yield put(setTableCount(dataCount));
-        yield put(setTableList(list));
+        yield put(createAction(SET_TABLE_COUNT, dataCount));
+        yield put(createAction(SET_TABLE_LIST, list));
 
         
     } catch (error) {
@@ -54,5 +56,5 @@ export function* watcherAdminUsers(){
     yield takeEvery(ADD_USER, workerAddUser)
     yield takeEvery(DELETE_USER, workerDeleteUser)
     yield takeEvery(EDITE_USER, workerEditeUser)
-    yield takeEvery(DELETE_SELECTED, workerDeleteSelected)
+    yield takeEvery(DELETE_SELECTED_USERS, workerDeleteSelected)
 }

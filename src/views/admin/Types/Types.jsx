@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, createSearchParams, useNavigate } from "react-router-dom";
 import { Button, Popover, Avatar } from 'antd';
 import { DeleteOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
+import { GET_TYPES, DELETE_TYPE, DELETE_SELECTED_TYPE } from "../../../store/adminStore/actions/actionType";
+import { SET_TABLE_LIST, SET_TABLE_COUNT } from "../../../store/adminStore/actions/actionType";
+import { createAction } from "../../../store/adminStore/actions/createAction";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
-import { deleteSelectedType, deleteType, getTypes } from "../../../store/adminStore/actions/typesActions";
 import moment from 'moment';
 import styles from '../Admin.module.css';
-import { setTableList } from "../../../store/adminStore/actions/mainActions";
-
 
 
 
@@ -30,7 +30,8 @@ const Types = () =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
         return () =>{
-            dispatch(setTableList(null));
+            dispatch(createAction(SET_TABLE_LIST, null));
+            dispatch(createAction(SET_TABLE_COUNT, 0));
         }
     }, []);
 
@@ -44,7 +45,7 @@ const Types = () =>{
 
         const url = `?search=${searchValue}&page=${page}&limit=${7}&`;
 
-        dispatch(getTypes(url));
+        dispatch(createAction(GET_TYPES, url));
     }
 
     useEffect(() =>{
@@ -81,12 +82,12 @@ const Types = () =>{
     }
 
     const dleteElement = (id) =>{
-        dispatch(deleteType(id));
+        dispatch(createAction(DELETE_TYPE, id));
         getData();
     }
 
     const deleteSelected = () =>{
-        dispatch(deleteSelectedType(selectedRowKeys))
+        dispatch(createAction(DELETE_SELECTED_TYPE, selectedRowKeys))
     }
 
     const columns = [
