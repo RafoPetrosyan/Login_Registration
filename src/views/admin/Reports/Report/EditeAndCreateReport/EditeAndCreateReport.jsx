@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Button, Space, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import {
-    edteReports, getReportsById, setReportsById 
-} from "../../../../../store/adminStore/actions/reportActions";
+import { edteReports, getReportsById } from "../../../../../store/adminStore/actions/reportActions";
+import { setEditeItem } from "../../../../../store/adminStore/actions/mainActions";
 import { useForm } from "antd/lib/form/Form";
 import './style.css';
 
-
 const { Option } = Select;
+
 
 const EditeAndCreateReport = () =>{
 
-    const report = useSelector(state => state.adminData.reportsById);
-    const [type, setType] = useState('comment');
+    const report = useSelector(state => state.adminData.editeItem);
+    console.log(report);
+    const [type, setType] = useState();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
@@ -32,8 +32,9 @@ const EditeAndCreateReport = () =>{
             form.setFieldsValue({
                 messages: report.messages.map(item => {
                     return {en: item.en, ru: item.ru}
-                })
+                }),
             })
+            setType(report.type)
         }else{
             form.setFieldsValue({
                 messages: [{en: undefined, ru: undefined}]
@@ -44,7 +45,7 @@ const EditeAndCreateReport = () =>{
 
     const back = () =>{
         navigate(-1);
-        dispatch(setReportsById(null));
+        if(report) dispatch(setEditeItem(null));
     }
 
     const types = [
@@ -57,7 +58,6 @@ const EditeAndCreateReport = () =>{
         values.type = type;
         dispatch( edteReports({id, messages: values}));
     }
-
 
     return (
         <>
@@ -99,9 +99,9 @@ const EditeAndCreateReport = () =>{
                     </Space>
                 ))}
                
-                    <div className="addAndSelect">
-                    <Form.Item >
-                        <Select onChange={(value) => setType(value)} defaultValue='comment'>
+                    <div className="addAndSelect"> 
+                    <Form.Item name={['type']}>
+                        <Select onChange={(value) => setType(value)}>
                             {(types.map(item => (
                                 <Option key={item.value}>
                                     {item.title}

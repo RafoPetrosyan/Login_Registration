@@ -1,18 +1,10 @@
-import { SET_EDITE_EVENT } from "../actions/eventActions";
-import { SET_REPORTS_BY_ID } from "../actions/reportActions";
-import { SET_EDITE_TYPE } from "../actions/typesActions";
-import { SET_CURRENT_ADMIN, SET_TABLE_COUNT, SET_TABLE_LIST } from "../actions/mainActions";
+import { SET_CURRENT_ADMIN, SET_EDITE_ITEM, SET_TABLE_COUNT, SET_TABLE_LIST } from "../actions/mainActions";
 
 const initialState = {
-
     currentAdmin: null,
-    editeEvent: null,
-    editeType: null,
-    reportsById: null,
-    reportUsers: null,
     tableCount: 0,
     tableList: null,
-      
+    editeItem: null, 
 }
 
 export const adminReducer = (state = initialState, action) =>{
@@ -35,23 +27,11 @@ export const adminReducer = (state = initialState, action) =>{
                 ...state,
                 tableList: action.payload
             }
-
-        case SET_EDITE_EVENT:
+        
+        case SET_EDITE_ITEM:
             return {
                 ...state,
-                editeEvent: action.payload
-            }
-
-        case SET_EDITE_TYPE:
-            return {
-                ...state,
-                editeType: action.payload
-            }   
-
-        case SET_REPORTS_BY_ID:
-              return {
-                ...state,
-                reportsById: action.payload
+                editeItem: action.payload
             }
 
         default:

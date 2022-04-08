@@ -1,6 +1,5 @@
 export const GET_TYPES = 'GET_TYPES';
 export const GET_TYPE_BY_ID = 'GET_TYPE_BY_ID';
-export const SET_EDITE_TYPE = 'SET_EDITE_TYPE';
 export const UPDATE_TYPE = 'UPDATE_TYPE';
 export const CREATE_TYPE = 'CREATE_TYPE';
 export const DELETE_TYPE = 'DELETE_TYPE';
@@ -17,13 +16,6 @@ export const getTypes = (payload) =>{
 export const getTypeById = (payload) =>{
     return {
         type: GET_TYPE_BY_ID,
-        payload
-    }
-}
-
-export const setEditeType = (payload) =>{
-    return {
-        type: SET_EDITE_TYPE,
         payload
     }
 }

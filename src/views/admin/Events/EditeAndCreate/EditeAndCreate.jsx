@@ -4,9 +4,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Select, Button, DatePicker, Slider, Upload } from 'antd';
 import moment from 'moment';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { createEvent, getEditeEvent, setEditeEvent, updateEvent } from '../../../../store/adminStore/actions/eventActions';
+import { createEvent, getEditeEvent, updateEvent } from '../../../../store/adminStore/actions/eventActions';
 import ImgCrop from 'antd-img-crop';
 import './EditeAndCreate.css';
+import { setEditeItem } from '../../../../store/adminStore/actions/mainActions';
 
 const { Option } = Select;
 
@@ -88,7 +89,7 @@ const validateMessages = {
 
 const EditeAndCreateEvent = () =>{
 
-    const editeEvent = useSelector(state => state.adminData.editeEvent);
+    const editeEvent = useSelector(state => state.adminData.editeItem);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
@@ -116,7 +117,7 @@ const EditeAndCreateEvent = () =>{
 
     const backEvent = () =>{
         if(editeEvent) {
-            dispatch(setEditeEvent(null));
+            dispatch(setEditeItem(null));
             navigate(-2);
         }else{
             navigate(-1);

@@ -1,12 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { setTableList } from '../actions/mainActions';
-import { 
-    DELETE_REPORT,
-    EDITE_REPORTS, 
-    GET_REPORTS, 
-    GET_REPORTS_BY_ID, 
-    setReportsById 
-} from '../actions/reportActions';
+import { setEditeItem, setTableList } from '../actions/mainActions';
+import { DELETE_REPORT, EDITE_REPORTS, GET_REPORTS, GET_REPORTS_BY_ID, } from '../actions/reportActions';
 import { deleteReport, editeReports, getReports, getReportsById } from '../api/reportApi';
 
 function* workerGetReports(){
@@ -21,7 +15,7 @@ function* workerGetReports(){
 function* workerGetReportsById(action){
     try {
         const { reportMessages } = yield call(getReportsById, action.payload)
-        yield put(setReportsById(reportMessages))
+        yield put(setEditeItem(reportMessages))
     } catch (error) {
         console.log(error);
     }

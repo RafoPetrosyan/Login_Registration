@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { 
-    createType, getTypeById, setEditeType, updateType 
-} from "../../../../store/adminStore/actions/typesActions";
+import { setEditeItem } from "../../../../store/adminStore/actions/mainActions";
+import { createType, getTypeById, updateType } from "../../../../store/adminStore/actions/typesActions";
 import { Form, Input, Button, Upload } from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
@@ -13,8 +12,7 @@ import './styles.css';
 
 const EditeAndCreateTypes = () =>{
 
-    const type = useSelector(state => state.adminData.editeType);
-    console.log(type);
+    const type = useSelector(state => state.adminData.editeItem);
 
     const [fileList, setFileList] = useState([]);
     const navigate = useNavigate();
@@ -51,7 +49,7 @@ const EditeAndCreateTypes = () =>{
 
     const back = () =>{
         navigate(-1);
-        if(type) dispatch(setEditeType(null));
+        if(type) dispatch(setEditeItem(null));
     }
 
     const fields = [
@@ -87,7 +85,6 @@ const EditeAndCreateTypes = () =>{
                 onFinish={type ? onFinishEdite : onFinishCreate}
                 onFinishFailed={onFinishFailed}
                 fields={fields}
-                // autoComplete="off"
             >
                 <Form.Item label="Uload image" name={['imageOptions']}
                     rules={[{ required: true, message: 'Please upload image!'}]}
