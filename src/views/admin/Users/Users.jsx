@@ -7,7 +7,6 @@ import { GET_USERS, DELETE_USER, DELETE_SELECTED_USERS } from "../../../store/ad
 import { createAction } from "../../../store/adminStore/actions/createAction";
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
-import { SET_TABLE_COUNT, SET_TABLE_LIST } from "../../../store/adminStore/actions/actionType";
 import moment from 'moment';
 import styles from '../Admin.module.css';
 
@@ -15,7 +14,7 @@ const { Panel } = Collapse;
 
 const Users = () =>{
 
-    const data = useSelector(state => state.adminData);
+    const data = useSelector(state => state.adminUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -33,11 +32,6 @@ const Users = () =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
         if(searchParams.get('date')) setDate(searchParams.get('date'));
-
-        return () =>{
-            dispatch(createAction(SET_TABLE_LIST, null));
-            dispatch(createAction(SET_TABLE_COUNT, 0));
-        }
     }, []);
 
     const getData = () => {
@@ -197,11 +191,11 @@ const Users = () =>{
     // propsComponents
     const propsTable = { 
         columns,
-        rows: data.tableList,
+        rows: data.userList,
         selection: true, 
         page, 
         selectedRowKeys,
-        dataCount: data.tableCount,
+        dataCount: data.userCount,
         pageChange, 
         selectedElement
     };
@@ -210,7 +204,7 @@ const Users = () =>{
             searchParams,
             disabled, 
             buttonText: '+ Add User',
-            tableLength: `${data.tableCount}  Users`,
+            tableLength: `${data.userCount}  Users`,
             selectedRowKeys,
             reload,
             searchChange,

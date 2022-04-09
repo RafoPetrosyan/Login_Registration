@@ -1,34 +1,44 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { 
-    CREATE_EVENT, 
-    GET_EVENTS,
-    GET_EDITE_EVENT,
-    UPDATE_EVENT,
-    DELETE_EVENT,
-    DELETE_SELECTED_EVENT,
-    SET_TABLE_COUNT,
-    SET_TABLE_LIST,
-    SET_EDITE_ITEM
+        
+        GET_EVENTS,
+        GET_EDITE_EVENT,
+
+        SET_EVENT,
+        SET_EVENT_COUNT,
+        SET_EDITE_EVENT,
+
+        CREATE_EVENT, 
+        UPDATE_EVENT,
+
+        DELETE_EVENT,
+        DELETE_SELECTED_EVENT,
+
+
 } from '../actions/actionType';
 
+
 import { 
-    createEvent,
-    dedleteSelectedEvents, 
-    deleteEvent, 
-    events, 
-    getEditeEvent, 
-    updateEvent
+        createEvent,
+        updateEvent,
+
+        dedleteSelectedEvents, 
+        deleteEvent, 
+        
+        events, 
+        getEditeEvent, 
 
 } from '../api/eventsApi';
 
 import { createAction } from '../actions/createAction';
+import { Navigate } from 'react-router-dom';
 
 
 function* workerGetEvents(action) {
     try {
         const { eventList, dataCount } = yield call(events, action.payload);
-        yield put(createAction(SET_TABLE_COUNT, dataCount));
-        yield put(createAction(SET_TABLE_LIST, eventList));
+        yield put(createAction(SET_EVENT_COUNT, dataCount));
+        yield put(createAction(SET_EVENT, eventList));
 
     } catch (error) {
         console.log(error);
@@ -37,18 +47,16 @@ function* workerGetEvents(action) {
 
 function* workerCreateEvent(action) {
     try {
-        const data = yield call(createEvent, action.payload);
-        console.log(data);
-    } catch (error) {
-        console.log(error);
+        yield call(createEvent, action.payload);
+    } catch (e) {
+        console.log(e.response.data.message);
     }
-   
 }
 
 function* workerGetEditeEvents(action){
     try {
         const { eventData } = yield call(getEditeEvent, action.payload);
-        yield put(createAction(SET_EDITE_ITEM, eventData));
+        yield put(createAction(SET_EDITE_EVENT, eventData));
         
     } catch (error) {
         console.log(error);
@@ -58,7 +66,6 @@ function* workerGetEditeEvents(action){
 function* workerUpdateEvent(action){
     try {
         const data = yield call(updateEvent, action.payload)
-        console.log(data);
     } catch (error) {
         console.log(error);
     }
@@ -66,13 +73,14 @@ function* workerUpdateEvent(action){
 
 function* workerDeleteEvent(action){
     try {
-        yield call(deleteEvent, action.payload)
+        yield call(deleteEvent, action.payload);
     } catch (error) {
         console.log(error);
     }
 }
 
 function* workerDeleteSelectedEvent(action){
+    console.log(action.payload);
     try {
         yield call(dedleteSelectedEvents(action.payload))
     } catch (error) {

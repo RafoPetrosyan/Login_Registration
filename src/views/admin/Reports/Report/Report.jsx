@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Table, Button, Popover } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { GET_REPORTS, DELETE_REPORT, SET_TABLE_LIST } from "../../../../store/adminStore/actions/actionType"; 
+import { GET_REPORTS, DELETE_REPORT } from "../../../../store/adminStore/actions/actionType"; 
 import { createAction } from "../../../../store/adminStore/actions/createAction";
 import moment from 'moment';
 import _ from 'lodash';
@@ -11,19 +11,16 @@ import styles from '../Report.module.css';
 
 
 
-
 const Report = () =>{
 
-    const reportMessages = useSelector(state => state.adminData.tableList);
+    const reportMessages = useSelector(state => state.adminReport.reportList);
     const [data, setData] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    console.log(reportMessages);
 
     useEffect(() =>{
         dispatch(createAction(GET_REPORTS))
-        return () =>{
-            dispatch(createAction(SET_TABLE_LIST, null));
-        }
     }, []);
     
     useEffect(() =>{

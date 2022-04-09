@@ -4,7 +4,7 @@ import { useSearchParams, createSearchParams } from "react-router-dom";
 import { Button, Popover } from 'antd';
 import { SyncOutlined, DeleteOutlined } from '@ant-design/icons';
 import AdminTable from "../../AdminComponents/AdminTable/AdminTable";
-import { GET_REPORTS_COMMENT, SET_TABLE_COUNT, SET_TABLE_LIST } from "../../../../store/adminStore/actions/actionType";
+import { GET_REPORTS_COMMENT } from "../../../../store/adminStore/actions/actionType";
 import { createAction } from "../../../../store/adminStore/actions/createAction";
 import moment from 'moment';
 import styles from '../Report.module.css';
@@ -13,7 +13,7 @@ import styles from '../Report.module.css';
 
 const ReportComments = () =>{
 
-    const data = useSelector(state => state.adminData);
+    const data = useSelector(state => state.adminReportComment);
     const dispatch = useDispatch();
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -21,10 +21,6 @@ const ReportComments = () =>{
 
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
-        return () =>{
-            dispatch(createAction(SET_TABLE_LIST, null));
-            dispatch(createAction(SET_TABLE_COUNT, 0));
-        }
     }, []);
 
     const getData = () =>{
@@ -104,8 +100,8 @@ const ReportComments = () =>{
     const propsTable = { 
         columns, 
         page,
-        rows: data.tableList,
-        dataCount: data.tableCount, 
+        rows: data.reportCommentList,
+        dataCount: data.reportCommentCount, 
         selection: false, 
         selectedRowKeys: [],
         pageChange,
@@ -119,7 +115,7 @@ const ReportComments = () =>{
                         <SyncOutlined className={styles.reloadIcon}/>    
                     </div>
                 </Popover>
-                <div className={styles.quantity}>{data.tableCount} Report</div>
+                <div className={styles.quantity}>{data.reportCommentCount} Report</div>
             </div>
             <div className={styles.table}>
                 <AdminTable propsTable={propsTable}/>

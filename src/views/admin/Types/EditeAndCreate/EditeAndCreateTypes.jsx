@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { CREATE_TYPE, UPDATE_TYPE, GET_TYPE_BY_ID, SET_EDITE_ITEM } from "../../../../store/adminStore/actions/actionType";
+import { CREATE_TYPE, UPDATE_TYPE, GET_TYPE_BY_ID, SET_EDITE_TYPE } from "../../../../store/adminStore/actions/actionType";
 import { createAction } from "../../../../store/adminStore/actions/createAction";
 import { Form, Input, Button, Upload } from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
@@ -12,7 +12,7 @@ import './styles.css';
 
 const EditeAndCreateTypes = () =>{
 
-    const type = useSelector(state => state.adminData.editeItem);
+    const type = useSelector(state => state.adminTypes.editeItem);
 
     const [fileList, setFileList] = useState([]);
     const navigate = useNavigate();
@@ -49,7 +49,7 @@ const EditeAndCreateTypes = () =>{
 
     const back = () =>{
         navigate(-1);
-        if(type) dispatch(createAction(SET_EDITE_ITEM, null));
+        if(type) dispatch(createAction(SET_EDITE_TYPE, null));
     }
 
     const fields = [

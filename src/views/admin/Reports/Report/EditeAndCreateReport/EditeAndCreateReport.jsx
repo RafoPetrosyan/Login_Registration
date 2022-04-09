@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Button, Space, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import { GET_REPORTS_BY_ID, EDITE_REPORTS, SET_EDITE_ITEM } from "../../../../../store/adminStore/actions/actionType"; 
+import { GET_REPORTS_BY_ID, EDITE_REPORTS, SET_EDITE_REPORT } from "../../../../../store/adminStore/actions/actionType"; 
 import { createAction } from "../../../../../store/adminStore/actions/createAction";
 import { useForm } from "antd/lib/form/Form";
 import './style.css';
@@ -14,7 +14,7 @@ const { Option } = Select;
 
 const EditeAndCreateReport = () =>{
 
-    const report = useSelector(state => state.adminData.editeItem);
+    const report = useSelector(state => state.adminReport.editeReport);
     
     const [type, setType] = useState();
     const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const EditeAndCreateReport = () =>{
 
     const back = () =>{
         navigate(-1);
-        if(report) dispatch(createAction(SET_EDITE_ITEM, null));
+        if(report) dispatch(createAction(SET_EDITE_REPORT, null));
     }
 
     const types = [

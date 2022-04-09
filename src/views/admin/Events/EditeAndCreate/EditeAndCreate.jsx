@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Select, Button, DatePicker, Slider, Upload } from 'antd';
-import { CREATE_EVENT, GET_EDITE_EVENT, UPDATE_EVENT, SET_EDITE_ITEM } from '../../../../store/adminStore/actions/actionType';
+import { CREATE_EVENT, GET_EDITE_EVENT, UPDATE_EVENT, SET_EDITE_EVENT } from '../../../../store/adminStore/actions/actionType';
 import { createAction } from '../../../../store/adminStore/actions/createAction';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
@@ -86,21 +86,19 @@ const validateMessages = {
     },
 };
 
-
-
 const EditeAndCreateEvent = () =>{
 
-    const editeEvent = useSelector(state => state.adminData.editeItem);
+    const editeEvent = useSelector(state => state.adminEvent.editeItem);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-
+    console.log(editeEvent);
     const [members, setMembers] = useState(0);
     const [male, setMale] = useState(0);
     const [female, setFemale] = useState(0);
     const [age, setAge] = useState(0);
     const [fileList, setFileList] = useState([]);
-    
+   
 
     useEffect(() =>{
         if(id) dispatch(createAction(GET_EDITE_EVENT, id))
@@ -118,7 +116,7 @@ const EditeAndCreateEvent = () =>{
 
     const backEvent = () =>{
         if(editeEvent) {
-            dispatch(createAction(SET_EDITE_ITEM, null));
+            dispatch(createAction(SET_EDITE_EVENT, null));
             navigate(-2);
         }else{
             navigate(-1);
@@ -152,63 +150,72 @@ const EditeAndCreateEvent = () =>{
       };
 
     const onFinishCreate = (values) => {
-        values.data.date = moment(values.data.date).format('llll');
-        values.data.imageCount = fileList.length;
-        values.data.imageOptions = fileList[0] ? fileList[0] : {};
-        // values.data.imageOptions = {};
-        dispatch(createAction(CREATE_EVENT, JSON.stringify(values)));
-        console.log(values);
+        values.date = moment(values.date).format('llll');
+        values.imageCount = fileList.length;
+        values.deleteFiles = [];
+        values.location.lat = 40.778053856647894;
+        values.location.lang = 43.84980394910946;
+        values.city = 'Gyumry';
+        values.imageOptions = fileList[0] ? fileList[0] : {};
+        const payload = {};
+        payload.data = JSON.stringify(values);
+        dispatch(createAction(CREATE_EVENT, payload));
     };
 
     const onFinishEdite = (values) => {
-        values.data.date = moment(values.data.date).format('llll');
-        values.data.imageCount = fileList.length;
-        values.data.imageOptions = fileList[0] ? fileList[0] : {};
-        values.data.deleteFiles = [''];
-        console.log(values);
-        // dispatch(createAction(UPDATE_EVENT, {values, id: editeEvent._id}))
+        values.date = moment(values.date).format('llll');
+        values.imageCount = fileList.length;
+        values.deleteFiles = editeEvent.image[0] ? [editeEvent.image[0].name] : [];
+        values.location.lat = 40.778053856647894;
+        values.location.lang = 43.84980394910946;
+        values.city = 'Gyumry';
+        values.imageOptions = fileList[0] ? fileList[0] : {};
+        const payload = {};
+        payload.data = JSON.stringify(values);
+        console.log(payload);
+        dispatch(createAction(UPDATE_EVENT, {payload, id}));
     }
 
     const fields = useMemo(() =>(
         [
             {
-                name: ['data', 'location'],
+                name: ['location', 'name'],
                 value: editeEvent ? editeEvent.location.name : '',
             },
             {
-                name: ['data', 'title'],
+                name: ['title'],
                 value: editeEvent ? editeEvent.title : '',
             },
             {
-                name: ['data', 'types'],
+                name: ['type'],
                 value: editeEvent ? editeEvent.type : '',
             },
             {
-                name: ['data', 'status'],
+                name: ['status'],
                 value: editeEvent ? editeEvent.status : '',
             },
             {
-                name: ['data', 'date'],
+                name: ['date'],
                 value: editeEvent ? moment(editeEvent.date) : moment(),
             },
             {
-                name: ['data', 'description'],
+                name: ['description'],
                 value: editeEvent ? editeEvent.description : '',
             },
             {
-                name: ['data', 'criteria', 'members'],
+                name: ['criteria', 'members'],
                 value: members,
             },
             {
-                name: ['data', 'criteria', 'age'],
+                name: ['criteria', 'age'],
                 value: age,
             },
             {
-                name: ['data', 'criteria', 'male'],
+                name: ['criteria', 'male'],
                 value: male,
             },
             {
-                name: ['data', 'criteria', 'female'],
+                name: ['criteria', 'female'],
                 value: female,
             },
         ]
@@ -230,7 +237,7 @@ const EditeAndCreateEvent = () =>{
                 validateMessages={validateMessages}
                 fields={fields}
             >   
-                <Form.Item>
+                <Form.Item className='form-item' name={[]}>
                     <ImgCrop rotate >
                         <Upload 
                             listType="picture-card"
@@ -244,16 +251,16 @@ const EditeAndCreateEvent = () =>{
                     </ImgCrop>
                 </Form.Item>
 
-                <Form.Item
-                    name={['data', 'location']}
+                <Form.Item className='form-item'
+                    name={['location', 'name']}
                     label="Location"
                     rules={[{required: true}]}
                 > 
                     <Input placeholder='Please input location' />
                 </Form.Item>
 
-                <Form.Item
-                    name={['data', 'title']}
+                <Form.Item className='form-item'
+                    name={['title']}
                     label="Title"
                     rules={[{required: true}]}
                 > 
@@ -261,9 +268,9 @@ const EditeAndCreateEvent = () =>{
                 </Form.Item>
 
 
-                <Form.Item
-                    name={['data', 'types']}
-                    label="Types"
+                <Form.Item className='form-item'
+                    name={['type']}
+                    label="Type"
                     hasFeedback
                     rules={[{ required: true, message: 'Please select event type!'}]}
                 >
@@ -274,8 +281,8 @@ const EditeAndCreateEvent = () =>{
                     </Select>
                 </Form.Item>
 
-                <Form.Item
-                    name={["data", "status"]}
+                <Form.Item className='form-item'
+                    name={["status"]}
                     label="Status"
                     hasFeedback
                     rules={[{message: 'Please select event status!'}]}
@@ -287,31 +294,31 @@ const EditeAndCreateEvent = () =>{
                     </Select>
                 </Form.Item>
 
-                <Form.Item 
-                    name={["data", "date"]} 
+                <Form.Item className='form-item'
+                    name={["date"]} 
                     label="Date"
                     rules={[{required: true, message: 'Please select event date!'}]}
                  >
                     <DatePicker showTime/>
                 </Form.Item>
 
-                <Form.Item name={['data', 'description']} label="Description">
+                <Form.Item name={['description']} label="Description">
                     <Input.TextArea />
                 </Form.Item>
 
-                <Form.Item name={['data', 'criteria', 'members']} label="Members">
+                <Form.Item name={['criteria', 'members']} label="Members">
                     <Slider onAfterChange={value => setMembers(value)}/>
                 </Form.Item>
 
-                <Form.Item name={['data', 'criteria', 'age']} label="Age">
+                <Form.Item name={['criteria', 'age']} label="Age">
                     <Slider onAfterChange={value => setAge(value)}/>
                 </Form.Item>
 
-                <Form.Item name={['data', 'criteria', 'male']} label="Male">
+                <Form.Item name={['criteria', 'male']} label="Male">
                     <Slider onAfterChange={value => setMale(value)} max={members - female}/>
                 </Form.Item>
 
-                <Form.Item name={['data', 'criteria', 'female']} label="Female">
+                <Form.Item name={['criteria', 'female']} label="Female">
                     <Slider onAfterChange={value => setFemale(value)} max={members - male}/>
                 </Form.Item>
 

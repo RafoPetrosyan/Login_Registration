@@ -4,7 +4,7 @@ import { useSearchParams, createSearchParams } from "react-router-dom";
 import { Button, Popover } from 'antd';
 import { SyncOutlined, DeleteOutlined } from '@ant-design/icons';
 import AdminTable from "../../AdminComponents/AdminTable/AdminTable";
-import { GET_REPORT_EVENTS, APPROVE_REPORT_EVENT, SET_TABLE_LIST, SET_TABLE_COUNT } from "../../../../store/adminStore/actions/actionType";
+import { GET_REPORT_EVENTS, APPROVE_REPORT_EVENT } from "../../../../store/adminStore/actions/actionType";
 import { createAction } from "../../../../store/adminStore/actions/createAction";
 import moment from "moment";
 import styles from '../Report.module.css';
@@ -14,7 +14,7 @@ import styles from '../Report.module.css';
 
 const ReportEvents = () =>{
 
-    const data = useSelector(state => state.adminData);
+    const data = useSelector(state => state.adminReportEvent);
     const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
 
@@ -23,10 +23,6 @@ const ReportEvents = () =>{
 
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
-        return () =>{
-            dispatch(createAction(SET_TABLE_LIST, null));
-            dispatch(createAction(SET_TABLE_COUNT, 0));
-        }
     }, []);
     
     const getData = () =>{
@@ -142,8 +138,8 @@ const ReportEvents = () =>{
     const propsTable = { 
         columns, 
         page,
-        rows: data.tableList,
-        dataCount: data.tableCount, 
+        rows: data.reportEventList,
+        dataCount: data.reportEventCount, 
         selection: true, 
         selectedRowKeys,
         pageChange,
@@ -158,7 +154,7 @@ const ReportEvents = () =>{
                         <SyncOutlined className={styles.reloadIcon}/>    
                     </div>
                 </Popover>
-                <div className={styles.quantity}>{data.tableCount} Report</div>
+                <div className={styles.quantity}>{data.reportEventCount} Report</div>
             </div>
             <div className={styles.table}>
                 <AdminTable propsTable={propsTable}/>

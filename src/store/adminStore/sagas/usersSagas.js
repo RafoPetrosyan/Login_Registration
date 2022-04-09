@@ -1,14 +1,19 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { Navigate } from 'react-router-dom';
 import { 
+    GET_USERS,
+
+    SET_USER,
+    SET_USER_COUNT,
+
     ADD_USER,
+    EDITE_USER,
+
     DELETE_SELECTED_USERS,
     DELETE_USER,
-    EDITE_USER,
-    GET_USERS,
-    SET_TABLE_COUNT,
-    SET_TABLE_LIST 
+    
 } from '../actions/actionType';
+
 import { addUser, deleteSelected, deleteUser, editeUser, getUsers } from '../api/usersApi';
 import { createAction } from '../actions/createAction';
 
@@ -16,8 +21,8 @@ import { createAction } from '../actions/createAction';
 function* workerGetUsers(action){
     try {
         const { list, dataCount } = yield call(getUsers, action.payload);
-        yield put(createAction(SET_TABLE_COUNT, dataCount));
-        yield put(createAction(SET_TABLE_LIST, list));
+        yield put(createAction(SET_USER_COUNT, dataCount));
+        yield put(createAction(SET_USER, list));
 
         
     } catch (error) {

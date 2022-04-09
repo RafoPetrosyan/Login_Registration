@@ -4,7 +4,6 @@ import { useSearchParams, createSearchParams, useNavigate } from "react-router-d
 import { Button, Popover, Avatar } from 'antd';
 import { DeleteOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
 import { GET_TYPES, DELETE_TYPE, DELETE_SELECTED_TYPE } from "../../../store/adminStore/actions/actionType";
-import { SET_TABLE_LIST, SET_TABLE_COUNT } from "../../../store/adminStore/actions/actionType";
 import { createAction } from "../../../store/adminStore/actions/createAction";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
@@ -15,7 +14,7 @@ import styles from '../Admin.module.css';
 
 const Types = () =>{
 
-    const data = useSelector(state => state.adminData);
+    const data = useSelector(state => state.adminTypes);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
@@ -29,10 +28,6 @@ const Types = () =>{
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
-        return () =>{
-            dispatch(createAction(SET_TABLE_LIST, null));
-            dispatch(createAction(SET_TABLE_COUNT, 0));
-        }
     }, []);
 
     const getData = () =>{
@@ -147,10 +142,10 @@ const Types = () =>{
     // propsComponents
     const propsTable = { 
         columns,
-        rows: data.tableList,
+        rows: data.typeList,
         selection: true,
         page,
-        dataCount: data.tableCount,
+        dataCount: data.typeCount,
         selectedRowKeys,
         selectedElement,
         pageChange,
@@ -159,7 +154,7 @@ const Types = () =>{
     const propsCollapse = { 
         disabled, 
         buttonText: '+ Add Type',
-        tableLength: `${data.tableCount} Types`,
+        tableLength: `${data.typeCount} Types`,
         searchParams,
         reload,
         searchChange,

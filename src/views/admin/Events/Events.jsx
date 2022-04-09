@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
-import { GET_EVENTS, DELETE_EVENT, DELETE_SELECTED_EVENT, SET_TABLE_LIST, SET_TABLE_COUNT } from "../../../store/adminStore/actions/actionType"; 
+import { GET_EVENTS, DELETE_EVENT, DELETE_SELECTED_EVENT } from "../../../store/adminStore/actions/actionType"; 
 import { createAction } from "../../../store/adminStore/actions/createAction";
 import { Collapse, DatePicker, Space, Select, Button, Popover } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
@@ -19,7 +19,7 @@ const { Option } = Select;
 
 const Events = () => {
 
-    const data = useSelector(state => state.adminData);
+    const data = useSelector(state => state.adminEvent);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -40,10 +40,6 @@ const Events = () => {
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         if(searchParams.get('searchType')) setType(searchParams.get('searchType'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
-        return () =>{
-            dispatch(createAction(SET_TABLE_LIST, null));
-            dispatch(createAction(SET_TABLE_COUNT, 0));
-        }
     }, []);
 
 
@@ -90,11 +86,12 @@ const Events = () => {
     }, []);
 
     const deleteElement = (id) =>{
-    //    dispatch(createAction(DELETE_EVENT, id))
+        dispatch(createAction(DELETE_EVENT, id));
+        getData();
     }
 
     const deleteSelected = () =>{
-        // dispatch(createAction(DELETE_SELECTED_EVENT, {eventsId: selectedRowKeys}))
+        dispatch(createAction(DELETE_SELECTED_EVENT, {eventsArray: selectedRowKeys}))
     }
 
     const pageChange = (page) =>{
@@ -128,6 +125,8 @@ const Events = () => {
             setRangeDate({startDate: value[0]._d, endDate: value[1]._d})
         }
     }
+
+   
 
     // columns table
     const columns = [
@@ -244,9 +243,9 @@ const Events = () => {
     // propsComponents
     const propsTable = { 
         columns, 
-        rows: data.tableList, 
+        rows: data.eventList, 
         selection: true, 
-        dataCount: data.tableCount,
+        dataCount: data.eventCount,
         page, 
         selectedRowKeys,
         selectedElement,
@@ -256,7 +255,7 @@ const Events = () => {
     const propsCollapse = { 
         disabled, 
         buttonText: '+ Add Event',
-        tableLength: `${data.tableCount}  Events`,
+        tableLength: `${data.eventCount}  Events`,
         searchParams,
         reload,
         searchChange,

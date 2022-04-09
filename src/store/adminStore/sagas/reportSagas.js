@@ -1,19 +1,23 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { 
-    DELETE_REPORT,
-    EDITE_REPORTS, 
     GET_REPORTS,
     GET_REPORTS_BY_ID, 
-    SET_TABLE_LIST,
-    SET_EDITE_ITEM
+
+    SET_REPORTS,
+    SET_EDITE_REPORT, 
+
+    DELETE_REPORT,
+    EDITE_REPORTS,
+   
 } from '../actions/actionType';
+
 import { deleteReport, editeReports, getReports, getReportsById } from '../api/reportApi';
 import { createAction } from '../actions/createAction';
 
 function* workerGetReports(){
     try {
         const { reportMessages } = yield call(getReports)
-        yield put(createAction(SET_TABLE_LIST, reportMessages))
+        yield put(createAction(SET_REPORTS, reportMessages))
     } catch (error) {
         console.log(error);
     }
@@ -22,7 +26,7 @@ function* workerGetReports(){
 function* workerGetReportsById(action){
     try {
         const { reportMessages } = yield call(getReportsById, action.payload)
-        yield put(createAction(SET_EDITE_ITEM, reportMessages))
+        yield put(createAction(SET_EDITE_REPORT, reportMessages))
     } catch (error) {
         console.log(error);
     }

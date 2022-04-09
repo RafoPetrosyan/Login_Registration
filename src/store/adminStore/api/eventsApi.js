@@ -22,7 +22,7 @@ export const updateEvent = async (payload) =>{
 }
 
 export const deleteEvent = (payload) =>{
-    return client.delete(`event/event/${payload}`)
+    return client.delete(`event/${payload}`)
 }
 
 export const dedleteSelectedEvents = (payload) =>{
