@@ -21,9 +21,9 @@ const LayoutComponent = () =>{
             </Content>
 
 
-        <Footer className={styles.footer}>Footer</Footer>
+            <Footer className={styles.footer}>Footer</Footer>
 
-      </Layout>
+        </Layout>
     )
 }
 

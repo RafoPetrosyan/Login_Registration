@@ -1,15 +1,19 @@
 .modal{
     height: 100vh;
     width: 100%;
+    position: absolute;
     z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+   
 }
 .loginMain{
     position: absolute;
     z-index: 4;
     width: 400px;
     height: 465px;
-    margin-top: 50px;
     background-color: black;
+    margin-left: 870px;
 }
 .navigateDiv{
     display: flex;

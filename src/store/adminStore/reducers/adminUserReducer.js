@@ -1,10 +1,11 @@
-import { SET_USER, SET_USER_COUNT, SUCCES_USERS } from "../actions/actionType";
+import { SET_ERROR_MESSAGE_USERS, SET_USER, SET_USER_COUNT, SUCCES_USERS } from "../actions/actionType";
 
 
 const initialState = {
     userList: null,
     userCount: 0,
     succes: false,
+    errorMessege: null,
 }
 
 export const adminUserReducer = (state = initialState, action) =>{
@@ -26,6 +27,12 @@ export const adminUserReducer = (state = initialState, action) =>{
             return {
                 ...state,
                 succes: action.payload
+            }
+
+        case SET_ERROR_MESSAGE_USERS:
+            return {
+                ...state,
+                errorMessege: action.payload
             }
 
         default:

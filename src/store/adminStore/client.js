@@ -1,10 +1,8 @@
 import axios from 'axios';
 
-
 const client = axios.create({
-  baseURL: 'https://test.mapllo.com/api/',
+  baseURL: 'https://dev.mapllo.com/api/',
 });
-
 
 client.interceptors.request.use((config) => {
     
@@ -13,7 +11,7 @@ client.interceptors.request.use((config) => {
       config.headers['x-authorization'] = accessToken
     }
     return config
-})
+});
 
 client.interceptors.response.use(
     
@@ -27,7 +25,7 @@ client.interceptors.response.use(
       }
       return Promise.reject(error)
     }
-)
+);
 
 export default client;
 

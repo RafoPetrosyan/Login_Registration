@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from './NoMatch.module.css';
+import styles from './PageNotFound.module.css';
 
-const NoMatch = () =>{
+const PageNotFound = () =>{
 
     const navigate = useNavigate();
 
@@ -30,4 +30,4 @@ const NoMatch = () =>{
     
 }
 
-export default NoMatch;
+export default PageNotFound;

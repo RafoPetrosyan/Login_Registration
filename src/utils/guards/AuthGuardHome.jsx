@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 
-const AuthGuard  = () => {
+const AuthGuardHome  = () => {
 
   const currentUser = useSelector(state => state.userData.currentUser);
 
@@ -12,5 +12,5 @@ const AuthGuard  = () => {
   
 };
 
-export default AuthGuard;
+export default AuthGuardHome;
 

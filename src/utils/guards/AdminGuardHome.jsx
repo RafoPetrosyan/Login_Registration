@@ -6,8 +6,7 @@ import { createAction } from "../../store/adminStore/actions/actions";
 
 
 
-
-const AdminGuard = () => {
+const AdminGuardHome = () => {
    
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,5 +29,5 @@ const AdminGuard = () => {
   
 };
 
-export default AdminGuard;
+export default AdminGuardHome;
 

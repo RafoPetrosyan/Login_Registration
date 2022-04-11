@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { SET_CURRENT_ADMIN } from '../../store/adminStore/actions/actionType';
 import { createAction } from '../../store/adminStore/actions/actions';
+import { SET_CURRENT_USER } from '../../store/userStore/actions';
 import styles from './NavHeader.module.css';
 
 const pages = [
@@ -22,7 +22,7 @@ const NavHeader = () => {
     const dispatch = useDispatch();
 
     const logauth = () =>{
-        dispatch(createAction(SET_CURRENT_ADMIN, null));
+        dispatch(createAction(SET_CURRENT_USER, null));
     }
 
 
