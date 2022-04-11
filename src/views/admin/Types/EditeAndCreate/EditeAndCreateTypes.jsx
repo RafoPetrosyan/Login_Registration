@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { CREATE_TYPE, UPDATE_TYPE, GET_TYPE_BY_ID, SET_EDITE_TYPE } from "../../../../store/adminStore/actions/actionType";
-import { createAction } from "../../../../store/adminStore/actions/createAction";
+import { createAction } from "../../../../store/adminStore/actions/actions";
 import { Form, Input, Button, Upload } from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';

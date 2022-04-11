@@ -42,7 +42,6 @@ const AdminTable = ({propsTable}) => {
 
 
     const onSelectChange = selectedRowKeys => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
         selectedElement(selectedRowKeys);
     };
 

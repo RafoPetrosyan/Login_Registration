@@ -4,7 +4,7 @@ import { useSearchParams, createSearchParams, useNavigate } from 'react-router-d
 import { Collapse, Switch, Button, Popover, Radio, Avatar } from 'antd';
 import { CloseCircleOutlined, CheckCircleTwoTone, DeleteOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
 import { GET_USERS, DELETE_USER, DELETE_SELECTED_USERS } from "../../../store/adminStore/actions/actionType";
-import { createAction } from "../../../store/adminStore/actions/createAction";
+import { createAction } from "../../../store/adminStore/actions/actions";
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
 import moment from 'moment';

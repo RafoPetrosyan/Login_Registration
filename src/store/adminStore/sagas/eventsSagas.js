@@ -1,5 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { 
+
+        SUCCES_EVENTS,
         
         GET_EVENTS,
         GET_EDITE_EVENT,
@@ -7,13 +9,13 @@ import {
         SET_EVENT,
         SET_EVENT_COUNT,
         SET_EDITE_EVENT,
+        SET_ERROR_MESSAGE_EVENT,
 
         CREATE_EVENT, 
         UPDATE_EVENT,
 
         DELETE_EVENT,
         DELETE_SELECTED_EVENT,
-
 
 } from '../actions/actionType';
 
@@ -30,28 +32,33 @@ import {
 
 } from '../api/eventsApi';
 
-import { createAction } from '../actions/createAction';
-import { Navigate } from 'react-router-dom';
+import { createAction } from '../actions/actions';
 
 
 function* workerGetEvents(action) {
     try {
         const { eventList, dataCount } = yield call(events, action.payload);
+
         yield put(createAction(SET_EVENT_COUNT, dataCount));
         yield put(createAction(SET_EVENT, eventList));
 
     } catch (error) {
         console.log(error);
     }
-}
+};
+
 
 function* workerCreateEvent(action) {
     try {
         yield call(createEvent, action.payload);
+        yield put(createAction(SUCCES_EVENTS, true));
+        
     } catch (e) {
         console.log(e.response.data.message);
+        yield put(createAction(SET_ERROR_MESSAGE_EVENT, e.response.data.message));
     }
-}
+};
+
 
 function* workerGetEditeEvents(action){
     try {
@@ -61,15 +68,19 @@ function* workerGetEditeEvents(action){
     } catch (error) {
         console.log(error);
     }
-}
+};
+
 
 function* workerUpdateEvent(action){
     try {
-        const data = yield call(updateEvent, action.payload)
-    } catch (error) {
-        console.log(error);
+        yield call(updateEvent, action.payload);
+        yield put(createAction(SUCCES_EVENTS, true));
+
+    } catch (e) {
+        yield put(SET_ERROR_MESSAGE_EVENT, e.response.data.message);
     }
-}
+};
+
 
 function* workerDeleteEvent(action){
     try {
@@ -77,16 +88,16 @@ function* workerDeleteEvent(action){
     } catch (error) {
         console.log(error);
     }
-}
+};
+
 
 function* workerDeleteSelectedEvent(action){
-    console.log(action.payload);
     try {
-        yield call(dedleteSelectedEvents(action.payload))
+        yield call(dedleteSelectedEvents, action.payload);
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 
 export function* watcherAdminEvents() {
@@ -96,4 +107,4 @@ export function* watcherAdminEvents() {
     yield takeEvery(UPDATE_EVENT, workerUpdateEvent)
     yield takeEvery(DELETE_EVENT, workerDeleteEvent)
     yield takeEvery(DELETE_SELECTED_EVENT, workerDeleteSelectedEvent)
-}
+};

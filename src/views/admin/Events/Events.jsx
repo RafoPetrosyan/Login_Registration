@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
 import { GET_EVENTS, DELETE_EVENT, DELETE_SELECTED_EVENT } from "../../../store/adminStore/actions/actionType"; 
-import { createAction } from "../../../store/adminStore/actions/createAction";
+import { createAction } from "../../../store/adminStore/actions/actions";
 import { Collapse, DatePicker, Space, Select, Button, Popover } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
@@ -15,6 +15,7 @@ import styles from '../Admin.module.css';
 const { Panel } = Collapse;
 const { RangePicker } = DatePicker;
 const { Option } = Select;
+
 
 
 const Events = () => {
@@ -33,13 +34,13 @@ const Events = () => {
     const [showParticpants, setShowParticpants] = useState(false);
 
 
-    // get data api and query params
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         if(searchParams.get('searchType')) setType(searchParams.get('searchType'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
+        window.scrollTo(0, 0);
     }, []);
 
 
@@ -87,11 +88,16 @@ const Events = () => {
 
     const deleteElement = (id) =>{
         dispatch(createAction(DELETE_EVENT, id));
-        getData();
+        setTimeout(() =>{
+            getData();
+        }, 100);
     }
 
     const deleteSelected = () =>{
-        dispatch(createAction(DELETE_SELECTED_EVENT, {eventsArray: selectedRowKeys}))
+        dispatch(createAction(DELETE_SELECTED_EVENT, {eventsArray: selectedRowKeys}));
+        setTimeout(() =>{
+            getData();
+        }, 100);
     }
 
     const pageChange = (page) =>{
@@ -112,7 +118,6 @@ const Events = () => {
     }, []);
 
     
-    // changeFunction
     const typeChange = value =>{
         setPage(1);
         value ? setType(value) : setType('');
@@ -127,7 +132,6 @@ const Events = () => {
     }
 
    
-
     // columns table
     const columns = [
         { 

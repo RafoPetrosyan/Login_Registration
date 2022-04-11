@@ -16,9 +16,8 @@ export const getEditeEvent = async (payload) =>{
     return data;
 }
 
-export const updateEvent = async (payload) =>{
-    const { data } = await client.put(`event/updateAndUpload/${payload.id}`, payload.values)
-    return data;
+export const updateEvent = (payload) =>{
+    return client.put(`event/updateAndUpload/${payload.id}`, payload.payload);
 }
 
 export const deleteEvent = (payload) =>{

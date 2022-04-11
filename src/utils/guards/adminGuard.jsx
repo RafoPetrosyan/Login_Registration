@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { GET_CURRENT_ADMIN } from "../../store/adminStore/actions/actionType";
-import { createAction } from "../../store/adminStore/actions/createAction";
+import { createAction } from "../../store/adminStore/actions/actions";
 
 
 

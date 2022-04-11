@@ -4,7 +4,7 @@ import { LogoutOutlined } from  '@ant-design/icons';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LOGAUTH_ADMIN } from "../../../../store/adminStore/actions/actionType";
-import { createAction } from "../../../../store/adminStore/actions/createAction";
+import { createAction } from "../../../../store/adminStore/actions/actions";
 
 
 const AdminHeader = () =>{

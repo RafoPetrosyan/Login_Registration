@@ -15,7 +15,7 @@ import {
 } from '../actions/actionType';
 
 import { addUser, deleteSelected, deleteUser, editeUser, getUsers } from '../api/usersApi';
-import { createAction } from '../actions/createAction';
+import { createAction } from '../actions/actions';
 
 
 function* workerGetUsers(action){

@@ -1,9 +1,10 @@
-import { SET_USER, SET_USER_COUNT } from "../actions/actionType";
+import { SET_USER, SET_USER_COUNT, SUCCES_USERS } from "../actions/actionType";
 
 
 const initialState = {
     userList: null,
     userCount: 0,
+    succes: false,
 }
 
 export const adminUserReducer = (state = initialState, action) =>{
@@ -19,6 +20,12 @@ export const adminUserReducer = (state = initialState, action) =>{
             return {
                 ...state,
                 userCount: action.payload
+            }
+        
+        case SUCCES_USERS:
+            return {
+                ...state,
+                succes: action.payload
             }
 
         default:

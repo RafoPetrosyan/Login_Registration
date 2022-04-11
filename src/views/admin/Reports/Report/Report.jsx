@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Table, Button, Popover } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { GET_REPORTS, DELETE_REPORT } from "../../../../store/adminStore/actions/actionType"; 
-import { createAction } from "../../../../store/adminStore/actions/createAction";
+import { createAction } from "../../../../store/adminStore/actions/actions";
 import moment from 'moment';
 import _ from 'lodash';
 import styles from '../Report.module.css';

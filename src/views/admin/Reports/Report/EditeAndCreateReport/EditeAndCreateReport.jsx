@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Button, Space, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { GET_REPORTS_BY_ID, EDITE_REPORTS, SET_EDITE_REPORT } from "../../../../../store/adminStore/actions/actionType"; 
-import { createAction } from "../../../../../store/adminStore/actions/createAction";
+import { createAction } from "../../../../../store/adminStore/actions/actions";
 import { useForm } from "antd/lib/form/Form";
 import './style.css';
 

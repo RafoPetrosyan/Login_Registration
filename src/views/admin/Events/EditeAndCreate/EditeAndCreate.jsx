@@ -2,8 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Select, Button, DatePicker, Slider, Upload } from 'antd';
-import { CREATE_EVENT, GET_EDITE_EVENT, UPDATE_EVENT, SET_EDITE_EVENT } from '../../../../store/adminStore/actions/actionType';
-import { createAction } from '../../../../store/adminStore/actions/createAction';
+import { CREATE_EVENT, GET_EDITE_EVENT, UPDATE_EVENT, SET_EDITE_EVENT, SET_ERROR_MESSAGE_EVENT, SUCCES_EVENTS } from '../../../../store/adminStore/actions/actionType';
+import { createAction } from '../../../../store/adminStore/actions/actions';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
 import moment from 'moment';
@@ -89,20 +89,36 @@ const validateMessages = {
 const EditeAndCreateEvent = () =>{
 
     const editeEvent = useSelector(state => state.adminEvent.editeItem);
+    const errorMessage = useSelector(state => state.adminEvent.errorMessage);
+    const succes = useSelector(state => state.adminEvent.succes);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    console.log(editeEvent);
+
     const [members, setMembers] = useState(0);
     const [male, setMale] = useState(0);
     const [female, setFemale] = useState(0);
     const [age, setAge] = useState(0);
     const [fileList, setFileList] = useState([]);
-   
+
 
     useEffect(() =>{
-        if(id) dispatch(createAction(GET_EDITE_EVENT, id))
+        if(id) dispatch(createAction(GET_EDITE_EVENT, id));
     }, []);
+
+    useEffect(() =>{
+        if(succes){
+            navigate('/admin/events');
+        }else if(errorMessage){
+            alert(errorMessage);
+        }
+        return () =>{
+            dispatch(createAction(SUCCES_EVENTS, false));
+            dispatch(createAction(SET_ERROR_MESSAGE_EVENT, null));
+        }
+    }, [succes, errorMessage]);
+    
 
     useEffect(() =>{
         if(editeEvent){
@@ -111,20 +127,18 @@ const EditeAndCreateEvent = () =>{
             setFemale(editeEvent.criteria.female);
             setAge(editeEvent.criteria.age);
         }
+        
     }, [editeEvent]);
-
 
     const backEvent = () =>{
         if(editeEvent) {
             dispatch(createAction(SET_EDITE_EVENT, null));
-            navigate(-2);
-        }else{
-            navigate(-1);
         }
+        navigate(-1);
     }
 
     const onChangeImage = ({ fileList: newFileList }) => {
-      setFileList(newFileList);
+        setFileList(newFileList);
     };
 
 
@@ -155,24 +169,21 @@ const EditeAndCreateEvent = () =>{
         values.deleteFiles = [];
         values.location.lat = 40.778053856647894;
         values.location.lang = 43.84980394910946;
-        values.city = 'Gyumry';
+        values.location.city = 'Gyumry';
         values.imageOptions = fileList[0] ? fileList[0] : {};
-        const payload = {};
-        payload.data = JSON.stringify(values);
-        dispatch(createAction(CREATE_EVENT, payload));
+        dispatch(createAction(CREATE_EVENT, {data: JSON.stringify(values)}));
     };
 
     const onFinishEdite = (values) => {
         values.date = moment(values.date).format('llll');
         values.imageCount = fileList.length;
-        values.deleteFiles = editeEvent.image[0] ? [editeEvent.image[0].name] : [];
+        values.deleteFiles = editeEvent.image[0] ? [...editeEvent.image[0].name] : [];
         values.location.lat = 40.778053856647894;
         values.location.lang = 43.84980394910946;
-        values.city = 'Gyumry';
+        values.location.city = 'Gyumry';
         values.imageOptions = fileList[0] ? fileList[0] : {};
         const payload = {};
         payload.data = JSON.stringify(values);
-        console.log(payload);
         dispatch(createAction(UPDATE_EVENT, {payload, id}));
     }
 
@@ -204,19 +215,19 @@ const EditeAndCreateEvent = () =>{
             },
             {
                 name: ['criteria', 'members'],
-                value: members,
+                value: editeEvent ? editeEvent.criteria.members : 0,
             },
             {
                 name: ['criteria', 'age'],
-                value: age,
+                value: editeEvent ? editeEvent.criteria.age : 0,
             },
             {
                 name: ['criteria', 'male'],
-                value: male,
+                value: editeEvent ? editeEvent.criteria.male : 0,
             },
             {
                 name: ['criteria', 'female'],
-                value: female,
+                value: editeEvent ? editeEvent.criteria.female : 0,
             },
         ]
     ), [editeEvent]);

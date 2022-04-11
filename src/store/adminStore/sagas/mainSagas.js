@@ -5,8 +5,9 @@ import {
     SET_CURRENT_ADMIN,
     LOGAUTH_ADMIN,
     LOGIN_ADMIN, 
+
 } from '../actions/actionType';
-import { createAction } from '../actions/createAction';
+import { createAction } from '../actions/actions';
 import { currentAdmin, loginAdmin } from '../api/mainApi';
 
 

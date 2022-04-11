@@ -8,7 +8,7 @@ import {
     
 } from '../actions/actionType';
 import { approveReportEvent, getReportsEvents } from '../api/reportEventApi';
-import { createAction } from '../actions/createAction';
+import { createAction } from '../actions/actions';
 
 
 function* workerGetReportEvents(action){

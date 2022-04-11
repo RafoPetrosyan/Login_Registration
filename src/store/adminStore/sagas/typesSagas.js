@@ -16,7 +16,7 @@ import {
 } from '../actions/actionType';
 
 import { createType, deleteSelectedType, deleteType, getTypeById, getTypes, updateType } from '../api/typesApi';
-import { createAction } from '../actions/createAction';
+import { createAction } from '../actions/actions';
 
 
 function* workerGetTypes(action){

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Layout } from 'antd';
 import NavBar from "./AdminComponents/NavBar/NavBar";
@@ -12,8 +12,6 @@ const { Header, Content, Footer } = Layout;
   
 const Admin = () => {
 
-  
-
     return (
         <Layout>
 
@@ -24,7 +22,7 @@ const Admin = () => {
 
             <Content className={styles.content}>
               <div className={styles.siteLayoutBackground}>
-                    <Outlet/>
+                   <Outlet />  
               </div>
             </Content>
 

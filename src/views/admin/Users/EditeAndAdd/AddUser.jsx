@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ADD_USER } from "../../../../store/adminStore/actions/actionType";
-import { createAction } from "../../../../store/adminStore/actions/createAction";
+import { createAction } from "../../../../store/adminStore/actions/actions";
 import { Form, Input, Button } from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import './styles.css';

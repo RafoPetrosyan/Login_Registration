@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { SET_CURRENT_ADMIN } from '../../store/adminStore/actions/actionType';
-import { createAction } from '../../store/adminStore/actions/createAction';
+import { createAction } from '../../store/adminStore/actions/actions';
 import styles from './NavHeader.module.css';
 
 const pages = [

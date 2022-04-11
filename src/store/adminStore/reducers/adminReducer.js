@@ -2,6 +2,7 @@ import { SET_CURRENT_ADMIN } from "../actions/actionType";
 
 const initialState = {
     currentAdmin: null,
+   
 }
 
 export const adminReducer = (state = initialState, action) =>{
@@ -12,7 +13,7 @@ export const adminReducer = (state = initialState, action) =>{
                 ...state,
                 currentAdmin: action.payload
             }
-
+            
         default:
             return state;
     }

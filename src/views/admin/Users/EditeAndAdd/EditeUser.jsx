@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { EDITE_USER } from "../../../../store/adminStore/actions/actionType";
 import { Form, Input, Button, Radio, Upload } from "antd";
-import { createAction } from "../../../../store/adminStore/actions/createAction";
+import { createAction } from "../../../../store/adminStore/actions/actions";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
 import './styles.css';

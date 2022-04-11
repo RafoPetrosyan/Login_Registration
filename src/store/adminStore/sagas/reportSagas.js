@@ -12,7 +12,7 @@ import {
 } from '../actions/actionType';
 
 import { deleteReport, editeReports, getReports, getReportsById } from '../api/reportApi';
-import { createAction } from '../actions/createAction';
+import { createAction } from '../actions/actions';
 
 function* workerGetReports(){
     try {

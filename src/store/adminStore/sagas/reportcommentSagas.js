@@ -7,7 +7,7 @@ import {
    
 } from '../actions/actionType';
 import { getReportComments } from '../api/reportCommentsApi';
-import { createAction } from '../actions/createAction';
+import { createAction } from '../actions/actions';
 
 
 function* worketGetReportComments(action){

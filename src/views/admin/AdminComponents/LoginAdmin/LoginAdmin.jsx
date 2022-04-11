@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useInput } from "../../../../CustomHooks/useInput";
-import { createAction } from "../../../../store/adminStore/actions/createAction";
+import { createAction } from "../../../../store/adminStore/actions/actions";
 import { LOGIN_ADMIN } from "../../../../store/adminStore/actions/actionType";
 import styles from './LoginAdmin.module.css';
 
