@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Select, Button, DatePicker, Slider, Upload } from 'antd';
-import { CREATE_EVENT, GET_EDITE_EVENT, UPDATE_EVENT, SET_EDITE_EVENT, SET_ERROR_MESSAGE_EVENT, SUCCES_EVENTS } from '../../../../store/adminStore/actions/actionType';
+import { CREATE_EVENT, GET_EDITE_EVENT, UPDATE_EVENT, SET_EDITE_EVENT, SET_ERROR_MESSAGE_EVENT } from '../../../../store/adminStore/actions/actionType';
 import { createAction } from '../../../../store/adminStore/actions/actions';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
@@ -90,7 +90,6 @@ const EditeAndCreateEvent = () =>{
 
     const editeEvent = useSelector(state => state.adminEvent.editeItem);
     const errorMessage = useSelector(state => state.adminEvent.errorMessage);
-    const succes = useSelector(state => state.adminEvent.succes);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -107,17 +106,13 @@ const EditeAndCreateEvent = () =>{
         if(id) dispatch(createAction(GET_EDITE_EVENT, id));
     }, []);
 
+
     useEffect(() =>{
-        if(succes){
-            navigate('/admin/events');
-        }else if(errorMessage){
-            alert(errorMessage);
-        }
+        if(errorMessage) alert(errorMessage);
         return () =>{
-            dispatch(createAction(SUCCES_EVENTS, false));
             dispatch(createAction(SET_ERROR_MESSAGE_EVENT, null));
         }
-    }, [succes, errorMessage]);
+    }, [errorMessage]);
     
 
     useEffect(() =>{

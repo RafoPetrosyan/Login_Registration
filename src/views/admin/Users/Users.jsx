@@ -18,6 +18,8 @@ const Users = () =>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    console.log(data.userList);
+
     // useState
     const [disabled, setDisablet] = useState(true);
     const [searchValue, setSearchValue] = useState('');
@@ -32,6 +34,7 @@ const Users = () =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
         if(searchParams.get('date')) setDate(searchParams.get('date'));
+        window.scrollTo(0, 0);
     }, []);
 
     const getData = () => {
@@ -40,7 +43,6 @@ const Users = () =>{
             createSearchParams({
                 page: page,
                 search: searchValue,
-                // onlyInActive: onlyInActive,
                 date: date,
             })
         );
@@ -65,7 +67,7 @@ const Users = () =>{
        getData();
     }
     const pageChange = (page) =>{
-        setPage(page)
+        setPage(page);
     }
 
     const selectedElement = (selectedRowKeys) =>{
@@ -85,7 +87,10 @@ const Users = () =>{
     }, []);
 
     const deleteSelected = () =>{ 
-        dispatch(createAction(DELETE_SELECTED_USERS, {usersId: selectedRowKeys}))
+        dispatch(createAction(DELETE_SELECTED_USERS, {data: {usersArray: selectedRowKeys}}));
+        setTimeout(() =>{
+            getData();
+        }, 100);
     }
 
     const userEdite = (id) =>{
@@ -94,12 +99,14 @@ const Users = () =>{
 
     const switchChange = (e) =>{
         setPage(1);
-        setOnlyInActive(e)
+        setOnlyInActive(e);
     }
 
     const userDelete = (id) =>{
         dispatch(createAction(DELETE_USER, id))
-        getData();
+        setTimeout(() =>{
+            getData();
+        }, 100);
     }
     
     const columns = [

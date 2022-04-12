@@ -14,7 +14,7 @@ const AdminGuardHome = () => {
     
     
     useEffect(() =>{
-       if(pathname === '/admin'){
+       if(pathname === '/admin' || pathname === '/admin/'){
            navigate('/admin/events');
        }
        dispatch(createAction(GET_CURRENT_ADMIN))

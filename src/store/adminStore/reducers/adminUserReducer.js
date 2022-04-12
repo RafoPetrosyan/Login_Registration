@@ -1,11 +1,11 @@
-import { SET_ERROR_MESSAGE_USERS, SET_USER, SET_USER_COUNT, SUCCES_USERS } from "../actions/actionType";
+import { SET_EDITE_USER, SET_ERROR_MESSAGE_USERS, SET_USER, SET_USER_COUNT } from "../actions/actionType";
 
 
 const initialState = {
     userList: null,
+    editeUser: null,
     userCount: 0,
-    succes: false,
-    errorMessege: null,
+    errorMessege: '',
 }
 
 export const adminUserReducer = (state = initialState, action) =>{
@@ -22,11 +22,11 @@ export const adminUserReducer = (state = initialState, action) =>{
                 ...state,
                 userCount: action.payload
             }
-        
-        case SUCCES_USERS:
+
+        case SET_EDITE_USER:
             return {
                 ...state,
-                succes: action.payload
+                editeUser: action.payload
             }
 
         case SET_ERROR_MESSAGE_USERS:
@@ -39,3 +39,9 @@ export const adminUserReducer = (state = initialState, action) =>{
             return state;
     }
 }
+
+// edite
+
+// data: {"name":"Rafo","nickname":"rafo_21","phone":"093112094",
+// "aboutMe":"asd","gender":"","links":{"facebook":"","vkontakte":"","instagram":""},"role":"user"}
+

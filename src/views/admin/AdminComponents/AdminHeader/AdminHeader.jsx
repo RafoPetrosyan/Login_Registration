@@ -1,20 +1,17 @@
 import React from "react";
-import styles from './AdminHeader.module.css';
-import { LogoutOutlined } from  '@ant-design/icons';
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { LogoutOutlined } from  '@ant-design/icons';
 import { LOGAUTH_ADMIN } from "../../../../store/adminStore/actions/actionType";
 import { createAction } from "../../../../store/adminStore/actions/actions";
+import styles from './AdminHeader.module.css';
 
 
 const AdminHeader = () =>{
 
     const dispath = useDispatch();
-    const navigate = useNavigate()
 
     const logauthAdmin = () =>{
         dispath(createAction(LOGAUTH_ADMIN));
-        navigate('/admin/login');
     }
 
     return (

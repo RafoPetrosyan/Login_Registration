@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_USER } from "../../../../store/adminStore/actions/actionType";
+import { ADD_USER, SET_ERROR_MESSAGE_USERS } from "../../../../store/adminStore/actions/actionType";
 import { createAction } from "../../../../store/adminStore/actions/actions";
 import { Form, Input, Button } from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
@@ -10,60 +10,34 @@ import './styles.css';
 
 const AddUser = () =>{
 
-    const succes = useSelector(state => state.adminUser.succes);
+    const errorMessege = useSelector(state => state.adminUser.errorMessege);
     const navigate = useNavigate();
-    const [password, setPassword] = useState('');
-    const [confirm, setConfirm] = useState('');
     const dispatch = useDispatch();
 
-
-
-
-    const onFinish = (values) => {
-        if(values.confirm !== values.password){
-           setConfirm('');
-        }else{
-            dispatch(createAction(ADD_USER, values))
+    useEffect(() =>{
+        if(errorMessege) alert(errorMessege);
+        return () =>{
+            dispatch(createAction(SET_ERROR_MESSAGE_USERS, ''));
         }
-        
-    };
+    }, [errorMessege]);
+
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
-    
+    const onFinish = (values) => {
+        if(values.confirm !== values.password){
+            alert('confirm');
+        }else{
+            delete values.confirm;
+            dispatch(createAction(ADD_USER, values));
+        }
+    };
+
     const back = () =>{
-        navigate(-1)
-    }
-
-    const fields = [
-        {
-            name: ['name'],
-            value: ''
-        },
-        {
-            name: ['nickName'],
-            value: ''
-        },
-        {
-            name: ['phone'],
-            value: ''
-        },
-        {
-            name: ['email'],
-            value: ''
-        },
-        {
-            name: ['password'],
-            value: password,
-        },
-        {
-            name: ['confirm'],
-            value: confirm,
-        },
-    ]
-
+        navigate(-1);
+    };
 
     return (
         <>
@@ -74,54 +48,47 @@ const AddUser = () =>{
                <h2>Add user</h2>
             </div>
             <Form
-                fields={fields}
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
-                // autoComplete="off"
             >
 
                 <Form.Item
                     label="Name" name={['name']}
                     rules={[{ required: true, message: 'Please input your username!'}]}
                 >
-                    <Input />
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item
-                    label="Nickname" name={['nickName']}
+                    label="Nickname" name={['nickname']}
                     rules={[{ required: true, message: 'Please input your username!'}]}
                 >
-                    <Input />
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item label="Phone" name={['phone']}>
-                    <Input />
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item name={['email']} label="Email" rules={[{ type: 'email' }]}>
-                    <Input />
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item label="Password" name={['password']}
                     rules={[{ required: true, message: 'Please input your password!'}]}
                 >
-                    <Input.Password onBlur={(e) => setPassword(e.target.value)}/>
+                    <Input.Password/>
                 </Form.Item>
 
                 <Form.Item label="Confirm" name={['confirm']} 
                     rules={[{ required: true, message: 'Please input your password!'}]}
                 >
-                    <Input.Password onBlur={(e) => setConfirm(e.target.value)} />
+                    <Input.Password/>
                 </Form.Item>
 
-                <Form.Item
-                    wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                    }}
-                >
+                <Form.Item wrapperCol={{offset: 8, span: 16}}>
                     <Button htmlType="reset" onClick={back}>
                         Cancel
                     </Button>

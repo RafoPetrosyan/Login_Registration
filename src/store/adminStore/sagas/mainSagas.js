@@ -1,10 +1,14 @@
-import { Navigate } from 'react-router-dom';
+import history from '../../../views/router/browserHistory';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { 
-    GET_CURRENT_ADMIN, 
-    SET_CURRENT_ADMIN,
-    LOGAUTH_ADMIN,
+
     LOGIN_ADMIN, 
+    LOGAUTH_ADMIN,
+
+    GET_CURRENT_ADMIN, 
+
+    SET_CURRENT_ADMIN,
+    SET_ERROR_MESSAGE_LOGIN
 
 } from '../actions/actionType';
 import { createAction } from '../actions/actions';
@@ -13,31 +17,30 @@ import { currentAdmin, loginAdmin } from '../api/mainApi';
 
 function* workerGetCurrent(){
     try {
-        const { user } = yield call(currentAdmin)
+        const { user } = yield call(currentAdmin);
         yield put(createAction(SET_CURRENT_ADMIN, user));
 
     } catch (error) {
-        yield <Navigate to='/admin/login' replace/>
-        yield put(createAction(SET_CURRENT_ADMIN, null));
+        yield put(createAction(LOGAUTH_ADMIN));
     }
 }
 
 function* workerLogin(action) {
     try {
         const { token } = yield call(loginAdmin, action.payload)
-        localStorage.setItem('accessToken', token)
+        yield put(createAction(GET_CURRENT_ADMIN));
 
-        yield put(createAction(GET_CURRENT_ADMIN))
-        // yield <Navigate to='/admin/events' replace/>
+        localStorage.setItem('accessToken', token);
+        history.push('/admin/events');
 
-    } catch (error) {
-        console.log(error);
+    } catch (e) {
+        yield put(createAction(SET_ERROR_MESSAGE_LOGIN, e.response.data.message));
     }
 }
 
 function* workerLogauth() {
     localStorage.removeItem('accessToken');
-    yield <Navigate to='/admin/login' replace/>
+    history.push('/admin/login');
     yield put(createAction(SET_CURRENT_ADMIN, null));
 }
 

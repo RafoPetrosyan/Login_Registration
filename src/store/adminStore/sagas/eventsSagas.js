@@ -1,8 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import history from '../../../views/router/browserHistory';
 import { 
 
-        SUCCES_EVENTS,
-        
         GET_EVENTS,
         GET_EDITE_EVENT,
 
@@ -51,7 +50,7 @@ function* workerGetEvents(action) {
 function* workerCreateEvent(action) {
     try {
         yield call(createEvent, action.payload);
-        yield put(createAction(SUCCES_EVENTS, true));
+        history.push('/admin/events');
         
     } catch (e) {
         console.log(e.response.data.message);
@@ -74,7 +73,7 @@ function* workerGetEditeEvents(action){
 function* workerUpdateEvent(action){
     try {
         yield call(updateEvent, action.payload);
-        yield put(createAction(SUCCES_EVENTS, true));
+        history.push('/admin/events');
 
     } catch (e) {
         yield put(SET_ERROR_MESSAGE_EVENT, e.response.data.message);

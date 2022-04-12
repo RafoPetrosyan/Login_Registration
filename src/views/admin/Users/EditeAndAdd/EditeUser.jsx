@@ -1,28 +1,42 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { EDITE_USER } from "../../../../store/adminStore/actions/actionType";
+import { EDITE_USER, GET_EDITE_USER, SET_ERROR_MESSAGE_USERS } from "../../../../store/adminStore/actions/actionType";
 import { Form, Input, Button, Radio, Upload } from "antd";
 import { createAction } from "../../../../store/adminStore/actions/actions";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
 import './styles.css';
 
-
 const { TextArea } = Input;
 
 
 const EditeUser = () =>{
 
+    const user = useSelector(state => state.adminUser.editeUser);
+    const errorMessege = useSelector(state => state.adminUser.errorMessege);
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [fileList, setFileList] = useState([]);
 
+    console.log(user);
+
+    useEffect(() =>{
+        dispatch(createAction(GET_EDITE_USER, id));
+    }, []);
+
+    useEffect(() =>{
+        if(errorMessege) alert(errorMessege);
+        return () =>{
+            dispatch(createAction(SET_ERROR_MESSAGE_USERS, ''));
+        }
+    }, [errorMessege]);
+
     const onFinish = (values) =>{
         values.deletePictures = [''];
-        dispatch(createAction(EDITE_USER, {id, data: JSON.stringify(values)}))
+        dispatch(createAction(EDITE_USER, {id, data: {data: JSON.stringify(values)}}))
     }
 
     const onFinishFailed = (errorInfo) =>{
@@ -41,40 +55,40 @@ const EditeUser = () =>{
 
     const fields = [
         {
-            name: ['data', 'name'],
-            value: ''
+            name: ['name'],
+            value: user ? user.user_data.name : '',
         },
         {
-            name: ['data', 'nickName'],
-            value: ''
+            name: ['nickname'],
+            value: user ? user.user_data.nickname : '',
         },
         {
-            name: ['data', 'aboutMe'],
-            value: ''
+            name: ['aboutMe'],
+            value: user ? user.user_data?.aboutMe : '',
         },
         {
-            name: ['data', 'links', 'favebook'],
-            value: ''
+            name: ['links', 'favebook'],
+            value: user ? user.user_data.links?.facebook : '',
         },
         {
-            name: ['data', 'links', 'instragram'],
-            value: ''
+            name: ['links', 'instragram'],
+            value: user ? user.user_data.links?.instagram : '',
         },
         {
-            name: ['data', 'links', 'vk'],
-            value: ''
+            name: ['links', 'vkontakte'],
+            value: user ? user.user_data.links?.vkontakte : '',
         },
         {
-            name: ['data', 'birthDate'],
-            value: ''
+            name: ['role'],
+            value: user ? user.user_data?.role : '',
         },
         {
-            name: ['data', 'gender'],
-            value: ''
+            name: ['gender'],
+            value: user ? user.user_data?.gender : '',
         },
         {
-            name: ['data', 'imageOptions'],
-            value: fileList[0] ? fileList[0] : {}
+            name: ['imageOptions'],
+            value: fileList[0] ? fileList[0] : {},
         },
     ]
   
@@ -98,57 +112,56 @@ const EditeUser = () =>{
             >
                 <div className="leftDivEditeForm">
                     <Form.Item
-                        label="Name" name={['data', 'name']}
+                        label="Name" name={['name']}
                         rules={[{ required: true, message: 'Please input your username!'}]}
                     >
                         <Input />
                     </Form.Item>
 
                     <Form.Item
-                        label="Nickname" name={['data', 'nickName']}
+                        label="Nickname" name={['nickname']}
                         rules={[{ required: true, message: 'Please input your username!'}]}
                     >
                         <Input />
                     </Form.Item>
 
-                    <Form.Item label="About me" name={['data', 'aboutMe']}>
+                    <Form.Item label="About me" name={['aboutMe']}>
                         <TextArea rows={4} />
                     </Form.Item>
 
-                    <Form.Item label="Facebook" name={['data', 'links', 'favebook']}>
+                    <Form.Item label="Facebook" name={['links', 'favebook']}>
                         <Input addonBefore="https://www.facebook/" />
                     </Form.Item>
 
-                    <Form.Item label="Instagram" name={['data', 'links', 'instragram']}>
+                    <Form.Item label="Instagram" name={['links', 'instragram']}>
                         <Input addonBefore="https://www.instagram/" />
                     </Form.Item>
 
-                    <Form.Item label="Vkontakte" name={['data', 'links', 'vk']}>
+                    <Form.Item label="Vkontakte" name={['links', 'vkontakte']}>
                         <Input addonBefore="https://www.vk/" />
                     </Form.Item>
                 </div>
                 <div className="rightDivEditeForm">
-                    <Form.Item label="Role" name={['data', 'birthDate']}>
+                    <Form.Item label="Role" name={['role']}>
                         <Radio.Group buttonStyle="solid" >
                             <Radio.Button value="admin">Admin</Radio.Button>
                             <Radio.Button value="user">User</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
 
-                    <Form.Item label="Gender" name={['data', 'gender']}>
+                    <Form.Item label="Gender" name={['gender']}>
                         <Radio.Group buttonStyle="solid" >
-                            <Radio.Button value="male">Male</Radio.Button>
-                            <Radio.Button value="female">Female</Radio.Button>
+                            <Radio.Button value="Male">Male</Radio.Button>
+                            <Radio.Button value="Female">Female</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
 
-                    <Form.Item label="Uload image" name={['data', 'imageOptions']}>
+                    <Form.Item label="Uload image" name={['imageOptions']}>
                         <ImgCrop rotate >
                             <Upload 
                                 listType="picture-card"
                                 fileList={fileList}
                                 onChange={onChangeImage}
-                                // onPreview={onPreview}
                                 customRequest={dummyRequest}      
                             >
                                 {fileList.length < 1 && '+ Upload'}

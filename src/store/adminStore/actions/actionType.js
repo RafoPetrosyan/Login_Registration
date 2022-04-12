@@ -3,7 +3,9 @@ export const LOGIN_ADMIN = 'LOGIN_ADMIN';
 export const LOGAUTH_ADMIN = 'LOGIN_ADMIN';
 
 export const GET_CURRENT_ADMIN = 'GET_CURRENT_ADMIN';
+
 export const SET_CURRENT_ADMIN = 'SET_CURRENT_ADMIN';
+export const SET_ERROR_MESSAGE_LOGIN = 'SET_ERROR_MESSAGE_LOGIN';
 
 
 // EVENTS
@@ -21,14 +23,14 @@ export const UPDATE_EVENT = 'UPDATE_EVENT';
 export const DELETE_EVENT = 'DELETE_EVENT';
 export const DELETE_SELECTED_EVENT = 'DELETE_SELECTED_EVENT';
 
-export const SUCCES_EVENTS = 'SUCCES_EVENTS';
-
 
 // USERS
 export const GET_USERS = 'GET_USERS';
+export const GET_EDITE_USER = 'GET_EDITE_USER';
 
 export const SET_USER = 'SET_USER';
 export const SET_USER_COUNT = 'SET_USER_COUNT';
+export const SET_EDITE_USER = 'SET_EDITE_USER';
 export const SET_ERROR_MESSAGE_USERS = 'SET_ERROR_MESSAGE_USERS';
 
 export const ADD_USER = 'ADD_USER';
@@ -37,7 +39,6 @@ export const EDITE_USER = 'EDITE_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const DELETE_SELECTED_USERS = 'DELETE_SELECTED';
 
-export const SUCCES_USERS = 'SUCCES_USERS';
 
 
 // TYPES

@@ -27,12 +27,10 @@ import EditeUser from "../admin/Users/EditeAndAdd/EditeUser";
 import EditeAndCreateTypes from "../admin/Types/EditeAndCreate/EditeAndCreateTypes";
 import EditeAndCreateReport from "../admin/Reports/Report/EditeAndCreateReport/EditeAndCreateReport";
 
-import { createBrowserHistory } from 'history';
+import history from './browserHistory';
 
 
 const RouterView = () =>{
-
-    const history = createBrowserHistory();
     
     return (
         <HistoryRouter history={history}>

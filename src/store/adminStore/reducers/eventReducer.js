@@ -1,4 +1,4 @@
-import { SET_EDITE_EVENT, SET_ERROR_MESSAGE_EVENT, SET_EVENT, SET_EVENT_COUNT, SUCCES_EVENTS } from "../actions/actionType";
+import { SET_EDITE_EVENT, SET_ERROR_MESSAGE_EVENT, SET_EVENT, SET_EVENT_COUNT } from "../actions/actionType";
 
 
 const initialState = {
@@ -6,7 +6,6 @@ const initialState = {
     eventCount: 0,
     editeItem: null,
     errorMessage: null,
-    succes: false,
 }
 
 export const eventReducer = (state = initialState, action) =>{
@@ -28,12 +27,6 @@ export const eventReducer = (state = initialState, action) =>{
             return {
                 ...state,
                 editeItem: action.payload
-            }
-
-        case SUCCES_EVENTS:
-            return {
-                ...state,
-                succes: action.payload
             }
             
         case SET_ERROR_MESSAGE_EVENT:

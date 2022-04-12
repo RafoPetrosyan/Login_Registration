@@ -6,8 +6,17 @@ export const getUsers = async (payload) =>{
     return data;
 }
 
+export const getEditeUser = async (payload) => {
+    const { data } = await client.get(`user/${payload}`)
+    return data;
+}
+
 export const addUser = (payload) =>{
     return client.post('user/signup', payload);
+}
+
+export const editeUser = (payload) =>{
+    return client.patch(`user/${payload.id}`, payload.data)
 }
 
 export const deleteUser = (payload) =>{
@@ -18,6 +27,3 @@ export const deleteSelected = (payload) =>{
     return client.delete('user/deleteSelected', payload)
 }
 
-export const editeUser = (payload) =>{
-    return client.patch(`user/${payload.id}`, payload.data)
-}

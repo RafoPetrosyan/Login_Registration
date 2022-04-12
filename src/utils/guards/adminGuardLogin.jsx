@@ -1,13 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 
 
 const AdminGuardLogin = () => {
 
-    const currentAdmin = useSelector(state => state.adminData.currentAdmin);
-
-    if (currentAdmin) {
+    if (localStorage.getItem('accessToken')) {
         return <Navigate to='/admin'/>
     }
     return (
@@ -15,7 +12,6 @@ const AdminGuardLogin = () => {
             <Outlet/>
         </div>
     )
-  
 };
 
 export default AdminGuardLogin;

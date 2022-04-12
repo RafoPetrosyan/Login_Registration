@@ -94,7 +94,7 @@ const Events = () => {
     }
 
     const deleteSelected = () =>{
-        dispatch(createAction(DELETE_SELECTED_EVENT, {eventsArray: selectedRowKeys}));
+        dispatch(createAction(DELETE_SELECTED_EVENT, {data: {eventsArray: selectedRowKeys}}));
         setTimeout(() =>{
             getData();
         }, 100);
