@@ -26,13 +26,3 @@ export const deleteSelectedType = (payload) =>{
     return client.delete('type/deleteAllTypes', payload)
 }
 
-// file: (binary)
-// en: Tourism
-// ru: туризм
-// key: Tourism_too
-
-
-// en: Tourism
-// ru: туризм
-// key: Tourism_to
-// id: 62555ccf7934385e6c3c912d

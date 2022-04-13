@@ -11,7 +11,6 @@ import './style.css';
 
 const { Option } = Select;
 
-
 const EditeAndCreateReport = () =>{
 
     const report = useSelector(state => state.adminReport.editeReport);
@@ -21,10 +20,10 @@ const EditeAndCreateReport = () =>{
     const navigate = useNavigate();
     const { id } = useParams();
     const [form] = useForm();
-
- 
+    
+    
     useEffect(() =>{
-        dispatch(createAction(GET_REPORTS_BY_ID, id))
+        dispatch(createAction(GET_REPORTS_BY_ID, id));
     }, []);
 
     useEffect(() =>{
@@ -35,11 +34,11 @@ const EditeAndCreateReport = () =>{
                     return {en: item.en, ru: item.ru}
                 }),
             })
-            setType(report.type)
+            setType(report.type);
         }else{
             form.setFieldsValue({
                 messages: [{en: undefined, ru: undefined}]
-            })
+            });
         }
     }, [form, report])
 
@@ -78,7 +77,8 @@ const EditeAndCreateReport = () =>{
                 <span>EN</span>
                 <span>RU</span>
             </div>
-            <Form.List name="messages" >
+            <Form.List name="messages">
+
                 {(data, { add, remove }) => (
                 <>
                 {data.map(({ key, name, ...restField }) => (

@@ -85,7 +85,7 @@ const Types = () =>{
     }
 
     const deleteSelected = () =>{
-        dispatch(createAction(DELETE_SELECTED_TYPE, selectedRowKeys));
+        dispatch(createAction(DELETE_SELECTED_TYPE, {data: {typesArray: selectedRowKeys}}));
         setTimeout(() =>{
             getData();
         }, 100)

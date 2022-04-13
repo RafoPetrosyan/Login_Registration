@@ -21,7 +21,6 @@ const EditeUser = () =>{
 
     const [fileList, setFileList] = useState([]);
 
-    console.log(user);
 
     useEffect(() =>{
         dispatch(createAction(GET_EDITE_USER, id));

@@ -18,9 +18,7 @@ const Users = () =>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    console.log(data.userList);
-
-    // useState
+   
     const [disabled, setDisablet] = useState(true);
     const [searchValue, setSearchValue] = useState('');
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);

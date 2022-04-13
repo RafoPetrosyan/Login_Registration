@@ -14,11 +14,12 @@ import styles from '../Report.module.css';
 const Report = () =>{
 
     const reportMessages = useSelector(state => state.adminReport.reportList);
+    const errorMessage = useSelector(state => state.adminReport.errorMessage);
+    
     const [data, setData] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(reportMessages);
-
+  
     useEffect(() =>{
         dispatch(createAction(GET_REPORTS));
         window.scrollTo(0, 0);
@@ -33,7 +34,11 @@ const Report = () =>{
             })
             setData(data);
         }
-    }, [reportMessages])
+    }, [reportMessages]);
+
+    useEffect(() =>{
+        if(errorMessage) alert(errorMessage);
+    }, [errorMessage]);
 
     const deleteReportMessage = (id) =>{
         dispatch(createAction(DELETE_REPORT, id))
@@ -42,8 +47,6 @@ const Report = () =>{
     const createAndEdite = (id) =>{
         navigate(`${id}`)
     }
-
-
 
     const columns = [
         { 

@@ -43,7 +43,7 @@ function* workerGetTypeById(action){
 
 function* workerUpdateType(action){
     try {
-        // yield call(updateType, action.payload)
+        yield call(updateType, action.payload);
         history.push('/admin/types');
         
     } catch (e) {
@@ -67,7 +67,7 @@ function* workerDeleteType(action){
 }
 
 function* workerDeleteSelected(action){
-    // yield call(deleteSelectedType, action.payload)
+    yield call(deleteSelectedType, action.payload)
 }
 
 export function* watcherAdminTypes(){

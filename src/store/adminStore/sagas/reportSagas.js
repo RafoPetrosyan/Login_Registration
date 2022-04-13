@@ -6,10 +6,10 @@ import {
 
     SET_REPORTS,
     SET_EDITE_REPORT, 
+    SET_ERROR_MESSAGE_REPORT,
 
     DELETE_REPORT,
     EDITE_REPORTS,
-    SET_ERROR_MESSAGE_REPORT,
    
 } from '../actions/actionType';
 
@@ -18,8 +18,9 @@ import { createAction } from '../actions/actions';
 
 function* workerGetReports(){
     try {
-        const { reportMessages } = yield call(getReports)
-        yield put(createAction(SET_REPORTS, reportMessages))
+        const { reportMessages } = yield call(getReports);
+        yield put(createAction(SET_REPORTS, reportMessages));
+
     } catch (error) {
         console.log(error);
     }
@@ -27,18 +28,19 @@ function* workerGetReports(){
 
 function* workerGetReportsById(action){
     try {
-        const { reportMessages } = yield call(getReportsById, action.payload)
-        yield put(createAction(SET_EDITE_REPORT, reportMessages))
+        const { reportMessages } = yield call(getReportsById, action.payload);
+        yield put(createAction(SET_EDITE_REPORT, reportMessages));
+
     } catch (error) {
         console.log(error);
     }
 }
 
 function* workerEditeReports(action){
-    console.log(action.payload.id, action.payload.messages);
     try { 
-        // yield call(editeReports, action.payload);
+        yield call(editeReports, action.payload);
         history.push('/admin/reports');
+
     } catch (e) {
         yield put(createAction(SET_ERROR_MESSAGE_REPORT, e.response.data.message));
     }
