@@ -28,6 +28,7 @@ const Types = () =>{
     useEffect(() =>{
         if(searchParams.get('page')) setPage(searchParams.get('page'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
+        window.scrollTo(0, 0);
     }, []);
 
     const getData = () =>{
@@ -73,16 +74,21 @@ const Types = () =>{
     }, []);
 
     const pageChange = (page) =>{
-        setPage(page)
+        setPage(page);
     }
 
     const dleteElement = (id) =>{
         dispatch(createAction(DELETE_TYPE, id));
-        getData();
+        setTimeout(() =>{
+            getData();
+        }, 100);
     }
 
     const deleteSelected = () =>{
-        dispatch(createAction(DELETE_SELECTED_TYPE, selectedRowKeys))
+        dispatch(createAction(DELETE_SELECTED_TYPE, selectedRowKeys));
+        setTimeout(() =>{
+            getData();
+        }, 100)
     }
 
     const columns = [

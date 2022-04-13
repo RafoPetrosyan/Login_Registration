@@ -1,10 +1,11 @@
-import { SET_EDITE_TYPE, SET_TYPES, SET_TYPE_COUNT } from "../actions/actionType";
+import { SET_EDITE_TYPE, SET_ERROR_MESSAGE_TYPE, SET_TYPES, SET_TYPE_COUNT } from "../actions/actionType";
 
 
 const initialState = {
     typeList: null,
     typeCount: 0,
     editeItem: null,
+    errorMessage: '',
 }
 
 export const adminTypeReducer = (state = initialState, action) =>{
@@ -26,6 +27,12 @@ export const adminTypeReducer = (state = initialState, action) =>{
             return {
                 ...state,
                 editeItem: action.payload
+            }
+
+        case SET_ERROR_MESSAGE_TYPE:
+            return {
+                ...state,
+                errorMessage: action.payload
             }
 
         default:

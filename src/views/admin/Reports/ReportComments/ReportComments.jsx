@@ -16,6 +16,8 @@ const ReportComments = () =>{
     const data = useSelector(state => state.adminReportComment);
     const dispatch = useDispatch();
 
+    console.log(data.reportCommentList);
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1);
 
@@ -65,7 +67,7 @@ const ReportComments = () =>{
         },
         { 
             title: 'Comments', 
-            render: (record) => <p>{record.comment ? record.comment : 'No Data'}</p>,
+            render: (record) => <p>{record.comment ? record.comment.comment : 'No Data'}</p>,
             width: 150,
         },
         { 

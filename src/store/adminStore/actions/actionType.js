@@ -48,6 +48,7 @@ export const GET_TYPE_BY_ID = 'GET_TYPE_BY_ID';
 export const SET_TYPES = 'SET_TYPES';
 export const SET_TYPE_COUNT = 'SET_TYPE_COUNT';
 export const SET_EDITE_TYPE = 'SET_EDITE_TYPE';
+export const SET_ERROR_MESSAGE_TYPE = 'SET_ERROR_MESSAGE_TYPE';
 
 export const UPDATE_TYPE = 'UPDATE_TYPE';
 export const CREATE_TYPE = 'CREATE_TYPE';
@@ -62,6 +63,7 @@ export const GET_REPORTS_BY_ID = 'GET_REPORTS_BY_ID';
 
 export const SET_REPORTS = 'SET_REPORTS';
 export const SET_EDITE_REPORT = 'SET_EDITE_REPORT';
+export const SET_ERROR_MESSAGE_REPORT = 'SET_ERROR_MESSAGE_REPORT';
 
 export const EDITE_REPORTS = 'EDITE_REPORTS';
 export const DELETE_REPORT = 'DELETE_REPORT';

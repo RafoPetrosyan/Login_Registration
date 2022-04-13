@@ -62,6 +62,8 @@ const NavBar = () => {
 
     const [collapsed, setColapsed] = useState(false);
     const location = useLocation();
+
+    console.log();
     
     const onCollapse = collapsed  =>{
         setColapsed(!collapsed);

@@ -20,7 +20,8 @@ const Report = () =>{
     console.log(reportMessages);
 
     useEffect(() =>{
-        dispatch(createAction(GET_REPORTS))
+        dispatch(createAction(GET_REPORTS));
+        window.scrollTo(0, 0);
     }, []);
     
     useEffect(() =>{

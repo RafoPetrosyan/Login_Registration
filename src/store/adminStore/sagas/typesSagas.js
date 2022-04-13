@@ -1,4 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import history from '../../../views/router/browserHistory';
 import { 
     GET_TYPES,
     GET_TYPE_BY_ID, 
@@ -11,7 +12,8 @@ import {
     
     SET_TYPE_COUNT,
     SET_TYPES,
-    SET_EDITE_TYPE
+    SET_EDITE_TYPE,
+    SET_ERROR_MESSAGE_TYPE
 
 } from '../actions/actionType';
 
@@ -42,22 +44,26 @@ function* workerGetTypeById(action){
 function* workerUpdateType(action){
     try {
         // yield call(updateType, action.payload)
-    } catch (error) {
-        console.log(error);
+        history.push('/admin/types');
+        
+    } catch (e) {
+        yield put(createAction(SET_ERROR_MESSAGE_TYPE, e.response.data.message));
     }
 }
 
 function* workerCreateType(action){
     try {
-        yield call(createType, action.payload)
-    } catch (error) {
-        console.log(error);
+        yield call(createType, action.payload);
+        history.push('/admin/types');
+
+    } catch (e) {
+        yield put(createAction(SET_ERROR_MESSAGE_TYPE, e.response.data.message));
     }
 }
 
 
 function* workerDeleteType(action){
-    // yield call(deleteType, action.payload)
+    yield call(deleteType, action.payload)
 }
 
 function* workerDeleteSelected(action){

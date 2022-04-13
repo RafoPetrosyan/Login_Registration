@@ -1,4 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import history from '../../../views/router/browserHistory';
 import { 
     GET_REPORTS,
     GET_REPORTS_BY_ID, 
@@ -8,6 +9,7 @@ import {
 
     DELETE_REPORT,
     EDITE_REPORTS,
+    SET_ERROR_MESSAGE_REPORT,
    
 } from '../actions/actionType';
 
@@ -36,8 +38,9 @@ function* workerEditeReports(action){
     console.log(action.payload.id, action.payload.messages);
     try { 
         // yield call(editeReports, action.payload);
-    } catch (error) {
-        console.log(error);
+        history.push('/admin/reports');
+    } catch (e) {
+        yield put(createAction(SET_ERROR_MESSAGE_REPORT, e.response.data.message));
     }
 }
 

@@ -65,6 +65,7 @@ const AdminTable = ({propsTable}) => {
           dataSource={data} 
           scroll={{ x: 1000 }}
           pagination={{
+            pageSize: 7,
             showSizeChanger: false,
             current: page,
             total: dataCount,

@@ -167,6 +167,7 @@ const EditeAndCreateEvent = () =>{
         values.location.city = 'Gyumry';
         values.imageOptions = fileList[0] ? fileList[0] : {};
         dispatch(createAction(CREATE_EVENT, {data: JSON.stringify(values)}));
+        console.log(values);
     };
 
     const onFinishEdite = (values) => {

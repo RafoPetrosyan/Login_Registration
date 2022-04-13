@@ -54,7 +54,7 @@ const Events = () => {
             })
         );
 
-        const url = `?searchQuery=${searchValue}&page=${page}&limit=${5}&searchType=${type}&`;
+        const url = `?searchQuery=${searchValue}&page=${page}&limit=${7}&searchType=${type}&`;
         const dateUrl = `&startDate=${rangeDate.startDate}&endDate=${rangeDate.endDate}`;
 
         dispatch(createAction(GET_EVENTS, {url, dateUrl}))
