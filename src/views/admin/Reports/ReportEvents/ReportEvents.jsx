@@ -125,7 +125,7 @@ const ReportEvents = () =>{
                 <Button type="primary" className={styles.btn} onClick={() => approve(record)}>
                     Confirm
                 </Button>
-                <Button type="primary" danger className={styles.btn}>
+                <Button type="primary" danger className={styles.btn} onClick={() => approve(record)}>
                     <DeleteOutlined />  Cancel
                 </Button>
             </div>

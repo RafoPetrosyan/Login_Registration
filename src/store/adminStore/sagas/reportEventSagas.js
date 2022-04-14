@@ -1,4 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import history from '../../../views/router/browserHistory';
 import { 
     APPROVE_REPORT_EVENT, 
     GET_REPORT_EVENTS,
@@ -22,9 +23,9 @@ function* workerGetReportEvents(action){
 }
 
 function* worketApproveReportEvent(action){
-   
     try {
-        // yield call(approveReportEvent, action.payload)
+        yield call(approveReportEvent, action.payload);
+        history.push('/admin/reports/events');
     } catch (error) {
         console.log(error);
     }

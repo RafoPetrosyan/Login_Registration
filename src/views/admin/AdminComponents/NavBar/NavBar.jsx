@@ -62,8 +62,6 @@ const NavBar = () => {
 
     const [collapsed, setColapsed] = useState(false);
     const location = useLocation();
-
-    console.log();
     
     const onCollapse = collapsed  =>{
         setColapsed(!collapsed);
@@ -75,8 +73,8 @@ const NavBar = () => {
 
           <Menu 
             theme="dark" 
-            defaultSelectedKeys={['/admin/events']}
-            selectedKeys={location.pathname}
+            defaultSelectedKeys={['/admin/events']}   
+            selectedKeys={location.pathname.split('/').splice(0, 3).join('/')}
             mode="inline"
            >
                 {

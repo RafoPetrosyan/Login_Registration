@@ -4,11 +4,10 @@ import { useSearchParams, createSearchParams } from "react-router-dom";
 import { Button, Popover } from 'antd';
 import { SyncOutlined, DeleteOutlined } from '@ant-design/icons';
 import AdminTable from "../../AdminComponents/AdminTable/AdminTable";
-import { GET_REPORTS_COMMENT } from "../../../../store/adminStore/actions/actionType";
+import { APPROVE_REPORT_COMMENT, GET_REPORTS_COMMENT } from "../../../../store/adminStore/actions/actionType";
 import { createAction } from "../../../../store/adminStore/actions/actions";
 import moment from 'moment';
 import styles from '../Report.module.css';
-
 
 
 const ReportComments = () =>{
@@ -16,7 +15,6 @@ const ReportComments = () =>{
     const data = useSelector(state => state.adminReportComment);
     const dispatch = useDispatch();
 
-    console.log(data.reportCommentList);
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1);
@@ -54,6 +52,10 @@ const ReportComments = () =>{
         setPage(page)
     }
 
+    const approve = (record) =>{
+        dispatch(createAction(APPROVE_REPORT_COMMENT, {type: '', id: record._id}))
+    }
+
     const columns = [
         { 
             title: 'Report',
@@ -86,10 +88,10 @@ const ReportComments = () =>{
           render: (record) =>{
             return (
               <div className={styles.renderDiv}>
-                <Button type="primary" className={styles.btn} >
+                <Button type="primary" className={styles.btn} onClick={() => approve(record)}>
                     Confirm
                 </Button>
-                <Button type="primary" danger className={styles.btn}>
+                <Button type="primary" danger className={styles.btn} onClick={() => approve(record)}>
                     <DeleteOutlined />  Cancel
                 </Button>
               </div>

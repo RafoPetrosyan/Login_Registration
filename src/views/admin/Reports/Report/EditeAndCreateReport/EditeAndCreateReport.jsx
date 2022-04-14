@@ -22,6 +22,7 @@ const EditeAndCreateReport = () =>{
     const [form] = useForm();
     
     
+
     useEffect(() =>{
         dispatch(createAction(GET_REPORTS_BY_ID, id));
     }, []);
@@ -40,7 +41,7 @@ const EditeAndCreateReport = () =>{
                 messages: [{en: undefined, ru: undefined}]
             });
         }
-    }, [form, report])
+    }, [form, report]);
 
 
     const back = () =>{
@@ -104,12 +105,13 @@ const EditeAndCreateReport = () =>{
                     <Form.Item name={['type']}>
                         <Select onChange={(value) => setType(value)}>
                             {(types.map(item => (
-                                <Option key={item.value}>
+                                <Option key={item.value} >
                                     {item.title}
-                                </Option>
+                                </Option>   
                             )))}
                         </Select>
-                    </Form.Item>
+                    </Form.Item> 
+                    
                     <Form.Item>
                         <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />} className='addBtn'>
                             Add sights
