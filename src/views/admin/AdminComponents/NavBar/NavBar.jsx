@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Menu, Layout } from 'antd';
 import {
@@ -61,7 +61,16 @@ const pages = [
 const NavBar = () => {
 
     const [collapsed, setColapsed] = useState(false);
-    const location = useLocation();
+    const [selectedKeys, setSelectedKeys] = useState('');
+    const { pathname } = useLocation();
+
+    useEffect(() =>{
+        if(pathname.split('/').length > 3){
+            setSelectedKeys(pathname.split('/').splice(0, 4).join('/'));
+        }else{
+            setSelectedKeys(pathname.split('/').splice(0, 3).join('/'));
+        }
+    }, [pathname]);
     
     const onCollapse = collapsed  =>{
         setColapsed(!collapsed);
@@ -74,20 +83,21 @@ const NavBar = () => {
           <Menu 
             theme="dark" 
             defaultSelectedKeys={['/admin/events']}   
-            selectedKeys={location.pathname.split('/').splice(0, 3).join('/')}
+            selectedKeys={selectedKeys}
+            openKeys={'Reports'}
             mode="inline"
            >
                 {
                     pages.map((item, index) =>(
                         item.child ?
                         <SubMenu 
-                            key={item.title + index} 
+                            key={item.title} 
                             icon={item.icon} 
                             title={item.title}
                         >
                             {
                                 item.child.map(item =>(
-                                    <Menu.Item key={item.title}>
+                                    <Menu.Item key={item.to}>
                                         <NavLink to={item.to}>
                                             {item.title}
                                         </NavLink>
