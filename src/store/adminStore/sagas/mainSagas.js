@@ -26,6 +26,7 @@ function* workerGetCurrent(){
 }
 
 function* workerLogin(action) {
+    console.log(222);
     try {
         const { token } = yield call(loginAdmin, action.payload)
         yield put(createAction(GET_CURRENT_ADMIN));
@@ -40,8 +41,9 @@ function* workerLogin(action) {
 
 function* workerLogauth() {
     localStorage.removeItem('accessToken');
-    history.push('/admin/login');
     yield put(createAction(SET_CURRENT_ADMIN, null));
+    yield put(createAction(SET_ERROR_MESSAGE_LOGIN, null));
+    history.push('/admin/login');
 }
 
 

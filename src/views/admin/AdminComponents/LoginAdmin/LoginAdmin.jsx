@@ -11,12 +11,12 @@ const LoginAdmin = () =>{
     const dispatch = useDispatch();
     const errorMessage = useSelector(state => state.adminData.errorMessage);
 
-    useEffect(() =>{
-        if(errorMessage) alert(errorMessage);
-        return () =>{
-            dispatch(createAction(SET_ERROR_MESSAGE_LOGIN, ''));
-        }
-    }, [errorMessage])
+    // useEffect(() =>{
+    //     if(errorMessage) alert(errorMessage);
+    //     return () =>{
+    //         dispatch(createAction(SET_ERROR_MESSAGE_LOGIN, ''));
+    //     }
+    // }, [errorMessage])
 
     const email = useInput('');
     const password = useInput('');

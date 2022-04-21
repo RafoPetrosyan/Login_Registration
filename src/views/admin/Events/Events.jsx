@@ -17,9 +17,8 @@ const { RangePicker } = DatePicker;
 const { Option } = Select;
 
 
-
 const Events = () => {
-
+    
     const data = useSelector(state => state.adminEvent);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -27,12 +26,11 @@ const Events = () => {
     // useState
     const [searchValue, setSearchValue] = useState('');
     const [page, setPage] = useState(1);
-    const [type, setType] = useState('');
+    const [type, setType] = useState(null);
     const [rangeDate, setRangeDate] = useState({startDate: '', endDate: ''});
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [disabled, setDisablet] = useState(true);
     const [showParticpants, setShowParticpants] = useState(false);
-
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -41,6 +39,7 @@ const Events = () => {
         if(searchParams.get('searchType')) setType(searchParams.get('searchType'));
         if(searchParams.get('search')) setSearchValue(searchParams.get('search'));
         window.scrollTo(0, 0);
+
     }, []);
 
 
@@ -69,6 +68,8 @@ const Events = () => {
             clearTimeout(timeout)
         }
     }, [searchValue, page, type, rangeDate]);
+
+
     
 
     const reload = () =>{

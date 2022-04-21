@@ -27,7 +27,7 @@ import {
         deleteEvent, 
         
         events, 
-        getEditeEvent, 
+        getEditeEvent,
 
 } from '../api/eventsApi';
 

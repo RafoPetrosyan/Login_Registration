@@ -1,4 +1,8 @@
-import { SET_EDITE_EVENT, SET_ERROR_MESSAGE_EVENT, SET_EVENT, SET_EVENT_COUNT } from "../actions/actionType";
+import { 
+    SET_EDITE_EVENT, 
+    SET_ERROR_MESSAGE_EVENT, 
+    SET_EVENT, SET_EVENT_COUNT, 
+} from "../actions/actionType";
 
 
 const initialState = {

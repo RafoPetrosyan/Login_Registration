@@ -10,6 +10,7 @@ import { adminTypeReducer } from './adminStore/reducers/typeReducer';
 import { adminReportReducer } from './adminStore/reducers/reportReducer';
 import { adminReportEventReducer } from './adminStore/reducers/reportEventReducer';
 import { adminReportCommentReducer } from './adminStore/reducers/reportCommentReducer';
+import { socketReducer } from './adminStore/reducers/socketReducer';
 
 
 
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     adminReport: adminReportReducer,
     adminReportEvent: adminReportEventReducer,
     adminReportComment: adminReportCommentReducer,
+    adminNotification: socketReducer,
 })
 
 const sagaMiddleware = createSagaMiddleware();

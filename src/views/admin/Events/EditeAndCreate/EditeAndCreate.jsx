@@ -167,7 +167,6 @@ const EditeAndCreateEvent = () =>{
         values.location.city = 'Gyumry';
         values.imageOptions = fileList[0] ? fileList[0] : {};
         dispatch(createAction(CREATE_EVENT, {data: JSON.stringify(values)}));
-        console.log(values);
     };
 
     const onFinishEdite = (values) => {
@@ -195,11 +194,11 @@ const EditeAndCreateEvent = () =>{
             },
             {
                 name: ['type'],
-                value: editeEvent ? editeEvent.type : '',
+                value: editeEvent ? editeEvent.type : null,
             },
             {
                 name: ['status'],
-                value: editeEvent ? editeEvent.status : '',
+                value: editeEvent ? editeEvent.status : null,
             },
             {
                 name: ['date'],
@@ -309,10 +308,12 @@ const EditeAndCreateEvent = () =>{
                     <DatePicker showTime/>
                 </Form.Item>
 
-                <Form.Item name={['description']} label="Description">
+                <Form.Item name={['description']} label="Description"
+                    rules={[{required: true, message: 'Please select event description!'}]}
+                >
                     <Input.TextArea />
                 </Form.Item>
-
+                            
                 <Form.Item name={['criteria', 'members']} label="Members">
                     <Slider onAfterChange={value => setMembers(value)}/>
                 </Form.Item>
