@@ -1,7 +1,7 @@
 import { SET_NOTIFICATION_INFO } from "../actions/actionType"
 
 const initialState = {
-    notificationInfo: [{}, {}],
+    notificationInfo: [],
 }
 
 export const socketReducer = (state = initialState, action) =>{

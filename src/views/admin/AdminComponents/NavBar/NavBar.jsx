@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Menu, Layout } from 'antd';
+import { Menu, Layout, notification, Button } from 'antd';
 import {
     FileDoneOutlined, CommentOutlined, GoldOutlined,
     UserOutlined, AppstoreOutlined
 } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import styles from './NavBar.module.css';
+import { useSelector } from 'react-redux';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -75,6 +76,9 @@ const NavBar = () => {
     const onCollapse = collapsed  =>{
         setColapsed(!collapsed);
     }
+
+    
+  
 
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={() => onCollapse(collapsed)}>

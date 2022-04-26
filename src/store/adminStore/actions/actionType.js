@@ -87,3 +87,13 @@ export const APPROVE_REPORT_COMMENT = 'APPROVE_REPORT_COMMENT';
 //////////
 
 export const SET_NOTIFICATION_INFO = 'SET_NOTIFICATION_INFO';
+
+
+//SUPPORT
+export const GET_CHATS = 'GET_CHATS';
+export const GET_MESSAGES = 'GET_MESSAGES';
+
+export const SET_CHATS = 'SET_CHATS';
+export const SET_MESSAGES = 'SET_MESSAGES';
+
+export const SEND_MESSAGE = 'SEND_MESSAGE';

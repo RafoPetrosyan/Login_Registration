@@ -8,35 +8,56 @@ const token = localStorage.getItem('accessToken');
 
 
 class ClientSocket {
-    
-    constructor(){
+
+    constructor() {
         this.socket = null;
+        this.supportSocket = null;
     }
 
-    connectSocket(){
+    connectSocket() {
         this.socket = io.connect(socketUrl, {
             reconnection: true,
             reconnectionDelay: 500,
             reconnectionAttempts: 10,
             query: { token },
         });
+
+        this.getSocketData();
     }
 
-    getSocketData(){
+    getSocketData() {
         this.socket.on('admin.notification', (msg) => {
             store.dispatch(createAction(SET_NOTIFICATION_INFO, msg));
         });
     }
 
-    emitSocket(message){
-        this.socket.emit('message', message);
+    connectSupportSocket(userId) {
+        this.supportSocket = io('https://dev.mapllo.com', {
+            path: '/support',
+            query: { userId },
+        });
+        this.getSupportMessage();
     }
 
-    disConnectSoccket(){
+    getSupportMessage() {
+        this.supportSocket.on('support.message', (msg) => {
+            console.log(msg);
+        });
+    }
+
+    // emitMessage(message){
+    //     this.socket.emit('message', message);
+    // }
+
+
+    disConnectSoccket() {
         this.socket.disconnect();
+    }
+
+    disConnectSupportSocket() {
+        this.supportSocket.disconnect();
     }
 
 }
 
 export const clientSocket = new ClientSocket();
-

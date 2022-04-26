@@ -11,6 +11,7 @@ import { adminReportReducer } from './adminStore/reducers/reportReducer';
 import { adminReportEventReducer } from './adminStore/reducers/reportEventReducer';
 import { adminReportCommentReducer } from './adminStore/reducers/reportCommentReducer';
 import { socketReducer } from './adminStore/reducers/socketReducer';
+import { chatReducer } from './adminStore/reducers/chatReducer';
 
 
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
     adminReportEvent: adminReportEventReducer,
     adminReportComment: adminReportCommentReducer,
     adminNotification: socketReducer,
+    chatList: chatReducer,
 })
 
 const sagaMiddleware = createSagaMiddleware();
@@ -31,9 +33,12 @@ const sagaMiddleware = createSagaMiddleware();
 export const store = createStore(
     rootReducer,
     compose(
-        applyMiddleware(sagaMiddleware),
-        composeWithDevTools()
-    )
+        applyMiddleware(sagaMiddleware)
+        // composeWithDevTools()
+       
+    ),
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    
 )
 
 sagaMiddleware.run(watcherAll);

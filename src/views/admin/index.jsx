@@ -1,78 +1,57 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Layout, notification, Button } from 'antd';
+import { Layout } from 'antd';
 import NavBar from "./AdminComponents/NavBar/NavBar";
 import AdminHeader from "./AdminComponents/AdminHeader/AdminHeader";
 import styles from './index.module.css';
 import { clientSocket } from "../../store/adminStore/clientSocket";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createAction } from "../../store/adminStore/actions/actions";
+import { GET_CURRENT_ADMIN } from "../../store/adminStore/actions/actionType";
 
 const { Header, Content, Footer } = Layout;
 
 
-  
 const Admin = () => {
 
-  const notificationInfo = useSelector(state => state.adminNotification.notificationInfo);
+  const currentUser = useSelector(state => state.adminData.currentAdmin);
+  const dispatch = useDispatch()
 
-  console.log(notificationInfo);
-
-  useEffect(() =>{
+  useEffect(() => {
+        dispatch(createAction(GET_CURRENT_ADMIN))
+    }, []);
+  
+  useEffect(() => {
+    if(currentUser){
       clientSocket.connectSocket();
-      clientSocket.getSocketData();
+      clientSocket.connectSupportSocket(currentUser._id);
+    }
+    return () => {
+      // clientSocket.disConnectSoccket();
+      // clientSocket.disConnectSupportSocket();
+    }
+  }, [currentUser]);
 
-      return () =>{
-          clientSocket.disConnectSoccket();
-      }
-  }, []);
+  
 
+  return (
+    <Layout>
 
-    const close = () => {
-      console.log(
-        'Notification was closed. Either the close button was clicked or duration time elapsed.',
-      );
-    };
+      <NavBar />
 
-    const openNotification = () => {
-      const key = `open${Date.now()}`;
-      const btn = (
-        <Button type="primary" size="small" onClick={() => notification.close(key)}>
-            Confirm
-        </Button>
-    );
-    notification.open({
-        message: 'Notification Title',
-        description:
-          'A function will be be called after the notification is closed (automatically after the "duration" time of manually).',
-        btn,
-        key,
-        onClose: close,
-      });
-    };
+      <Layout className={styles.siteLayout}>
+        <Header className={styles.header}> <AdminHeader /> </Header>
 
-    useEffect(() =>{
-        if(notification.length) openNotification();
-        console.log(notification.length);
-    }, [notificationInfo])
+        <Content className={styles.content}>
+          <div className={styles.siteLayoutBackground}>
+            <Outlet />
+          </div>
+        </Content>
 
-    return (
-        <Layout>
-
-            <NavBar/>
-
-          <Layout className={styles.siteLayout}>
-            <Header className={styles.header}> <AdminHeader/> </Header>
-
-            <Content className={styles.content}>
-              <div className={styles.siteLayoutBackground}>
-                   <Outlet />  
-              </div>
-            </Content>
-
-            <Footer className={styles.footer}>Admin Footer</Footer>
-          </Layout>
+        <Footer className={styles.footer}>Admin Footer</Footer>
       </Layout>
-    )
+    </Layout>
+  )
 }
 
 export default Admin;

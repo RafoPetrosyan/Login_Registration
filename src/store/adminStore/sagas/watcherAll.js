@@ -7,15 +7,17 @@ import { watcherAdminTypes } from "./typesSagas";
 import { watcherAdminUsers } from "./usersSagas";
 import { watcherData } from "../../userStore/sagas";
 import { watcherMain } from "./mainSagas";
+import { watcherChat } from "./chatSagas";
 
 
 export function* watcherAll(){
    const sagas = [
        watcherMain,
        watcherData,
-       watcherAdminEvents,
-       watcherAdminUsers,
+       watcherChat,
        watcherAdminTypes,
+       watcherAdminUsers,
+       watcherAdminEvents,
        watcherAdminReports,
        watcherAdminReportEvents,
        watcherAdminReportComments,

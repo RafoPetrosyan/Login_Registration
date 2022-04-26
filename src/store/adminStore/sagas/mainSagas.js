@@ -22,11 +22,11 @@ function* workerGetCurrent(){
 
     } catch (error) {
         yield put(createAction(LOGAUTH_ADMIN));
+        console.log(error);
     }
 }
 
 function* workerLogin(action) {
-    console.log(222);
     try {
         const { token } = yield call(loginAdmin, action.payload)
         yield put(createAction(GET_CURRENT_ADMIN));

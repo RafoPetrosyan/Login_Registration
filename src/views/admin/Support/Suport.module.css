@@ -1,0 +1,95 @@
+.main{
+    width: 1210px;
+    height: 80vh;
+    display: flex;
+    margin: 0 auto;
+}
+.chatList{
+    width: 350px;
+    height: 80vh;
+    background-color: #76bed694;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    overflow-y: auto;
+}
+
+.messages{
+    width: 860px;
+    height: 80vh;
+}
+
+.chatListItem{
+    width: 300px;
+    height: 70px;
+    margin: 4px 2px;
+    background-color:#7ea4d5;
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.emailIcon{
+    color: #7ea4d5;
+    font-size: 20px;
+}
+.activeChat{
+    background-color: #73bdd5fa;
+    width: 300px;
+    height: 70px;
+    margin: 4px 2px;
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.activeChatIcon{
+    color: #73bdd5fa;
+    font-size: 20px;
+}
+.chatListItemName{
+    width: 200px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.emailMessages{
+    width: 100px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.userName{
+    color: white;
+    font-size: 20px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+.myMessages{
+    color: white;
+    font-size: 15px;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.popover{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 50%;
+}
+.empty{
+   margin: 20px auto;
+}
+
+.noMessage{
+    width: 860px;
+    height: 80vh;
+    background-color: #7ea4d5;
+}

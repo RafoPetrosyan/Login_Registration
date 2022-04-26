@@ -1,4 +1,7 @@
 import axios from 'axios';
+import { store } from '..';
+import { createAction } from './actions/actions';
+import { LOGAUTH_ADMIN } from './actions/actionType';
 
 const client = axios.create({
   baseURL: 'https://dev.mapllo.com/api/',
@@ -18,7 +21,8 @@ client.interceptors.response.use(
     (response) => response,
     (error) => {
       if (error.response && error.response.status === 401) {
-          console.log('error 401');
+          store.dispatch(createAction(LOGAUTH_ADMIN));
+          console.log(error.response);
       }
       if (error.response && error.response.data && error.response.status !== 401) {
           console.log('!401');

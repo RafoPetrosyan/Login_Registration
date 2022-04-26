@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
-import { GET_EVENTS, DELETE_EVENT, DELETE_SELECTED_EVENT } from "../../../store/adminStore/actions/actionType"; 
+import { GET_EVENTS, DELETE_EVENT, DELETE_SELECTED_EVENT, SET_NOTIFICATION_INFO } from "../../../store/adminStore/actions/actionType"; 
 import { createAction } from "../../../store/adminStore/actions/actions";
-import { Collapse, DatePicker, Space, Select, Button, Popover } from 'antd';
+import { Collapse, DatePicker, Space, Select, Button, Popover, notification } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import CollapsePanel from "../AdminComponents/CollapsePanel/CollapsePanel";
 import AdminTable from "../AdminComponents/AdminTable/AdminTable";
@@ -20,8 +20,10 @@ const { Option } = Select;
 const Events = () => {
     
     const data = useSelector(state => state.adminEvent);
+    const notificationInfo = useSelector(state => state.adminNotification.notificationInfo);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
 
     // useState
     const [searchValue, setSearchValue] = useState('');
@@ -131,6 +133,36 @@ const Events = () => {
             setRangeDate({startDate: value[0]._d, endDate: value[1]._d})
         }
     }
+
+    // Notification
+
+    const close = (id) => {
+        
+    };
+  
+    const openNotification = (item) => {
+        const key = `open${item.data.id}`;
+        const btn = (
+          <Button type="primary" size="small" onClick={() => navigate(`/admin/evnets/edite/${item.data.id}`)}>
+              Edite
+          </Button>
+    );
+    notification.open({
+            message: item.language.en,
+            btn,
+            key,
+            onClose: close,
+        });
+      };
+  
+      useEffect(() =>{
+          if(notificationInfo.length){
+              notificationInfo.map(item => {
+                openNotification(item)
+                reload();
+              })
+          }
+      }, [notificationInfo])
 
    
     // columns table

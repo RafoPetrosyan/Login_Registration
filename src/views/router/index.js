@@ -26,8 +26,10 @@ import AddUser from "../admin/Users/EditeAndAdd/AddUser";
 import EditeUser from "../admin/Users/EditeAndAdd/EditeUser";
 import EditeAndCreateTypes from "../admin/Types/EditeAndCreate/EditeAndCreateTypes";
 import EditeAndCreateReport from "../admin/Reports/Report/EditeAndCreateReport/EditeAndCreateReport";
+import Chat from "../admin/Support/Chat/Chat";
 
 import history from './browserHistory';
+
 
 
 const RouterView = () =>{
@@ -79,7 +81,10 @@ const RouterView = () =>{
 
 
                         {/* SUPPORT */}
-                        <Route path="support" element={<Support/>}/>
+                        <Route path="support" element={<Support/>}>
+                            <Route path=":id" element={<Chat/>}/>
+                        </Route>
+                        
 
                         {/* REPORTS */}
                         <Route path="reports" element={<Reports/>}>
