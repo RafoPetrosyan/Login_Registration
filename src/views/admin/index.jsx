@@ -27,8 +27,14 @@ const Admin = () => {
       clientSocket.connectSupportSocket(currentUser._id);
     }
     return () => {
-      // clientSocket.disConnectSoccket();
-      // clientSocket.disConnectSupportSocket();
+      if(clientSocket.socket){
+          clientSocket.disConnectSoccket();
+      }
+      if(clientSocket.supportSocket){
+          clientSocket.disConnectSupportSocket();
+      }
+      
+     
     }
   }, [currentUser]);
 

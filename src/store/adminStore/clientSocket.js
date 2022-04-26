@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import { store } from "..";
 import { createAction } from "./actions/actions";
-import { SET_NOTIFICATION_INFO } from "./actions/actionType";
+import { SET_NOTIFICATION_INFO, SET_SOCKET_MESSGES } from "./actions/actionType";
 
 const socketUrl = 'https://dev.mapllo.com/';
 const token = localStorage.getItem('accessToken');
@@ -41,7 +41,7 @@ class ClientSocket {
 
     getSupportMessage() {
         this.supportSocket.on('support.message', (msg) => {
-            console.log(msg);
+            store.dispatch(createAction(SET_SOCKET_MESSGES, msg.newMessage))
         });
     }
 

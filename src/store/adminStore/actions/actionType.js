@@ -95,5 +95,6 @@ export const GET_MESSAGES = 'GET_MESSAGES';
 
 export const SET_CHATS = 'SET_CHATS';
 export const SET_MESSAGES = 'SET_MESSAGES';
+export const SET_SOCKET_MESSGES = 'SET_SOCKET_MESSGES';
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';

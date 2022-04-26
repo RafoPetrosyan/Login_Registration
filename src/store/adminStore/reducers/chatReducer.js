@@ -1,8 +1,9 @@
-import { SET_CHATS, SET_MESSAGES } from "../actions/actionType";
+import { SET_CHATS, SET_MESSAGES, SET_SOCKET_MESSGES } from "../actions/actionType";
 
 const initialState = {
     chats: null,
     messages: null,
+    socketMessages: [], 
 }
 
 export const chatReducer = (state = initialState, action) =>{
@@ -19,6 +20,12 @@ export const chatReducer = (state = initialState, action) =>{
             return {
                 ...state,
                 messages: action.payload
+            }
+
+        case SET_SOCKET_MESSGES:
+            return {
+                ...state,
+                socketMessages: [...state.socketMessages, action.payload]
             }
 
         default:

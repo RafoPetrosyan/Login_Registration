@@ -22,7 +22,6 @@ client.interceptors.response.use(
     (error) => {
       if (error.response && error.response.status === 401) {
           store.dispatch(createAction(LOGAUTH_ADMIN));
-          console.log(error.response);
       }
       if (error.response && error.response.data && error.response.status !== 401) {
           console.log('!401');
