@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Popover, Empty } from 'antd';
 import { createAction } from "../../../store/adminStore/actions/actions";
-import { GET_CHATS, SET_MESSAGES } from "../../../store/adminStore/actions/actionType";
+import { GET_CHATS } from "../../../store/adminStore/actions/actionType";
 import { MailFilled } from '@ant-design/icons';
 import styles from './Suport.module.css';
 import Chat from "./Chat/Chat";
@@ -21,8 +21,6 @@ const Support = () =>{
             dispatch(createAction(GET_CHATS, userId));
         }
     }, [userId]);
-
-   
 
     return (
         <div className={styles.main}>
@@ -44,7 +42,9 @@ const Support = () =>{
                             </div>
                             <div className={styles.emailMessages}>
                                 <Popover content='Send message to mail' className={styles.popover}>
-                                    <MailFilled className={styles.emailIcon}/>
+                                    <a href={`mailto:${item.email || item.userData.email}`}>
+                                        <MailFilled className={styles.emailIcon}/>
+                                    </a>
                                 </Popover>
                             </div>
                         </div>

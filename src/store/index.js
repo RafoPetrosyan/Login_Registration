@@ -1,6 +1,6 @@
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 import { userReducer } from './userStore/reducers/userReducer';
 import { adminReducer } from './adminStore/reducers/adminReducer';
 import { watcherAll } from './adminStore/sagas/watcherAll';

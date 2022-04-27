@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
-import { GET_EVENTS, DELETE_EVENT, DELETE_SELECTED_EVENT, SET_NOTIFICATION_INFO } from "../../../store/adminStore/actions/actionType"; 
+import { GET_EVENTS, DELETE_EVENT, DELETE_SELECTED_EVENT } from "../../../store/adminStore/actions/actionType"; 
 import { createAction } from "../../../store/adminStore/actions/actions";
 import { Collapse, DatePicker, Space, Select, Button, Popover, notification } from 'antd';
 import { EyeTwoTone, HeartTwoTone, TeamOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
